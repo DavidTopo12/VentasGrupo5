@@ -1,6 +1,6 @@
 const sequelize = require('sequelize');
 const db = new sequelize(
-    'examenip',
+    'sifcon',
     'movil21801',
     'Movil21801@',
     {
@@ -10,4 +10,4 @@ const db = new sequelize(
     }
 );
 
-module.exports = db;
+module.exports = bd;

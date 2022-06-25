@@ -1,5 +1,6 @@
 const { DataTypes } = require('sequelize');
 const bd = require('../configuraciones/bd');
+//pregunta al ing llave foranea
 const Ventas_Anuladas = bd.define(
     'ventas_anuladas',
     {
@@ -21,7 +22,7 @@ const Ventas_Anuladas = bd.define(
         fechahora:{
             type: DataTypes.DATE,
             allowNull: true,
-            defaultValue: 0 // CONSULTAR 
+            defaultValue: true 
         }
         
 
@@ -31,4 +32,5 @@ const Ventas_Anuladas = bd.define(
     timestamps: false,
 }
 );
+
 module.exports = Ventas_Anuladas;

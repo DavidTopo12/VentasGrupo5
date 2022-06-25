@@ -1,5 +1,6 @@
 const { DataTypes } = require('sequelize');
 const bd = require('../configuraciones/bd');
+const Numero_Factura = require('./modeloVentas');
 const Ventas_Sag = bd.define(
     'ventas_sag',
     {
@@ -20,4 +21,10 @@ const Ventas_Sag = bd.define(
     timestamps: false,
 }
 );
+Numero_Factura.hasMany(Ventas_Sag,{
+    foreignKey: 'numero_factura'
+}); 
+Ventas_Sag.belongsTo(Numero_Factura,{
+    foreignKey: 'numero_factura'
+});
 module.exports = Ventas_Sag;
