@@ -10,7 +10,7 @@ const Ventas = bd.define(
             type:  DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true,
-            allowNull: false
+            allowNull: false //validar los que estan false 
         },
         NumeroFactura:{
             type: DataTypes.INTEGER,
