@@ -2,6 +2,9 @@ const { Router } = require('express');
 const { body, query } = require('express-validator');
 const controladorVenta = require('../controladores/controladorVentas');
 const rutas = Router();
+
+rutas.get('/listar', controladorVenta.listarventas);
+
 rutas.post('/agregar',
 body('num_fact').
 notEmpty().withMessage('No aceptan campos vacios')

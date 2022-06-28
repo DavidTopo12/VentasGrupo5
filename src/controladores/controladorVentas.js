@@ -1,38 +1,29 @@
 const{validationResult} = require('express-validator'); 
 const ModeloVentas = require('../modelos/modeloVentas');
-exports.Agregar= async (req,res)=>{
-    const validaciones= validationResult(req);
-    const {num_fact, cai, cliente, tarjeta, efectivo, usu, estacion, mesero} = req.body;
-    var msj= {
-        mensaje:''
-    }
-    if(validaciones.length> 0){
-        validaciones.errors.forEach(element=>{
-            msj.mensaje+=element.msg + '. ';
-        });
+const Modelocai = require('../modelos/modelocai');
+const Modelocliente = require('../modelos/modeloclientes');
+const Modeloestacion = require('../modelos/modeloestacion');
 
-    }else{
-        try{
-            if(!descripcion){
-                await ModeloVentas.create({
-                    nombre: nombre
-                });
-            }else{
-                await ModeloCargo.create({
-                    nombre: nombre,
-                    descripcion: descripcion
-                })
-            }
-            msj.mensaje='Registro agregado correctamente';
-        } catch(error) {
-            console.error(error);
-            msj.mensaje='Error al agregado los datos';
+exports.listarventas= async (req,res) => {
+
+    try {
+    const listarventas= await ModeloVentas.findAll(); 
+    
+    if(listarventas.length==0) {
+        res.send("No hay ventas Registradas");
+    }
+    else 
+    {
+        res.json(listarventas);
+    }
+    
+       } catch (error) 
+       {
+        console.error(error);
+        res.json(error);
+    
         }
-    }
-        res.json(msj);
 };
-
-
 
 exports.Agregar = async (req, res) => {
    
@@ -49,6 +40,22 @@ exports.Agregar = async (req, res) => {
     }
     else{
         const {num_fact, cai, cliente, tarjeta, efectivo, usu, estacion, mesero} = req.body;
+
+        const listarventas = await ModeloVentas.findAll();
+
+        if(!num_fact || !cai || !cliente || !tarjeta || !efectivo || !usu || !estacion || !mesero)
+        {
+            res.send("Datos Incompletos");
+            console.log("Datos incompletos");
+
+        }
+        else
+        {
+            var buscarcai
+
+        }
+
+
       
         try {
               await ModeloVentas.create(
