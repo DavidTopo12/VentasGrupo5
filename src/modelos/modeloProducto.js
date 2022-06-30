@@ -43,9 +43,9 @@ const Productos = bd.define(
             allowNull: true
         },
         Imagen:{
-            type: DataTypes.LONGBLOB,
+            type: DataTypes.BLOB,
             allowNull: true,
-            defaultValue: NULL
+            defaultValue: null
         },
         Habilitado:{
             type: DataTypes.TINYINT,
@@ -80,12 +80,12 @@ const Productos = bd.define(
         nombreImagen:{
             type: DataTypes.STRING(250),
             allowNull: true,
-            defaultValue: NULL
+            defaultValue: null
         },
         idprincipal:{
             type: DataTypes.STRING(15),
             allowNull: true,
-            defaultValue: NULL
+            defaultValue: null
         },
         cantidadprincipal:{
             type: DataTypes.DOUBLE,
@@ -95,7 +95,7 @@ const Productos = bd.define(
         idusuario:{
             type: DataTypes.INTEGER,
             allowNull: true,
-            defaultValue: NULL
+            defaultValue: null
         },
         movimiento:{
             type: DataTypes.STRING(45),

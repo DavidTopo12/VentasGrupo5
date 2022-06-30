@@ -35,7 +35,7 @@ const Clientes = bd.define(
             defaultValue: true
         },
         Imagen:{
-            type: DataTypes.LONGBLOB,
+            type: DataTypes.BLOB,
             allowNull: true,
             defaultValue: true
         },

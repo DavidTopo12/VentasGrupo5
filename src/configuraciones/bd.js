@@ -1,5 +1,5 @@
 const sequelize = require('sequelize');
-const db = new sequelize(
+const bd = new sequelize(
     'sifcon',
     'movil21801',
     'Movil21801@',
