@@ -2,6 +2,9 @@ const { Router } = require('express');
 const { body, query } = require('express-validator');
 const controladorVenta = require('../controladores/controladorVentas');
 const rutas = Router();
+
+rutas.get('/listar', controladorVenta.listarventas);
+
 rutas.post('/agregar',
 body('num_fact').
 notEmpty().withMessage('No aceptan campos vacios')
@@ -25,7 +28,7 @@ notEmpty().withMessage('No se aceptan campos vacios')
 
 body('usu').
 notEmpty().withMessage('No se aceptan campos vacios')
-.isFloat().withMessage('Solo aceptan numero Entero'),
+.isInt().withMessage('Solo aceptan numero Entero'),
 
 body('estacion').
 notEmpty().withMessage('No se aceptan campos vacios')
