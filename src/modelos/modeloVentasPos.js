@@ -27,7 +27,7 @@ const Ventas_Pos = bd.define(
         numerotarjeta: {
             type: DataTypes.STRING(45),
             allowNull: true,
-            defaultValue: NULL
+            defaultValue: null
         },
         valor: {
             type: DataTypes.DOUBLE,
@@ -36,12 +36,12 @@ const Ventas_Pos = bd.define(
         nombrepropietario: {
             type: DataTypes.STRING(45),
             allowNull: true,
-            defaultValue: NULL
+            defaultValue: null
         },
         idmarca:{
             type: DataTypes.INTEGER,
             allowNull: true,
-            defaultValue: NULL
+            defaultValue: null
         }
 
 },

@@ -5,16 +5,15 @@ const path = require('path');
 
 const app = express();
 
-app.set('port',3001);
+app.set('port',3002);
 app.use(morgan('dev'));
 app.use(express.urlencoded({extended:false}));
 app.use(express.json());
-app.use('/api/', require('./rutas/'));
 app.use('/api/ventas/', require('./rutas/rutaVentas'));
 app.use('/api/detalleventas/', require('./rutas/rutaDetalleVentas'));
 app.use('/api/exentas/', require('./rutas/rutaVentasExentas'));
 app.use('/api/anuladas/', require('./rutas/rutaVentasAnuladas'));
-app.use('/api/constancia/', require('./rutas/rutaVentasConstancias'));
+app.use('/api/constancia/', require('./rutas/rutaVentasConstancia'));
 app.use('/api/sag/', require('./rutas/rutasVentasSag'));
 app.use('/api/pos/', require('./rutas/rutaVentasPos'));
 app.use('/api/rutapos/', require('./rutas/rutasPos'));

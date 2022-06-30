@@ -28,7 +28,7 @@ notEmpty().withMessage('No se aceptan campos vacios')
 
 body('usu').
 notEmpty().withMessage('No se aceptan campos vacios')
-.isFloat().withMessage('Solo aceptan numero Entero'),
+.isInt().withMessage('Solo aceptan numero Entero'),
 
 body('estacion').
 notEmpty().withMessage('No se aceptan campos vacios')

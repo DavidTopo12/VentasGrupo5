@@ -16,7 +16,7 @@ const Pos = bd.define(
         descripcion:{
             type: DataTypes.STRING(250),
             allowNull: true,
-            defaultValue: NULL
+            defaultValue: null
             
         },
         activo:{
