@@ -1,34 +1,99 @@
-const{validationResult} = require('express-validator'); 
+//Santos Israel Romero 
+const { validationResult } = require('express-validator');
+//instanciar el modelo ventasexentas
 const ModeloVentasExentas = require('../modelos/modeloVentaExentas');
-exports.Agregar = async (req, res) => {
-   
-    const validaciones =  validationResult(req);
-    console.log(validaciones.errors);
-    const msj = {
-        mensaje: ''
+const ModeloVentas = require('../modelos/modeloVentas');
+//MODELO/ CONTROLADOR VENTA- ESTRUCTURA PRINCIPAL,
+//VALIDAR
+function validar(req) {
+    const validaciones = validationResult(req);
+    var errores = [];
+    var error = {
+        mensaje: '',
+        parametro: '',
     };
-    if(validaciones.errors.length>0){
+    var msj = {
+        estado: 'correcto',
+        mensaje: 'Peticion ejecutada correctamente',
+        datos: '',
+        errores: ''
+    };
+    if (validaciones.errors.length > 0) {
         validaciones.errors.forEach(element => {
-            msj.mensaje+=element.msg;
+            error.mensaje = element.msg;
+            error.parametro = element.param;
+            errores.push(error);
         });
-
+        msj.estado = 'precuacion';
+        msj.mensaje = 'la peticion no se ejecuto';
+        msj.errores = error;
     }
-    else{
-        const {numfactura, numorden} = req.body;
-      
+    return msj;
+};
+//crear la funcion de lista de todos los registros de la tabla 
+exports.listarventasexentas = async (req, res) => {
+    try {
+        const listarventasexentas = await ModeloVentasExentas.findAll();
+        if (listarventasexentas.length == 0) {
+            res.send("No hay ventas Registradas");
+        }
+        else {
+            res.json(listarventasexentas);
+        }
+    } catch (error) {
+        console.error(error);
+        res.json(error);
+    }
+};
+exports.Agregar = async (req, res) => {
+    const msj = validar(req);
+    if (msj.errores.length > 0) {
+        MSJ(res, 200, msj);
+    }
+    else {
+        const { numfactura, numorden } = req.body;
         try {
-              await ModeloVentasExentas.create(
-                {
-                   numero_factura: numfactura,
-                   numero_orden: numorden
+            var buscarfactura = await ModeloVentas.findOne({
+                where: {
+                    NumeroFactura: numfactura
                 }
-              )
-            msj.mensaje='Registro almacenado';
-        } catch (error) {
-            msj.mensaje='Error al agregar los datos'
-            
+            });
+            if (!buscarfactura) {
+                msj.estado = 'precuacion';
+                msj.mensaje = 'la peticion no se ejecuto';
+                msj.errores = {
+                    mensaje: 'El numero de factura no existe o no esta vinculado a ninguna venta',
+                    parametro: 'numerofactura'
+                };
+                MSJ(res, 200, msj);
+            }
+            else {
+                try {
+                    await ModeloVentasExentas.create(
+                        {
+                            numero_factura: numfactura,
+                            numero_orden: numorden
+                        }
+                    )
+                    msj.estado = 'correcto',
+                        msj.mensaje = 'Peticion ejecutada correctamente',
+                        msj.datos = '',
+                        msj.errores = ''
+                    MSJ(res, 200, msj);
+                } catch (error) {
+                    msj.estado = 'precuacion';
+                    msj.mensaje = 'la peticion no se ejecuto';
+                    msj.errores = error;
+                    MSJ(res, 500, msj);
+                }
+            }
+        }
+        catch (error) {
+            msj.estado = 'precuacion';
+            msj.mensaje = 'la peticion no se ejecuto';
+            msj.errores = error;
+            MSJ(res, 500, msj);
         }
     }
-    
     res.json(msj);
 };

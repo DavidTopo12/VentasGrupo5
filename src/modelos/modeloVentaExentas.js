@@ -1,7 +1,11 @@
+//Santos Israel Romero
 const { DataTypes } = require('sequelize');
 const bd = require('../configuraciones/bd');
+//instanciar el modelo
 const Ventas = require('./modeloVentas')
+//
 const Ventas_Exentas = bd.define(
+    //se ponen los nombres de los campos y el tipo,(la estructura de la tabla)
     'ventas_exentas',
     {
         numero_factura:{
@@ -15,10 +19,11 @@ const Ventas_Exentas = bd.define(
 
 },        
 {
-    tableName: 'ventas_exenta',
+    tableName: 'ventas_exenta',//nombre de la tabla en la base de datos 
     timestamps: false,
 }
 );
+//declaracion de la llave foranea 
 Ventas.hasMany(Ventas_Exentas,{
     foreignKey: 'numero_factura'
 }); 
