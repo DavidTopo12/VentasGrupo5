@@ -23,8 +23,6 @@ exports.Agregar = async (req, res) => {
                    idpos: idp,
                    referencia: ref, 
                    valor: valo
-                   
-                  
                 }
               )
             msj.mensaje='Registro almacenado';
