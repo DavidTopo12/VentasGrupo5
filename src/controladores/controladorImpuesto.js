@@ -2,7 +2,7 @@ const { validationResult } = require('express-validator');
 const ModeloImpuesto = require('../modelos/modeloImpuestos');
 
 //Modelo Controlador de Impuesto - David Alejandro Salgado Zelaya
-exports.listarventas = async (req, res) => {
+exports.Listar = async (req, res) => {
 
     try {
         const listarImpuestos = await ModeloImpuesto.findAll();
