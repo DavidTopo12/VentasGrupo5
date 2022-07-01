@@ -35,6 +35,45 @@ function validar(req) {
     return msj;
 };
 
+//MENSAJE DE INICIO
+exports.Inicio = async (req, res) =>{
+    var msj = validar(req);
+    const listaModulos = [
+        {
+           modulo:"Ventas",
+           rutas: [
+            {
+                ruta: "/api/ventas",
+                metodo: "get",
+                parametros: "",
+                descripcion: "Inicio del módulo de ventas"
+            },
+            {
+                ruta: "/api/ventas/listar",
+                metodo: "get",
+                parametros: "",
+                descripcion: "Lista todos los ventas"
+            },
+            {
+                ruta: "/api/empleados/guardar",
+                metodo: "post",
+                parametros: {
+                  num_fact: "Numero de Factura. Obligatorio",
+                  cai: "ID Cai existente en la tabla de CAI. Obligatorio.",
+                  cliente: "ID Cliente existente en la tabla de clientes. Obligatorio.",
+                  tarjeta: "Monto de Pago en Tarjeta. Obligatorio.",
+                  efectivo: "Monton de pago efectivo.Obligatorio",
+                  usu: "Usuario, campo INT.Obligatorio",
+                  estacion: "Numero del ID de la estacion existente en la tabla estaciones.Obligatorio",
+                  mesero: "Numero del Mesero que le atendió.Obligatorio"
+                },
+                descripcion: "Guarda los datos de las ventas"
+              }    
+           ]
+        }
+    ];
+}
+
 exports.listarventas = async (req, res) => {
 
     try {

@@ -2,9 +2,10 @@ const { Router } = require('express');
 const { body, query } = require('express-validator');
 const controladorcai = require('../controladores/controladorcai');
 const rutas = Router();
+
+rutas.get('/listar', controladorVentasConstancia.Listar);
+
 rutas.post('/agregar',
-
-
 body('cai').
 notEmpty().withMessage('No se aceptan campos vacios')
 .isString({min:50}).withMessage('Solo aceptan numero Entero'),
