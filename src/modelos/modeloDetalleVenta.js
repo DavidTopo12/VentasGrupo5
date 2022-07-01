@@ -19,7 +19,6 @@ const Detalle_Venta = bd.define(
         CodigoProducto:{
             type: DataTypes.STRING(15),
             allowNull: false
-            
         },
         Cantidad: {
             type: DataTypes.DOUBLE,
