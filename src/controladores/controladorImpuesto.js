@@ -37,7 +37,7 @@ exports.AgregarImpuesto = async (req, res) => {
         const listarImpuesto = await ModeloImpuesto.findAll();
 
         if (listarImpuesto.length == 0) {
-            res.send("No hay ventas Registradas");
+            res.send("No hay impuesto registrado");
         }
         else {
             res.json(listarImpuesto);
