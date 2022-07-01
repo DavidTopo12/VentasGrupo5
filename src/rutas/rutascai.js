@@ -8,11 +8,11 @@ rutas.get('/listar', controladorVentasConstancia.Listar);
 rutas.post('/agregar',
 body('cai').
 notEmpty().withMessage('No se aceptan campos vacios')
-.isString({min:50}).withMessage('Solo aceptan numero Entero'),
+.isString({min:3}).withMessage('Minimo 3 caracteres'),
 
 body('fecha_limite').
 notEmpty().withMessage('No se aceptan campos vacios')
-.isDate().withMessage('Solo aceptan numero Entero'),
+.isDate().withMessage('Formato de fecha permitido: dd-mm-yy'),
 
 body('numero_ini').
 notEmpty().withMessage('No se aceptan campos vacios')

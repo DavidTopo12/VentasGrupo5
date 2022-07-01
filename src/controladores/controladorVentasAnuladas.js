@@ -30,6 +30,43 @@ function validar(req) {
     return msj;
 };
 
+
+exports.Inicio = async (req, res) =>{
+    var msj = validar(req);
+    const listaModulos = [
+        {
+           modulo:"VentasAnuladas",
+           rutas: [
+            {
+                ruta: "/api/anuladas",
+                metodo: "get",
+                parametros: "",
+                descripcion: "Inicio del módulo de ventas anuladas"
+            },
+            {
+                ruta: "/api/anuladas/listar",
+                metodo: "get",
+                parametros: "",
+                descripcion: "Lista todos los ventas anuladas"
+            },
+            {
+                ruta: "/api/anuladas/agregar",
+                metodo: "post",
+                parametros: {
+                  usuario: "Numero de Usuario. Obligatorio",
+                  descripcion: "Descripcion de la venta . Obligatorio"
+                },
+                descripcion: "Guarda los datos de las ventas anuladas"
+              }    
+           ]
+        }
+    ];
+}
+
+
+
+
+
 exports.Listar = async (req, res) => {
     try {
         const listarVentasAnuladas = await ModeloVentasAnuladas.findAll();

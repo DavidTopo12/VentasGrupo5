@@ -43,7 +43,7 @@ exports.Inicio = async (req, res) =>{
            modulo:"Ventas",
            rutas: [
             {
-                ruta: "/api/ventas",
+                ruta: "/api/ventas/",
                 metodo: "get",
                 parametros: "",
                 descripcion: "Inicio del módulo de ventas"
@@ -55,7 +55,7 @@ exports.Inicio = async (req, res) =>{
                 descripcion: "Lista todos los ventas"
             },
             {
-                ruta: "/api/empleados/guardar",
+                ruta: "/api/ventas/agregar",
                 metodo: "post",
                 parametros: {
                   num_fact: "Numero de Factura. Obligatorio",

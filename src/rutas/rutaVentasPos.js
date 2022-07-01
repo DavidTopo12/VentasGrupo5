@@ -13,11 +13,11 @@ notEmpty().withMessage('No aceptan campos vacios')
 
 body('ref').
 notEmpty().withMessage('No aceptan campos vacios')
-.isString({min:45}).withMessage('Solo aceptan numero Entero'),
+.isString({min:3}).withMessage('Escribir un minimo de 3 caracteres'),
 
 body('valo').
 notEmpty().withMessage('No aceptan campos vacios')
-.isFloat().withMessage('Solo aceptan numero Entero'),
+.isFloat().withMessage('Decimal o entero permitido'),
 
 
 
