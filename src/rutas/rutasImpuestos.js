@@ -4,7 +4,7 @@ const controladorImpuestos = require('../controladores/controladorImpuesto');
 const rutas = Router();
 
 //Listando
-rutas.get('/listar', controladorImpuestos.AgregarImpuesto);
+rutas.get('/listar', controladorImpuestos.Listar);
 
 //Agregando a la tabla
 rutas.post('/agregar',
