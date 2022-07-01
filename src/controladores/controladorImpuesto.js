@@ -32,23 +32,6 @@ function validar(req) {
     return msj;
 };
 
-exports.AgregarImpuesto = async (req, res) => {
-    try {
-        const listarImpuesto = await ModeloImpuesto.findAll();
-
-        if (listarImpuesto.length == 0) {
-            res.send("No hay impuesto registrado");
-        }
-        else {
-            res.json(listarImpuesto);
-        }
-
-    } catch (error) {
-        console.error(error);
-        res.json(error);
-
-    }
-};
 
 exports.AgregarImpuesto = async (req, res) => {
 
