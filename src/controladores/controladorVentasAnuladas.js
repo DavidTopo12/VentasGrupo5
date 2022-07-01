@@ -1,5 +1,8 @@
 const{validationResult} = require('express-validator'); 
 const ModeloVentasAnuladas = require('../modelos/modeloVentasAnuladas');
+
+
+
 exports.Agregar = async (req, res) => {
    
     const validaciones =  validationResult(req);
