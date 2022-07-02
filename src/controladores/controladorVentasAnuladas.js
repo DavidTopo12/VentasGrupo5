@@ -1,6 +1,6 @@
 const{validationResult} = require('express-validator'); 
 const ModeloVentasAnuladas = require('../modelos/modeloVentasAnuladas');
-
+//ENCARGADO - DAVID ALEJANDRO SALGADO ZELAYA
 
 function validar(req) {
 
@@ -64,9 +64,6 @@ exports.Inicio = async (req, res) =>{
 }
 
 
-
-
-
 exports.Listar = async (req, res) => {
     try {
         const listarVentasAnuladas = await ModeloVentasAnuladas.findAll();
@@ -79,8 +76,13 @@ exports.Listar = async (req, res) => {
         }
 
     } catch (error) {
-        console.error(error);
-        res.json(error);
+        msj.estado ='precaucion';
+        msj.mensaje = 'la peticion no se ejecutó';
+        msj.errores = {
+            mensaje: "la venta anulada no existe o no está vinculado"
+        };
+
+        MSJ(res, 500, msj);
 
     }
 };
