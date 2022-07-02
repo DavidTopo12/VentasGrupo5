@@ -30,6 +30,39 @@ function validar(req) {
     }
     return msj;
 };
+//Inicio
+exports.Inicio = async (req, res) =>{
+    var msj = validar(req);
+    const listaModulos = [
+        {
+           modulo:"VentasExentas",
+           rutas: [
+            {
+                ruta: "/api/exentas/",
+                metodo: "get",
+                parametros: "",
+                descripcion: "Inicio del módulo de ventas exentas"
+            },
+            {
+                ruta: "/api/exentas/listar",
+                metodo: "get",
+                parametros: "",
+                descripcion: "Lista todos los ventas exentas"
+            },
+            {
+                ruta: "/api/exentas/agregar",
+                metodo: "post",
+                parametros: {
+                  numfactura: "Numero de Factura. Obligatorio",
+                  numorden: "Numero de Orden. Obligatorio",
+                  
+                },
+                descripcion: "Guarda los datos de las ventas exentas"
+              }    
+           ]
+        }
+    ];
+}
 //crear la funcion de lista de todos los registros de la tabla 
 exports.listarventasexentas = async (req, res) => {
     try {
