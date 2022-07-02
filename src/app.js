@@ -20,6 +20,9 @@ app.use('/api/rutapos/', require('./rutas/rutasPos'));
 app.use('/api/creditos/', require('./rutas/rutasVentaCredito'));
 app.use('/api/impuesto/', require('./rutas/rutasImpuestos'));
 app.use('/api/cai/', require('./rutas/rutascai'));
+app.use('api/empleados', require('./rutas/rutasEmpleados'));
+app.use('api/productos', require('./rutas/rutasProductos'));
+
 
 
 

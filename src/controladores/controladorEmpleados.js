@@ -1,6 +1,54 @@
 const{validationResult} = require('express-validator'); 
 const ModeloEmpleados = require('../modelos/modeloEmpleados');
-exports.Agregar = async (req, res) => {
+
+exports.Inicio = async (req, res) =>{
+    var msj = validar(req);
+    const listaModulos = [
+        {
+           modulo:"Empleados",
+           rutas: [
+            {
+                ruta: "/api/empleados",
+                metodo: "get",
+                parametros: "",
+                descripcion: "Inicio del módulo de empleados"
+            },
+            {
+                ruta: "/api/empleados/listar",
+                metodo: "get",
+                parametros: "",
+                descripcion: "Lista todos los empleados"
+            } 
+           ]
+        }
+    ];
+}
+
+
+exports.listarempleados = async (req, res) => {
+
+    try {
+        const listarempleados = await ModeloEmpleados.findAll();
+
+        if (listarempleados.length == 0) {
+            res.send("No hay empleados Registrados");
+        }
+        else {
+            res.json(listarempleados);
+        }
+
+    } catch (error) {
+        console.error(error);
+        res.json(error);
+
+    }
+};
+
+
+
+
+
+/*exports.Agregar = async (req, res) => {
    
     const validaciones =  validationResult(req);
     console.log(validaciones.errors);
@@ -34,4 +82,4 @@ exports.Agregar = async (req, res) => {
     }
     
     res.json(msj);
-};
+};*/

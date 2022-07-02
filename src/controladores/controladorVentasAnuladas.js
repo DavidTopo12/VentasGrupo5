@@ -2,7 +2,6 @@ const{validationResult} = require('express-validator');
 const ModeloVentasAnuladas = require('../modelos/modeloVentasAnuladas');
 
 
-
 function validar(req) {
 
     const validaciones = validationResult(req);
@@ -31,12 +30,49 @@ function validar(req) {
     return msj;
 };
 
+
+exports.Inicio = async (req, res) =>{
+    var msj = validar(req);
+    const listaModulos = [
+        {
+           modulo:"VentasAnuladas",
+           rutas: [
+            {
+                ruta: "/api/anuladas",
+                metodo: "get",
+                parametros: "",
+                descripcion: "Inicio del módulo de ventas anuladas"
+            },
+            {
+                ruta: "/api/anuladas/listar",
+                metodo: "get",
+                parametros: "",
+                descripcion: "Lista todos los ventas anuladas"
+            },
+            {
+                ruta: "/api/anuladas/agregar",
+                metodo: "post",
+                parametros: {
+                  usuario: "Numero de Usuario. Obligatorio",
+                  descripcion: "Descripcion de la venta . Obligatorio"
+                },
+                descripcion: "Guarda los datos de las ventas anuladas"
+              }    
+           ]
+        }
+    ];
+}
+
+
+
+
+
 exports.Listar = async (req, res) => {
     try {
-        const listarVentasAnuladas = await modeloVentasAnuladas.findAll();
+        const listarVentasAnuladas = await ModeloVentasAnuladas.findAll();
 
         if (listarVentasAnuladas.length == 0) {
-            res.send("No hay ventas Registradas");
+            res.send("No hay ventas anuladas Registradas");
         }
         else {
             res.json(listarVentasAnuladas);
@@ -60,13 +96,13 @@ exports.AgregarVentaAnulada = async (req, res) => {
         try {
            
 
-            await modeloVentasAnuladas.create(
+            await ModeloVentasAnuladas.create(
                 {
                     usuario: usua,
                     descripcion: des
                 }
             );
-            msj.mensaje = 'los datos de impuesto se guardaron con éxito';
+            msj.mensaje = 'los datos de ventas anuladas se guardaron con éxito';
 
         } catch (error) {
             msj.estado = 'precaución';
