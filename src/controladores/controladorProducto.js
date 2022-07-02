@@ -77,7 +77,7 @@ exports.listarProductos = async (req, res) => {
         msj.estado ='precaucion';
         msj.mensaje = 'la peticion no se ejecutó';
         msj.errores = {
-            mensaje: "el Empleado no existe o no está vinculado"
+            mensaje: "el producto no existe o no está vinculado"
         };
 
         MSJ(res, 500, msj);
