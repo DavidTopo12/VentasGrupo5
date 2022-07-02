@@ -10,7 +10,7 @@ rutas.get('/listar', controladorImpuestos.Listar);
 rutas.post('/agregar',
 body('nomb')
 .notEmpty().withMessage('No se aceptan campos vacios en el impuesto')
-.isString({min:10}).withMessage('Minimo 10 caracteres en este campo'),
+.isString({min:3}).withMessage('Minimo 3 caracteres en este campo'),
 body('val')
 .notEmpty().withMessage('No se aceptan campos vacios en el valor isv')
 .isDecimal(10,4).withMessage('Solo se aceptan números decimales'),

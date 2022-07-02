@@ -20,11 +20,11 @@ notEmpty().withMessage('No se aceptan campos vacios')
 
 body('tajeta').
 notEmpty().withMessage('No se aceptan campos vacios')
-.isFloat().withMessage('Solo aceptan numero Entero'),
+.isFloat().withMessage('Decimal permitido'),
 
 body('efectivo').
 notEmpty().withMessage('No se aceptan campos vacios')
-.isFloat().withMessage('Solo aceptan numero Entero'),
+.isFloat().withMessage('Decimal permitido'),
 
 body('usu').
 notEmpty().withMessage('No se aceptan campos vacios')

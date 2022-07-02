@@ -2,6 +2,25 @@ const { validationResult } = require('express-validator');
 const ModeloImpuesto = require('../modelos/modeloImpuestos');
 
 //Modelo Controlador de Impuesto - David Alejandro Salgado Zelaya
+exports.Listar = async (req, res) => {
+
+    try {
+        const listarImpuestos = await ModeloImpuesto.findAll();
+
+        if (listarImpuestos.length == 0) {
+            res.send("No hay ventas Registradas");
+        }
+        else {
+            res.json(listarImpuestos);
+        }
+
+    } catch (error) {
+        console.error(error);
+        res.json(error);
+
+    }
+};
+
 
 //Función de validación
 function validar(req) {
