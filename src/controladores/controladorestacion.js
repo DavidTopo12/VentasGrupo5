@@ -1,3 +1,4 @@
+//Santos Romero
 const{validationResult} = require('express-validator'); 
 const Modeloestacion = require('../modelos/modeloestacion');
 function validar(req) {
