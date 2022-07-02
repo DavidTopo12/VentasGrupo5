@@ -20,6 +20,16 @@ app.use('/api/rutapos/', require('./rutas/rutasPos'));
 app.use('/api/creditos/', require('./rutas/rutasVentaCredito'));
 app.use('/api/impuesto/', require('./rutas/rutasImpuestos'));
 app.use('/api/cai/', require('./rutas/rutascai'));
+app.use('/api/clientesDirec/', require('./rutas/rutasClientesDirecciones'));
+app.use('/api/detallePedido/', require('./rutas/rutasDetallePedido'));
+app.use('/api/pedido/', require('./rutas/rutasPedido'));
+app.use('/api/usuarios/', require('./rutas/rutasUsuarios'));
+app.use('api/empleados', require('./rutas/rutasEmpleados'));
+app.use('api/productos', require('./rutas/rutasProductos'));
+app.use('api/clientes', require('./rutas/rutasClientes'));
+app.use('api/estacion', require('./rutas/rutasestacion'));
+//pensar -- usuariocliente, credito, impuestos
+
 
 
 

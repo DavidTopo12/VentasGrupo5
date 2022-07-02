@@ -2,6 +2,8 @@ const { validationResult } = require('express-validator');
 const ModeloVentasConstancia = require('../modelos/modeloVentasConstancia');
 const ModeloVentas = require('../modelos/modeloVentas');
 
+//controlador constancia, modelo - Idalia Flores 
+
 function validar(req) {
 
     const validaciones = validationResult(req);
@@ -29,6 +31,38 @@ function validar(req) {
     }
     return msj;
 };
+
+exports.Inicio = async (req, res) =>{
+    var msj = validar(req);
+    const listaModulos = [
+        {
+           modulo:"VentasConstancia",
+           rutas: [
+            {
+                ruta: "/api/constancia/",
+                metodo: "get",
+                parametros: "",
+                descripcion: "Inicio del módulo de ventas constancia"
+            },
+            {
+                ruta: "/api/constancia/listar",
+                metodo: "get",
+                parametros: "",
+                descripcion: "Lista todos los constancia"
+            },
+            {
+                ruta: "/api/constancia/agregar",
+                metodo: "post",
+                parametros: {
+                  numfactura: "Numero de Factura. Obligatorio",
+                  numcons: "Numero Constancia. Obligatorio.",
+                },
+                descripcion: "Guarda los datos de las constancia de ventas"
+              }    
+           ]
+        }
+    ];
+}
 
 exports.Listar = async (req, res) => {
 

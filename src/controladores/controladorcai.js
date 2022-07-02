@@ -1,6 +1,8 @@
 const{validationResult} = require('express-validator'); 
 const Modelocai = require('../modelos/modelocai');
 
+// MODULO A CARGO DE - IDALIA ELIZABETH FLORES VASQUEZ
+
 //VALIDAR
 function validar(req) {
 
@@ -29,6 +31,61 @@ function validar(req) {
     }
     return msj;
 };
+
+//MENSAJE DE INICIO
+exports.Inicio = async (req, res) =>{
+    var msj = validar(req);
+    const listaModulos = [
+        {
+           modulo:"Cai",
+           rutas: [
+            {
+                ruta: "/api/cai/",
+                metodo: "get",
+                parametros: "",
+                descripcion: "Inicio del módulo de cai"
+            },
+            {
+                ruta: "/api/cai/listar",
+                metodo: "get",
+                parametros: "",
+                descripcion: "Lista todos los cai"
+            },
+            {
+                ruta: "/api/cai/agregar",
+                metodo: "post",
+                parametros: {
+                  cai: "CAI. Obligatorio",
+                  fecha_limite: "dd-mm-yy.Obligatorio.",
+                  numero_ini: "Numero Inicio del Cai. Obligatorio.",
+                  numero_fin: "Numero Final de Cai. Obligatorio."
+                },
+                descripcion: "Guarda los datos de Cai"
+              },
+              {
+                ruta: "/api/cai/editar",
+                metodo: "put",
+                parametros: {
+                  idCai:"Id del CAI, en el query.Obligatorio",
+                  cai: "CAI. Obligatorio",
+                  fecha_limite: "dd-mm-yy.Obligatorio.",
+                  numero_ini: "Numero Inicio del Cai. Obligatorio.",
+                  numero_fin: "Numero Final de Cai. Obligatorio."
+                },
+                descripcion: "Edita los datos de Cai"
+              },
+              {
+                ruta: "/api/cai/eliminar",
+                metodo: "put",
+                parametros: {
+                  idCai:"Id del CAI, en el query.Obligatorio"
+                },
+                descripcion: "Elimina los datos de Cai"
+              }          
+           ]
+        }
+    ];
+}
 
 exports.Listar = async (req, res) => {
 
