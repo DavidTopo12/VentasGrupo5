@@ -24,6 +24,17 @@ exports.Inicio = async (req, res) =>{
            ]
         }
     ];
+    const datos = {
+        api: "API-VENTAS",
+        descripcion: "Interfaz de progamación para el sistema de gestion de restaurantes",
+        propiedad: "DESOFIW",
+        desarrolladores: "",
+        colaboradores: "",
+        fecha: "5/07/2022",
+        listaModulos
+    };
+    msj.datos=datos;
+    msjRes(res, 200, msj);
 };
 
 function validar(req) {

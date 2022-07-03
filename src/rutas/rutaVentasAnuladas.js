@@ -3,6 +3,7 @@ const { body, query } = require('express-validator');
 const controladorVentasAnuladas = require('../controladores/controladorVentasAnuladas');
 const rutas = Router();
 
+rutas.get('/',controladorVentasAnuladas.Inicio);
 
 //Listando
 rutas.get('/listar', controladorVentasAnuladas.Listar);

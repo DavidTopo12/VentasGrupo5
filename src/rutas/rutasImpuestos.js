@@ -3,6 +3,7 @@ const { body, query } = require('express-validator');
 const controladorImpuestos = require('../controladores/controladorImpuesto');
 const rutas = Router();
 
+
 //Listando
 rutas.get('/listar', controladorImpuestos.Listar);
 

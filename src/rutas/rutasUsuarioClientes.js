@@ -2,6 +2,9 @@ const { Router } = require('express');
 const { body, query } = require('express-validator');
 const controladorUsuarioCliente = require('../controladores/controladorUsuarioClientes');
 const rutas = Router();
+
+//rutas.get('/', controladorUsuarioCliente.)
+
 rutas.post('/agregar',
 body('corr').
 notEmpty().withMessage('No aceptan campos vacios')

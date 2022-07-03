@@ -3,6 +3,8 @@ const { body, query } = require('express-validator');
 const controladorcai = require('../controladores/controladorcai');
 const rutas = Router();
 
+rutas.get('/', controladorcai.Inicio);
+
 rutas.get('/listar', controladorVentasConstancia.Listar);
 
 rutas.post('/agregar',

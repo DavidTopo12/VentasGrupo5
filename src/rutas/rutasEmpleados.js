@@ -3,6 +3,8 @@ const { body, query } = require('express-validator');
 const controladorEmpleados = require('../controladores/controladorEmpleados');
 const rutas = Router();
 
+rutas.get('/', controladorEmpleados.Inicio);
+
 rutas.get('/listar' , controladorEmpleados.listarempleados);
 
 
