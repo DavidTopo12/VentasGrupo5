@@ -5,7 +5,7 @@ const rutas = Router();
 
 rutas.get('/', controladorcai.Inicio);
 
-rutas.get('/listar', controladorVentasConstancia.Listar);
+rutas.get('/listar', controladorcai.Listar);
 
 rutas.post('/agregar',
 body('cai').

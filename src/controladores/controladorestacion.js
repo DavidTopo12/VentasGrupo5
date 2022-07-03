@@ -82,5 +82,4 @@ exports.listarestaciones = async (req, res) => {
         };
         msj.datos=datos;
         msjRes(res, 200, msj);
-    }
-    res.json(msj);
+    };

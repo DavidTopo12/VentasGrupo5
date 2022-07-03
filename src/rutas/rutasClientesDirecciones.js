@@ -6,3 +6,5 @@ const rutas = Router();
 rutas.get('/', controladorClienteDireccion.Inicio);
 
 rutas.get('/listar', controladorClienteDireccion.listarclientedireccion);
+
+module.exports = rutas;

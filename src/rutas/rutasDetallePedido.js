@@ -6,3 +6,5 @@ const rutas = Router();
 rutas.get('/', ControladorDetallePedido.Inicio);
 
 rutas.get('/listar', ControladorDetallePedido.listardetallepedidos);
+
+module.exports = rutas;

@@ -34,7 +34,7 @@ rutas.delete('/eliminar',
 query('idcliente')
 .notEmpty().withMessage('No se aceptan valores vacios para el id del usuario')
 .isInt().withMessage('El id del cliente debe ser un entero'),
-controladorcai.Eliminar);
+controladorCliente.Eliminar);
 
 
 module.exports = rutas;
