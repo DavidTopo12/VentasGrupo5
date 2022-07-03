@@ -2,6 +2,9 @@ const { Router } = require('express');
 const { body, query } = require('express-validator');
 const controladorVentasSag = require('../controladores/controladorVentasSag');
 const rutas = Router();
+
+rutas.get('/', controladorVentasSag.Inicio);
+
 rutas.post('/agregar',
 body('nomfact').
 notEmpty().withMessage('No aceptan campos vacios')
