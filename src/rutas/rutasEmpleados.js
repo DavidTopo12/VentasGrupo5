@@ -2,7 +2,6 @@ const { Router } = require('express');
 const { body, query } = require('express-validator');
 const controladorEmpleados = require('../controladores/controladorEmpleados');
 const rutas = Router();
-<<<<<<< HEAD
 rutas.post('/agregar',
 body('numid').
 notEmpty().withMessage('No aceptan campos vacios')
@@ -26,12 +25,5 @@ notEmpty().withMessage('No se aceptan campos vacios')
 
 
 controladorEmpleados.Agregar);
-=======
-
-rutas.get('/', controladorEmpleados.Inicio);
-
-rutas.get('/listar' , controladorEmpleados.listarempleados);
-
->>>>>>> 146cddeac3d703a7c97718ddf3885c446b864162
 
 module.exports = rutas;

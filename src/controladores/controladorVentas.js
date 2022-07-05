@@ -36,58 +36,6 @@ function validar(req) {
     return msj;
 };
 
-<<<<<<< HEAD
-=======
-//MENSAJE DE INICIO
-exports.Inicio = async (req, res) =>{
-    var msj = validar(req);
-    const listaModulos = [
-        {
-           modulo:"Ventas",
-           rutas: [
-            {
-                ruta: "/api/ventas/",
-                metodo: "get",
-                parametros: "",
-                descripcion: "Inicio del módulo de ventas"
-            },
-            {
-                ruta: "/api/ventas/listar",
-                metodo: "get",
-                parametros: "",
-                descripcion: "Lista todos los ventas"
-            },
-            {
-                ruta: "/api/ventas/agregar",
-                metodo: "post",
-                parametros: {
-                  num_fact: "Numero de Factura. Obligatorio",
-                  cai: "ID Cai existente en la tabla de CAI. Obligatorio.",
-                  cliente: "ID Cliente existente en la tabla de clientes. Obligatorio.",
-                  tarjeta: "Monto de Pago en Tarjeta. Obligatorio.",
-                  efectivo: "Monton de pago efectivo.Obligatorio",
-                  usu: "Usuario, campo INT.Obligatorio",
-                  estacion: "Numero del ID de la estacion existente en la tabla estaciones.Obligatorio",
-                  mesero: "Numero del Mesero que le atendió.Obligatorio"
-                },
-                descripcion: "Guarda los datos de las ventas"
-              }    
-           ]
-        }
-    ];
-    const datos = {
-        api: "API-VENTAS",
-        descripcion: "Interfaz de progamación para el sistema de gestion de restaurantes",
-        propiedad: "DESOFIW",
-        desarrolladores: "",
-        colaboradores: "",
-        fecha: "5/07/2022",
-        listaModulos
-    };
-    msj.datos=datos;
-};
-
->>>>>>> 146cddeac3d703a7c97718ddf3885c446b864162
 exports.listarventas = async (req, res) => {
 
     try {

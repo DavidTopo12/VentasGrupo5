@@ -4,12 +4,6 @@ const { body, query } = require('express-validator');
 //instanciar el controlador ventasexentas
 const controladorVentasExentas = require('../controladores/controladorVentasExentas');
 const rutas = Router();
-<<<<<<< HEAD
-=======
-
-rutas.get('/',controladorVentasExentas.Inicio);
-
->>>>>>> 146cddeac3d703a7c97718ddf3885c446b864162
 rutas.get('/listar', controladorVentasExentas.listarventasexentas);
 rutas.post('/agregar',//la creacion de la ruta y validacion de datos 
 body('numfactura').
