@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
-const bd = require('../configuraciones/db');
+const bd = require('../configuraciones/bd');
 const Empleados = bd.define(
-    'empleados',
+    'empleado',
     {
         idregistro: {
             type: DataTypes.INTEGER,
@@ -45,6 +45,6 @@ const Empleados = bd.define(
 {
     tableName: 'empleados',
     timestamps: false,
-}//pregunta llave foranea 
+}
 );
 module.exports = Empleados;

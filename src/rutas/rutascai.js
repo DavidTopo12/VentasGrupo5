@@ -2,6 +2,14 @@ const { Router } = require('express');
 const { body, query } = require('express-validator');
 const controladorcai = require('../controladores/controladorcai');
 const rutas = Router();
+<<<<<<< HEAD
+=======
+
+rutas.get('/', controladorcai.Inicio);
+
+rutas.get('/listar', controladorcai.Listar);
+
+>>>>>>> 146cddeac3d703a7c97718ddf3885c446b864162
 rutas.post('/agregar',
 
 

@@ -1,6 +1,10 @@
 //Santos Romero
 const{validationResult} = require('express-validator'); 
 const Modeloestacion = require('../modelos/modeloestacion');
+<<<<<<< HEAD
+=======
+const MSJ = require('../componentes/mensaje');
+>>>>>>> 146cddeac3d703a7c97718ddf3885c446b864162
 function validar(req) {
     const validaciones = validationResult(req);
     var errores = [];
@@ -32,7 +36,11 @@ exports.listarestaciones = async (req, res) => {
         const listarestaciones = await Modeloestacion.findAll();
 
         if (listarestaciones.length == 0) {
+<<<<<<< HEAD
             res.send("No hay ventas Registradas");
+=======
+            res.send("No hay estaciones Registradas");
+>>>>>>> 146cddeac3d703a7c97718ddf3885c446b864162
         }
         else {
             res.json(listarestaciones);
@@ -71,5 +79,19 @@ exports.listarestaciones = async (req, res) => {
                ]
             }
         ];
+<<<<<<< HEAD
     }
     res.json(msj);
+=======
+        const datos = {
+            api: "API-VENTAS",
+            descripcion: "Interfaz de progamación para el sistema de gestion de restaurantes",
+            propiedad: "DESOFIW",
+            desarrolladores: "",
+            colaboradores: "",
+            fecha: "5/07/2022",
+            listaModulos
+        };
+        msj.datos=datos;
+    };
+>>>>>>> 146cddeac3d703a7c97718ddf3885c446b864162

@@ -1,7 +1,13 @@
+//Lesnin Ramírez
 const { Router } = require('express');
 const { body, query } = require('express-validator');
 const controladorDetalleVenta = require('../controladores/controladorDetalleVenta');
 const rutas = Router();
+
+rutas.get('/', controladorDetalleVenta.Inicio);
+
+rutas.get('/listar', controladorDetalleVenta.listardetalle);
+
 rutas.post('/agregar',
 body('numfact').
 notEmpty().withMessage('No aceptan campos vacios')

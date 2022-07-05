@@ -126,10 +126,10 @@ Ventas.belongsTo(Cliente,{
 });
 Estacion.hasMany(Ventas,{
     foreignKey: 'Estacion',
-    otherKey: 'idregistro'
+    otherKey: 'NumeroEstacion'
 }); 
 Ventas.belongsTo(Estacion,{
     foreignKey: 'Estacion',
-    otherKey: 'idregistro'
+    otherKey: 'NumeroEstacion'
 });
 module.exports = Ventas;
