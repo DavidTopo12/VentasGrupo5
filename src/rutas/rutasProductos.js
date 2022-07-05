@@ -5,11 +5,11 @@ const rutas = Router();
 rutas.post('/agregar',
 body('nombr').
 notEmpty().withMessage('No aceptan campos vacios')
-.isString({min:45}).withMessage('Solo aceptan numero Entero'),
+.isString({min:3}).withMessage('Escribir un minimo de 3 caracteres'),
 
 body('desc').
 notEmpty().withMessage('No aceptan campos vacios')
-.isString().withMessage('Solo aceptan numero Entero'),
+.isString({min:3}).withMessage('Escribir un minimo de 3 caracteres'),
 
 body('tip_product').
 notEmpty().withMessage('No aceptan campos vacios')

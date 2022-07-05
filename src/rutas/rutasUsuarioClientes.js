@@ -5,15 +5,15 @@ const rutas = Router();
 rutas.post('/agregar',
 body('corr').
 notEmpty().withMessage('No aceptan campos vacios')
-.isString({min:250}).withMessage('Solo aceptan numero Entero'),
+.isString({min:3}).withMessage('Escribir un minimo de 3 caracteres'),
 
 body('face').
 notEmpty().withMessage('No aceptan campos vacios')
-.isString({min:45}).withMessage('Solo aceptan numero Entero'),
+.isString({min:3}).withMessage('Escribir un minimo de 3 caracteres'),
 
 body('contra').
 notEmpty().withMessage('No aceptan campos vacios')
-.isString({min:250}).withMessage('Solo aceptan numero Entero'),
+.isString({min:3}).withMessage('Escribir un minimo de 3 caracteres'),
 
 
 controladorUsuarioCliente.Agregar);
