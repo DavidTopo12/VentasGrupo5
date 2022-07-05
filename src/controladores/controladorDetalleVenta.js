@@ -3,10 +3,6 @@ const { validationResult } = require('express-validator');
 const ModeloDetalleVenta = require('../modelos/modeloDetalleVenta');
 const ModeloVentas = require('../modelos/modeloVentas');
 const ModeloProducto = require('../modelos/modeloProducto');
-<<<<<<< HEAD
-=======
-const MSJ = require('../componentes/mensaje');
->>>>>>> 146cddeac3d703a7c97718ddf3885c446b864162
 
 exports.Inicio = async (req, res) => {
     var msj = validar(req);
@@ -41,23 +37,8 @@ exports.Inicio = async (req, res) => {
                 }
             ]
         }
-<<<<<<< HEAD
     ]
 }
-=======
-    ];
-    const datos = {
-        api: "API-VENTAS",
-        descripcion: "Interfaz de progamación para el sistema de gestion de restaurantes",
-        propiedad: "DESOFIW",
-        desarrolladores: "",
-        colaboradores: "",
-        fecha: "5/07/2022",
-        listaModulos
-    };
-    msj.datos = datos;
-};
->>>>>>> 146cddeac3d703a7c97718ddf3885c446b864162
 
 //VALIDAR
 function validar(req) {
@@ -84,7 +65,6 @@ function validar(req) {
         msj.estado = 'precuacion';
         msj.mensaje = 'la peticion no se ejecuto';
         msj.errores = error;
-<<<<<<< HEAD
     }
     return msj;
 };
@@ -107,31 +87,6 @@ exports.listardetalle = async (req, res) => {
 
 
     }
-=======
-    }
-    return msj;
-};
-
-exports.listardetalle = async (req, res) => {
-
-    try {
-        const listardetalle = await ModeloDetalleVenta.findAll();
-
-        if (listardetalle.length == 0) {
-            res.send("No hay ventas Registradas");
-        }
-        else {
-            res.json(listardetalle);
-        }
-
-    } catch (error) {
-        msj.estado = 'precuacion';
-            msj.mensaje = 'la peticion no se ejecuto';
-            msj.errores = error;
-            MSJ(res, 500, msj);
-
-    }
->>>>>>> 146cddeac3d703a7c97718ddf3885c446b864162
 };
 
 exports.Agregar = async (req, res) => {
