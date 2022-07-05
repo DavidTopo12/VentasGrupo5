@@ -7,7 +7,7 @@ exports.Agregar = async (req, res) => {
     const msj = {
         mensaje: ''
     };
-    if(validaciones.errors.length>0){
+    if(validaciones.errors.length>0){//si hay cero errore deja pasar si hay un error no deja continuar
         validaciones.errors.forEach(element => {
             msj.mensaje+=element.msg;
         });

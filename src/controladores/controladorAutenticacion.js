@@ -1,7 +1,7 @@
 const { validationResult } = require('express-validator');
-const Usuario = require('../modelos/modeloUsuarios');
+const Usuario = require('../modelos/modeloUsuarios');//hacer busqueda
 const Empleado = require('../modelos/modeloEmpleados');
-const MSJ = require('../componentes/mensaje');
+const MSJ = require('../componentes/mensaje');//mandamos a llamar mensaje del documento requerido
 const { Op } = require('sequelize');
 // falta usar este const msjRes = require('../../componentes/mensaje');
 //const EnviarCorreo = require('../../configuraciones/correo');
@@ -34,7 +34,8 @@ function validacion (req){
         //msj.mensaje='Debe escribir todos los campos';
     }
     return msj;
-};
+};  
+//listado todas las opciones posible que se pueden usar en las rutas
 exports.Inicio = async (req, res)=>{
     var msj = validacion(req);
     const listaModulos = 
@@ -91,6 +92,8 @@ exports.Inicio = async (req, res)=>{
     msj.datos=datos;
     MSJ(res, 200, msj);
 };
+
+//recuperar la contraseña pin de un solo uso para recuperar contraseña 
 exports.Pin = async (req, res) =>{
     var msj = validacion(req);
     if(msj.errores.length>0){
@@ -129,6 +132,8 @@ exports.Pin = async (req, res) =>{
         }
     }
 };
+
+//es la continuacion de la funcion del pin , este permite ver si usuario y pin estan correctos de lo contrario mandara un mensaje 
 exports.Recuperar = async (req, res) =>{
     var msj = validacion(req);
     if(msj.errores.length>0){
@@ -188,7 +193,7 @@ exports.Recuperar = async (req, res) =>{
         }
     }
 };
-
+//validacion 
 exports.Error = async (req, res) =>{
     var msj = {
         estado: 'correcto',
@@ -206,7 +211,7 @@ exports.Error = async (req, res) =>{
     ];
     MSJ(res, 200, msj);
 };
-
+//hace la busqueda de usuario y contraseña
 exports.InicioSesion = async (req, res) =>{
     var msj = validacion(req);
     if(msj.errores.length>0){

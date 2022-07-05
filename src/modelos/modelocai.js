@@ -24,12 +24,12 @@ const Cai = bd.define(
         },
         NumeroFinal:{
             type: DataTypes.INTEGER,
-            allowNull: false
+            allowNull: false //no acepta nulos
         },
         creado: {
             type: DataTypes.DATE,
-            allowNull: true,
-            defaultValue: true
+            allowNull: true,//si acepta nulos
+            defaultValue: true 
         },
         activo:{
             type: DataTypes.TINYINT,
