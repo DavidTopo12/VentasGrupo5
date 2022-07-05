@@ -3,6 +3,8 @@ const { body, query } = require('express-validator');
 const controladorVenta = require('../controladores/controladorVentas');
 const rutas = Router();
 
+rutas.get('/', controladorVenta.Inicio);
+
 rutas.get('/listar', controladorVenta.listarventas);
 
 rutas.post('/agregar',

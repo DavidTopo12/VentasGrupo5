@@ -3,6 +3,7 @@ const ModeloVentas = require('../modelos/modeloVentas');
 const Modelocai = require('../modelos/modelocai');
 const Modelocliente = require('../modelos/modeloclientes');
 const Modeloestacion = require('../modelos/modeloestacion');
+const MSJ = require('../componentes/mensaje');
 
 //MODELO/ CONTROLADOR VENTAS - TRABAJO EN EQUIPO, ESTRUCTURA PRINCIPAL, GUIA PARA OTROS MODELOS
 
@@ -72,7 +73,17 @@ exports.Inicio = async (req, res) =>{
            ]
         }
     ];
-}
+    const datos = {
+        api: "API-VENTAS",
+        descripcion: "Interfaz de progamación para el sistema de gestion de restaurantes",
+        propiedad: "DESOFIW",
+        desarrolladores: "",
+        colaboradores: "",
+        fecha: "5/07/2022",
+        listaModulos
+    };
+    msj.datos=datos;
+};
 
 exports.listarventas = async (req, res) => {
 

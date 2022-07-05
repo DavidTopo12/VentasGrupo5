@@ -1,5 +1,6 @@
 const { validationResult } = require('express-validator');
 const ModeloUsuarios = require('../modelos/modeloUsuarios');
+const MSJ = require('../componentes/mensaje');
 
 //MODULO A CARGO DE: IDALIA ELIZABETH FLORES VASQUEZ
 function validar(req) {
@@ -51,6 +52,16 @@ exports.Inicio = async (req, res) =>{
            ]
         }
     ];
+    const datos = {
+        api: "API-VENTAS",
+        descripcion: "Interfaz de progamación para el sistema de gestion de restaurantes",
+        propiedad: "DESOFIW",
+        desarrolladores: "",
+        colaboradores: "",
+        fecha: "5/07/2022",
+        listaModulos
+    };
+    msj.datos=datos;
 }
 
 exports.Listar = async (req, res) => {

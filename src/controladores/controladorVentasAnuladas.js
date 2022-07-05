@@ -1,6 +1,7 @@
 const{validationResult} = require('express-validator'); 
 const ModeloVentasAnuladas = require('../modelos/modeloVentasAnuladas');
-
+const MSJ = require('../componentes/mensaje');
+//ENCARGADO - DAVID ALEJANDRO SALGADO ZELAYA
 
 function validar(req) {
 
@@ -61,10 +62,17 @@ exports.Inicio = async (req, res) =>{
            ]
         }
     ];
-}
-
-
-
+    const datos = {
+        api: "API-VENTAS",
+        descripcion: "Interfaz de progamación para el sistema de gestion de restaurantes",
+        propiedad: "DESOFIW",
+        desarrolladores: "",
+        colaboradores: "",
+        fecha: "5/07/2022",
+        listaModulos
+    };
+    msj.datos=datos;
+};
 
 
 exports.Listar = async (req, res) => {
@@ -72,15 +80,20 @@ exports.Listar = async (req, res) => {
         const listarVentasAnuladas = await ModeloVentasAnuladas.findAll();
 
         if (listarVentasAnuladas.length == 0) {
-            res.send("No hay ventas Registradas");
+            res.send("No hay ventas anuladas Registradas");
         }
         else {
             res.json(listarVentasAnuladas);
         }
 
     } catch (error) {
-        console.error(error);
-        res.json(error);
+        msj.estado ='precaucion';
+        msj.mensaje = 'la peticion no se ejecutó';
+        msj.errores = {
+            mensaje: "la venta anulada no existe o no está vinculado"
+        };
+
+        MSJ(res, 500, msj);
 
     }
 };
@@ -102,7 +115,7 @@ exports.AgregarVentaAnulada = async (req, res) => {
                     descripcion: des
                 }
             );
-            msj.mensaje = 'los datos de impuesto se guardaron con éxito';
+            msj.mensaje = 'los datos de ventas anuladas se guardaron con éxito';
 
         } catch (error) {
             msj.estado = 'precaución';

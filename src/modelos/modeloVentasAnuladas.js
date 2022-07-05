@@ -1,18 +1,19 @@
 const { DataTypes } = require('sequelize');
 const bd = require('../configuraciones/bd');
-//pregunta al ing llave foranea
+const Usuario = require('./modeloUsuarios');
+const Venta = require('./modeloVentas');
 const Ventas_Anuladas = bd.define(
     'ventas_anuladas',
     {
         idventa: {
             type:  DataTypes.INTEGER,
             primaryKey: true,
-            autoIncrement: true,
             allowNull: false
         },
-        usuario:{
+        idusuario:{
             type: DataTypes.INTEGER,
-            allowNull: false
+            allowNull: false,
+            field: 'usuario',
             
         },
         descripcion: {
@@ -32,5 +33,22 @@ const Ventas_Anuladas = bd.define(
     timestamps: false,
 }
 );
+Usuario.hasMany(Ventas_Anuladas,{
+    foreignKey: 'idusuario',
+    otherKey: 'idregistro'
+}); 
+Ventas_Anuladas.belongsTo(Usuario,{
+    foreignKey: 'idusuario',
+    otherKey: 'idregistro'
+});
+
+Venta.hasMany(Ventas_Anuladas,{
+    foreignKey: 'idventa',
+    otherKey: 'idregistro'
+}); 
+Ventas_Anuladas.belongsTo(Venta,{
+    foreignKey: 'idventa',
+    otherKey: 'idregistro'
+});
 
 module.exports = Ventas_Anuladas;

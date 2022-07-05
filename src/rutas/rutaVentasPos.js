@@ -2,6 +2,11 @@ const { Router } = require('express');
 const { body, query } = require('express-validator');
 const controladorVentasPos = require('../controladores/controladorVentasPos');
 const rutas = Router();
+
+rutas.get('/',controladorVentasPos.Inicio);
+
+rutas.get('/listar', controladorVentasPos.listarventaspos);
+
 rutas.post('/agregar',
 body('idv').
 notEmpty().withMessage('No aceptan campos vacios')
@@ -13,11 +18,11 @@ notEmpty().withMessage('No aceptan campos vacios')
 
 body('ref').
 notEmpty().withMessage('No aceptan campos vacios')
-.isString({min:3}).withMessage('Escribir un minimo de 3 caracteres'),
+.isString({min:45}).withMessage('Solo aceptan numero Entero'),
 
 body('valo').
 notEmpty().withMessage('No aceptan campos vacios')
-.isFloat().withMessage('Decimal o entero permitido'),
+.isFloat().withMessage('Solo aceptan numero Entero'),
 
 
 

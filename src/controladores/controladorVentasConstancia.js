@@ -1,6 +1,7 @@
 const { validationResult } = require('express-validator');
 const ModeloVentasConstancia = require('../modelos/modeloVentasConstancia');
 const ModeloVentas = require('../modelos/modeloVentas');
+const MSJ = require('../componentes/mensaje');
 
 //controlador constancia, modelo - Idalia Flores 
 
@@ -62,7 +63,17 @@ exports.Inicio = async (req, res) =>{
            ]
         }
     ];
-}
+    const datos = {
+        api: "API-VENTAS",
+        descripcion: "Interfaz de progamación para el sistema de gestion de restaurantes",
+        propiedad: "DESOFIW",
+        desarrolladores: "",
+        colaboradores: "",
+        fecha: "5/07/2022",
+        listaModulos
+    };
+    msj.datos=datos;
+};
 
 exports.Listar = async (req, res) => {
 

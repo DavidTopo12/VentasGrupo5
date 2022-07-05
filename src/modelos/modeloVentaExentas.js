@@ -20,9 +20,11 @@ const Ventas_Exentas = bd.define(
 }
 );
 Ventas.hasMany(Ventas_Exentas,{
-    foreignKey: 'numero_factura'
+    foreignKey: 'numero_factura',
+    otherKey: 'idregistro'
 }); 
 Ventas_Exentas.belongsTo(Ventas,{
-    foreignKey: 'numero_factura'
+    foreignKey: 'numero_factura',
+    otherKey: 'idregistro'
 });
 module.exports = Ventas_Exentas;
