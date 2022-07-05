@@ -1,5 +1,6 @@
 const{validationResult} = require('express-validator'); 
 const ModeloPedidos = require('../modelos/modeloPedido');
+const MSJ = require('../componentes/mensaje');
 
 //MODULO A CARGO DE - DAVID ALEJANDRO SALGADO ZELAYA
 
@@ -62,7 +63,6 @@ exports.Inicio = async (req, res) =>{
         listaModulos
     };
     msj.datos=datos;
-    msjRes(res, 200, msj);
 };
 
 exports.listarPedidos = async (req, res) => {

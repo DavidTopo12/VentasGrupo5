@@ -3,6 +3,7 @@ const ModeloVentas = require('../modelos/modeloVentas');
 const Modelocai = require('../modelos/modelocai');
 const Modelocliente = require('../modelos/modeloclientes');
 const Modeloestacion = require('../modelos/modeloestacion');
+const MSJ = require('../componentes/mensaje');
 
 //MODELO/ CONTROLADOR VENTAS - TRABAJO EN EQUIPO, ESTRUCTURA PRINCIPAL, GUIA PARA OTROS MODELOS
 
@@ -82,7 +83,6 @@ exports.Inicio = async (req, res) =>{
         listaModulos
     };
     msj.datos=datos;
-    msjRes(res, 200, msj);
 };
 
 exports.listarventas = async (req, res) => {

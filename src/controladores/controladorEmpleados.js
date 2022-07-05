@@ -1,5 +1,6 @@
 const{validationResult} = require('express-validator'); 
 const ModeloEmpleados = require('../modelos/modeloEmpleados');
+const MSJ = require('../componentes/mensaje');
 
 //ENCARGADO - DAVID ALEJANDRO SALGADO ZELAYA
 

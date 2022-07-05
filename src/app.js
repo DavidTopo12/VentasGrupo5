@@ -9,7 +9,7 @@ app.set('port',3002);
 app.use(morgan('dev'));
 app.use(express.urlencoded({extended:false}));
 app.use(express.json());
-app.use('/api/autenticacion', require('./rutas/rutaAutenticacion'));
+app.use('/api/', require('./rutas'));
 app.use('/api/ventas', require('./rutas/rutaVentas'));
 app.use('/api/detalleventas', require('./rutas/rutaDetalleVentas'));
 app.use('/api/exentas', require('./rutas/rutaVentasExentas'));

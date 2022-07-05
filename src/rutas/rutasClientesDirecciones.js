@@ -17,7 +17,7 @@ notEmpty().withMessage('No se aceptan campos vacios')
 controladorClienteDireccion.Agregar);
 
 
-rutas.put('/agregar',
+rutas.put('/editar',
 query('idClienteDireccion')
 .notEmpty().withMessage('No se aceptan valores vacios')
 .isInt().withMessage('El id del cai debe ser un entero'),

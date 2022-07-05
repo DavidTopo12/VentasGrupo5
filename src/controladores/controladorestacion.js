@@ -1,6 +1,7 @@
 //Santos Romero
 const{validationResult} = require('express-validator'); 
 const Modeloestacion = require('../modelos/modeloestacion');
+const MSJ = require('../componentes/mensaje');
 function validar(req) {
     const validaciones = validationResult(req);
     var errores = [];
@@ -32,7 +33,7 @@ exports.listarestaciones = async (req, res) => {
         const listarestaciones = await Modeloestacion.findAll();
 
         if (listarestaciones.length == 0) {
-            res.send("No hay ventas Registradas");
+            res.send("No hay estaciones Registradas");
         }
         else {
             res.json(listarestaciones);
@@ -81,5 +82,4 @@ exports.listarestaciones = async (req, res) => {
             listaModulos
         };
         msj.datos=datos;
-        msjRes(res, 200, msj);
     };

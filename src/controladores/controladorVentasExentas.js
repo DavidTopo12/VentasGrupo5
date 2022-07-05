@@ -3,6 +3,7 @@ const { validationResult } = require('express-validator');
 //instanciar el modelo ventasexentas
 const ModeloVentasExentas = require('../modelos/modeloVentaExentas');
 const ModeloVentas = require('../modelos/modeloVentas');
+const MSJ = require('../componentes/mensaje');
 //MODELO/ CONTROLADOR VENTA- ESTRUCTURA PRINCIPAL,
 //VALIDAR
 function validar(req) {
@@ -72,7 +73,6 @@ exports.Inicio = async (req, res) =>{
         listaModulos
     };
     msj.datos=datos;
-    msjRes(res, 200, msj);
 };
 //crear la funcion de lista de todos los registros de la tabla 
 exports.listarventasexentas = async (req, res) => {

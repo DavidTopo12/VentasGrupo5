@@ -1,6 +1,7 @@
 const { validationResult } = require('express-validator');
 const Usuario = require('../modelos/modeloUsuarios');
 const Empleado = require('../modelos/modeloEmpleados');
+const MSJ = require('../componentes/mensaje');
 const { Op } = require('sequelize');
 // falta usar este const msjRes = require('../../componentes/mensaje');
 //const EnviarCorreo = require('../../configuraciones/correo');
@@ -88,12 +89,12 @@ exports.Inicio = async (req, res)=>{
         listaModulos
     };
     msj.datos=datos;
-    msjRes(res, 200, msj);
+    MSJ(res, 200, msj);
 };
 exports.Pin = async (req, res) =>{
     var msj = validacion(req);
     if(msj.errores.length>0){
-        msjRes(res, 200, msj);
+        MSJ(res, 200, msj);
     }
     else{
         const { correo } = req.body;
@@ -111,7 +112,7 @@ exports.Pin = async (req, res) =>{
                     parametro: "correo"
                 },
             ];
-            msjRes(res, 200, msj);
+            MSJ(res, 200, msj);
         }
         else{
             const pin = gpc(4);
@@ -124,14 +125,14 @@ exports.Pin = async (req, res) =>{
             EnviarCorreo.RecuperarContrasena(data);
             msj.estado= 'correcto';
             msj.mensaje= 'Peticion ejecutada correctamente';
-            msjRes(res, 200, msj);
+            MSJ(res, 200, msj);
         }
     }
 };
 exports.Recuperar = async (req, res) =>{
     var msj = validacion(req);
     if(msj.errores.length>0){
-        msjRes(res, 200, msj);
+        MSJ(res, 200, msj);
     }
     else{
         const { usuario } = req.query;
@@ -153,7 +154,7 @@ exports.Recuperar = async (req, res) =>{
                     parametro: "usuario"
                 },
             ];
-            msjRes(res, 200, msj);
+            MSJ(res, 200, msj);
         }
         else{
             if(pin==buscarUsuario.pin){
@@ -165,7 +166,7 @@ exports.Recuperar = async (req, res) =>{
                         parametro: "pin"
                     },
                 ];
-                msjRes(res, 200, msj);
+                MSJ(res, 200, msj);
             }
             else{
                 buscarUsuario.contrasena=contrasena;
@@ -175,13 +176,13 @@ exports.Recuperar = async (req, res) =>{
                 .then((data) => {
                     msj.estado= 'correcto';
                 msj.mensaje= 'Peticion ejecutada correctamente';
-                msjRes(res, 200, msj);
+                MSJ(res, 200, msj);
                 })
                 .catch((error)=>{
                     msj.estado= 'error';
                     msj.mensaje= 'Peticion no ejecutada';
                     msj.errores=error;
-                    msjRes(res, 500, msj);
+                    MSJ(res, 500, msj);
                 });
             }
         }
@@ -203,13 +204,13 @@ exports.Error = async (req, res) =>{
             parametro: "autenticacion"
         },
     ];
-    msjRes(res, 200, msj);
+    MSJ(res, 200, msj);
 };
 
 exports.InicioSesion = async (req, res) =>{
     var msj = validacion(req);
     if(msj.errores.length>0){
-        msjRes(res, 200, msj);
+        MSJ(res, 200, msj);
     }
     else{
         const { usuario, contrasena } = req.body;
@@ -236,7 +237,7 @@ exports.InicioSesion = async (req, res) =>{
                     parametro: "usuario"
                 },
             ];
-            msjRes(res, 200, msj);
+            MSJ(res, 200, msj);
         }
         else{
             const token = passport.getToken({id:buscarUsuario.id});
@@ -252,7 +253,7 @@ exports.InicioSesion = async (req, res) =>{
             msj.estado= 'correcto';
             msj.mensaje= 'Peticion ejecutada correctamente';
             msj.datos= data;
-            msjRes(res, 200, msj);
+            MSJ(res, 200, msj);
             
         }
     }

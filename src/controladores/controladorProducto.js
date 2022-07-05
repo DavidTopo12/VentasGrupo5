@@ -1,5 +1,6 @@
 const{validationResult} = require('express-validator'); 
 const ModeloProducto = require('../modelos/modeloProducto');
+const MSJ = require('../componentes/mensaje');
 //ENCARGADO - DAVID ALEJANDRO SALGADO ZELAYA
 
 
@@ -34,7 +35,6 @@ exports.Inicio = async (req, res) =>{
         listaModulos
     };
     msj.datos=datos;
-    msjRes(res, 200, msj);
 };
 
 function validar(req) {
@@ -78,7 +78,7 @@ exports.listarProductos = async (req, res) => {
         const listarproductos = await ModeloProducto.findAll();
 
         if (listarproductos.length == 0) {
-            res.send("No hay empleados Registrados");
+            res.send("No hay productos Registrados");
         }
         else {
             res.json(listarproductos);

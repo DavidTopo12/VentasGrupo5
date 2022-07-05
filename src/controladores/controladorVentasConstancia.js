@@ -1,6 +1,7 @@
 const { validationResult } = require('express-validator');
 const ModeloVentasConstancia = require('../modelos/modeloVentasConstancia');
 const ModeloVentas = require('../modelos/modeloVentas');
+const MSJ = require('../componentes/mensaje');
 
 //controlador constancia, modelo - Idalia Flores 
 
@@ -72,7 +73,6 @@ exports.Inicio = async (req, res) =>{
         listaModulos
     };
     msj.datos=datos;
-    msjRes(res, 200, msj);
 };
 
 exports.Listar = async (req, res) => {

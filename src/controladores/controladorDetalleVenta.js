@@ -3,6 +3,7 @@ const { validationResult } = require('express-validator');
 const ModeloDetalleVenta = require('../modelos/modeloDetalleVenta');
 const ModeloVentas = require('../modelos/modeloVentas');
 const ModeloProducto = require('../modelos/modeloProducto');
+const MSJ = require('../componentes/mensaje');
 
 exports.Inicio= async(req, res) =>{
     var msj= validar(req);
@@ -48,7 +49,6 @@ exports.Inicio= async(req, res) =>{
         listaModulos
     };
     msj.datos=datos;
-    msjRes(res, 200, msj);
 };
 
 //VALIDAR

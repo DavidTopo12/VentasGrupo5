@@ -1,7 +1,7 @@
 const { validationResult } = require('express-validator');
 exports.Inicio = (req, res)=>{
     const listaModulos = [
-        { modulo: "Cai", ruta: "/api/empleados"},
+        { modulo: "Cai", ruta: "/api/cai"},
         { modulo: "Clientes", ruta: "/api/cargos"},
         { modulo: "Clientes Direcciones", ruta: "/api/clientesdir"},
         { modulo: "Detalle Pedidos", ruta: "/api/detallepedidos"},
@@ -11,7 +11,6 @@ exports.Inicio = (req, res)=>{
         { modulo: "Pedidos", ruta: "/api/pedidos"},
         { modulo: "Pos", ruta: "/api/rutapos"},
         { modulo: "Productos", ruta: "/api/productos"},
-        { modulo: "Usuario Clientes", ruta: "/api/autenticacion"},
         { modulo: "Usuarios", ruta: "/api/usuarios"},
         { modulo: "Ventas", ruta: "/api/ventas"},
         { modulo: "Ventas Anuladas", ruta: "/api/anuladas"},

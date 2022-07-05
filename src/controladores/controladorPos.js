@@ -1,5 +1,6 @@
 const{validationResult} = require('express-validator'); 
 const ModeloPos = require('../modelos/modeloPos');
+const MSJ = require('../componentes/mensaje');
 
 //MODULO A CARGO DE: JOSUE MEJIA
 function validar(req) {
@@ -68,7 +69,6 @@ exports.Inicio = async (req, res)=>{
         listaModulos
     };
     msj.datos=datos;
-    msjRes(res, 200, msj);
 };
 
 exports.listarpos = async (req, res) => {

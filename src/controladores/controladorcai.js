@@ -1,5 +1,6 @@
 const { validationResult } = require('express-validator');
 const Modelocai = require('../modelos/modelocai');
+const MSJ = require('../componentes/mensaje');
 
 // MODULO A CARGO DE - IDALIA ELIZABETH FLORES VASQUEZ
 
@@ -95,7 +96,6 @@ exports.Inicio = async (req, res) => {
         listaModulos
     };
     msj.datos = datos;
-    msjRes(res, 200, msj);
 };
 
 exports.Listar = async (req, res) => {
@@ -152,7 +152,7 @@ exports.Agregar = async (req, res) => {
         }
     }
 
-    res.json(msj);
+   // res.json(msj);
 };
 
 exports.Editar = async (req, res) => {

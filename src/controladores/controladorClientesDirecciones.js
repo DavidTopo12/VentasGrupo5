@@ -1,6 +1,7 @@
 const { validationResult } = require('express-validator');
 const ModeloClienteDireccion = require('../modelos/modeloClientesDirecciones');
 const Cliente = require('../modelos/modeloclientes');
+const MSJ = require('../componentes/mensaje');
 
 //MODULO A CARGO DE - DAVID ALEJANDRO SALGADO ZELAYA
 
@@ -63,7 +64,6 @@ exports.Inicio = async (req, res) => {
         listaModulos
     };
     msj.datos = datos;
-    msjRes(res, 200, msj);
 };
 
 exports.listarclientedireccion = async (req, res) => {
@@ -145,7 +145,7 @@ exports.Agregar = async (req, res) => {
         }
     }
 
-    res.json(msj);
+    //res.json(msj);
 };
 
 
@@ -227,7 +227,7 @@ exports.Editar = async (req, res) => {
 
         }
     }
-    res.json(msj);
+    //res.json(msj);
 };
 
 
@@ -277,7 +277,7 @@ exports.Eliminar = async (req, res) => {
 
         }
     }
-    res.json(msj);
+   // res.json(msj);
 };
 
 

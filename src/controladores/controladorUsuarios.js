@@ -1,5 +1,6 @@
 const { validationResult } = require('express-validator');
 const ModeloUsuarios = require('../modelos/modeloUsuarios');
+const MSJ = require('../componentes/mensaje');
 
 //MODULO A CARGO DE: IDALIA ELIZABETH FLORES VASQUEZ
 function validar(req) {
@@ -61,7 +62,6 @@ exports.Inicio = async (req, res) =>{
         listaModulos
     };
     msj.datos=datos;
-    msjRes(res, 200, msj);
 }
 
 exports.Listar = async (req, res) => {

@@ -1,5 +1,6 @@
 const{validationResult} = require('express-validator'); 
 const ModeloVentasAnuladas = require('../modelos/modeloVentasAnuladas');
+const MSJ = require('../componentes/mensaje');
 //ENCARGADO - DAVID ALEJANDRO SALGADO ZELAYA
 
 function validar(req) {
@@ -71,7 +72,6 @@ exports.Inicio = async (req, res) =>{
         listaModulos
     };
     msj.datos=datos;
-    msjRes(res, 200, msj);
 };
 
 
