@@ -1,8 +1,5 @@
 const { DataTypes } = require('sequelize');
 const bd = require('../configuraciones/bd');
-const Cliente = require('./modeloclientes');
-const Estacion = require('./modeloestacion');
-const Cai = require('./modelocai');
 const Ventas = bd.define(
     'ventas',
     {
@@ -10,7 +7,7 @@ const Ventas = bd.define(
             type:  DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true,
-            allowNull: false //validar los que estan false 
+            allowNull: false 
         },
         NumeroFactura:{
             type: DataTypes.INTEGER,
@@ -21,7 +18,7 @@ const Ventas = bd.define(
             allowNull: false,
             
         },
-        idCliente: {
+        idcliente: {
             type: DataTypes.INTEGER,
             allowNull: false
         },
@@ -62,19 +59,19 @@ const Ventas = bd.define(
             type: DataTypes.INTEGER,
             allowNull: true
         },
-        Estacion:{
+        estacion:{
             type: DataTypes.INTEGER,
             allowNull: true
         },
         fechahoraini:{
             type: DataTypes.DATE,
             allowNull: true,
-            defaultValue: true
+            defaultValue: null
         },
         fechahora:{
             type: DataTypes.DATE,
             allowNull: true,
-            defaultValue: true
+            defaultValue: null
         },
         propina:{
             type: DataTypes.DOUBLE,
@@ -108,28 +105,4 @@ const Ventas = bd.define(
     timestamps: false,
 }
 );
-Cai.hasMany(Ventas,{
-    foreignKey: 'idcai',
-    otherKey: 'idregistro'
-}); 
-Ventas.belongsTo(Cai,{
-    foreignKey: 'idcai',
-    otherKey: 'idregistro'
-});
-Cliente.hasMany(Ventas,{
-    foreignKey: 'idCliente',
-    otherKey: 'idregistro'
-}); 
-Ventas.belongsTo(Cliente,{
-    foreignKey: 'idCliente',
-    otherKey: 'idregistro'
-});
-Estacion.hasMany(Ventas,{
-    foreignKey: 'Estacion',
-    otherKey: 'NumeroEstacion'
-}); 
-Ventas.belongsTo(Estacion,{
-    foreignKey: 'Estacion',
-    otherKey: 'NumeroEstacion'
-});
 module.exports = Ventas;

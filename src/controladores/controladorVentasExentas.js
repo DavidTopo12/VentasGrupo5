@@ -31,40 +31,54 @@ function validar(req) {
     return msj;
 };
 //Inicio
-exports.Inicio = async (req, res) =>{
+exports.Inicio = async (req, res) => {
     var msj = validar(req);
     const listaModulos = [
         {
-           modulo:"VentasExentas",
-           rutas: [
-            {
-                ruta: "/api/exentas/",
-                metodo: "get",
-                parametros: "",
-                descripcion: "Inicio del módulo de ventas exentas"
-            },
-            {
-                ruta: "/api/exentas/listar",
-                metodo: "get",
-                parametros: "",
-                descripcion: "Lista todos los ventas exentas"
-            },
-            {
-                ruta: "/api/exentas/agregar",
-                metodo: "post",
-                parametros: {
-                  numfactura: "Numero de Factura. Obligatorio",
-                  numorden: "Numero de Orden. Obligatorio",
-                  
+            modulo: "VentasExentas",
+            rutas: [
+                {
+                    ruta: "/api/exentas/",
+                    metodo: "get",
+                    parametros: "",
+                    descripcion: "Inicio del módulo de ventas exentas"
                 },
-                descripcion: "Guarda los datos de las ventas exentas"
-              }    
-           ]
+                {
+                    ruta: "/api/exentas/listar",
+                    metodo: "get",
+                    parametros: "",
+                    descripcion: "Lista todos los ventas exentas"
+                },
+                {
+                    ruta: "/api/exentas/agregar",
+                    metodo: "post",
+                    parametros: {
+                        numfactura: "Numero de Factura. Obligatorio",
+                        numorden: "Numero de Orden. Obligatorio",
+
+                    },
+                    descripcion: "Guarda los datos de las ventas exentas"
+                }
+            ]
         }
     ];
+<<<<<<< HEAD
 }
 //inicio de la creacion
 
+=======
+    const datos = {
+        api: "API-VENTAS",
+        descripcion: "Interfaz de progamación para el sistema de gestion de restaurantes",
+        propiedad: "DESOFIW",
+        desarrolladores: "",
+        colaboradores: "",
+        fecha: "5/07/2022",
+        listaModulos
+    };
+    msj.datos = datos;
+};
+>>>>>>> 1402a348cd5582bd79691ef0bde61f700f7396ac
 //crear la funcion de lista de todos los registros de la tabla 
 exports.listarventasexentas = async (req, res) => {
     try {
@@ -87,48 +101,27 @@ exports.Agregar = async (req, res) => {
     }
     else {
         const { numfactura, numorden } = req.body;
+
+
         try {
-            var buscarfactura = await ModeloVentas.findOne({
-                where: {
-                    NumeroFactura: numfactura
+            await ModeloVentasExentas.create(
+                {
+                    numero_factura: numfactura,
+                    numero_orden: numorden
                 }
-            });
-            if (!buscarfactura) {
-                msj.estado = 'precuacion';
-                msj.mensaje = 'la peticion no se ejecuto';
-                msj.errores = {
-                    mensaje: 'El numero de factura no existe o no esta vinculado a ninguna venta',
-                    parametro: 'numerofactura'
-                };
-                MSJ(res, 200, msj);
-            }
-            else {
-                try {
-                    await ModeloVentasExentas.create(
-                        {
-                            numero_factura: numfactura,
-                            numero_orden: numorden
-                        }
-                    )
-                    msj.estado = 'correcto',
-                        msj.mensaje = 'Peticion ejecutada correctamente',
-                        msj.datos = '',
-                        msj.errores = ''
-                    MSJ(res, 200, msj);
-                } catch (error) {
-                    msj.estado = 'precuacion';
-                    msj.mensaje = 'la peticion no se ejecuto';
-                    msj.errores = error;
-                    MSJ(res, 500, msj);
-                }
-            }
-        }
-        catch (error) {
+            )
+            msj.estado = 'correcto',
+                msj.mensaje = 'Peticion ejecutada correctamente',
+                msj.datos = '',
+                msj.errores = ''
+            MSJ(res, 200, msj);
+        } catch (error) {
             msj.estado = 'precuacion';
             msj.mensaje = 'la peticion no se ejecuto';
             msj.errores = error;
             MSJ(res, 500, msj);
         }
+
     }
-    res.json(msj);
+    //res.json(msj);
 };

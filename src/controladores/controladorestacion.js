@@ -39,14 +39,8 @@ exports.listarestaciones = async (req, res) => {
         }
 
     } catch (error) {
-        msj.estado = 'precuacion';
-        msj.mensaje = 'la peticion no se ejecuto';
-        msj.errores = {
-            mensaje: 'La estacion no existe o no esta vinculada',
-        };
-
-        MSJ(res, 200, msj);
-
+        console.error(error);
+        res.json(error);
     }
 };
    

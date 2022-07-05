@@ -21,7 +21,7 @@ const ClientesDirecciones = bd.define(
         creada:{
             type: DataTypes. DATE,
             allowNull: true,
-            defaultValue: true
+            defaultValue: null
         }
 },
 {
@@ -29,14 +29,5 @@ const ClientesDirecciones = bd.define(
     timestamps: false,
 }
 );
-
-cliente.hasMany(ClientesDirecciones,{
-    foreignKey: 'idcliente',
-    otherKey: 'idregistro'
-}); 
-ClientesDirecciones.belongsTo(cliente,{
-    foreignKey: 'idcliente',
-    otherKey: 'idregistro'
-});
 
 module.exports = ClientesDirecciones;
