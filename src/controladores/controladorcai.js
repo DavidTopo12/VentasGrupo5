@@ -178,7 +178,7 @@ exports.Editar = async (req, res) => {
                 msj.mensaje = 'la peticion no se ejecuto';
                 msj.errores = {
                     mensaje: 'El Cai no existe o no esta vinculado a ninguna venta',
-                    parametro: 'cai'
+                    parametro: 'idCai'
                 };
 
                 MSJ(res, 200, msj);
@@ -219,7 +219,7 @@ exports.Editar = async (req, res) => {
 
         }
     }
-    res.json(msj);
+   // res.json(msj);
 };
 
 exports.Eliminar = async (req, res) => {
@@ -243,7 +243,7 @@ exports.Eliminar = async (req, res) => {
                 msj.mensaje = 'la peticion no se ejecuto';
                 msj.errores = {
                     mensaje: 'El Cai no existe o no esta vinculado a ninguna venta',
-                    parametro: 'cai'
+                    parametro: 'idCai'
                 };
 
                 MSJ(res, 200, msj);
@@ -267,5 +267,5 @@ exports.Eliminar = async (req, res) => {
             MSJ(res, 500, msj);
         }
     }
-    res.json(msj);
+    //res.json(msj);
 }; 

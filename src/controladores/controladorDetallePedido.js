@@ -1,4 +1,4 @@
-const{validationResult} = require('express-validator'); 
+const { validationResult } = require('express-validator');
 const ModeloDetallePedido = require('../modelos/modeloDetallePedido');
 const MSJ = require('../componentes/mensaje');
 
@@ -32,25 +32,25 @@ function validar(req) {
     return msj;
 };
 
-exports.Inicio = async (req, res) =>{
+exports.Inicio = async (req, res) => {
     var msj = validar(req);
     const listaModulos = [
         {
-           modulo:"Detalle Pedidos",
-           rutas: [
-            {
-                ruta: "/api/detallepedidos",
-                metodo: "get",
-                parametros: "",
-                descripcion: "Inicio del módulo de Detalle Pedidos"
-            },
-            {
-                ruta: "/api/detallepedidos/listar",
-                metodo: "get",
-                parametros: "",
-                descripcion: "Lista todos los detalles pedidos"
-            } 
-           ]
+            modulo: "Detalle Pedidos",
+            rutas: [
+                {
+                    ruta: "/api/detallepedidos",
+                    metodo: "get",
+                    parametros: "",
+                    descripcion: "Inicio del módulo de Detalle Pedidos"
+                },
+                {
+                    ruta: "/api/detallepedidos/listar",
+                    metodo: "get",
+                    parametros: "",
+                    descripcion: "Lista todos los detalles pedidos"
+                }
+            ]
         }
     ];
     const datos = {
@@ -62,10 +62,11 @@ exports.Inicio = async (req, res) =>{
         fecha: "5/07/2022",
         listaModulos
     };
-    msj.datos=datos;
+    msj.datos = datos;
 };
 
 exports.listardetallepedidos = async (req, res) => {
+
 
     try {
         const listardetallepedido = await ModeloDetallePedido.findAll();
@@ -78,13 +79,11 @@ exports.listardetallepedidos = async (req, res) => {
         }
 
     } catch (error) {
-        msj.estado ='precaucion';
-        msj.mensaje = 'la peticion no se ejecutó';
-        msj.errores = {
-            mensaje: "el detalle de pedidos no existe o no está vinculado"
-        };
+        console.error(error);
+        res.json(error);
 
-        MSJ(res, 500, msj);
 
     }
+
+
 };

@@ -37,40 +37,40 @@ function validar(req) {
 };
 
 //MENSAJE DE INICIO
-exports.Inicio = async (req, res) =>{
+exports.Inicio = async (req, res) => {
     var msj = validar(req);
     const listaModulos = [
         {
-           modulo:"Ventas",
-           rutas: [
-            {
-                ruta: "/api/ventas/",
-                metodo: "get",
-                parametros: "",
-                descripcion: "Inicio del módulo de ventas"
-            },
-            {
-                ruta: "/api/ventas/listar",
-                metodo: "get",
-                parametros: "",
-                descripcion: "Lista todos los ventas"
-            },
-            {
-                ruta: "/api/ventas/agregar",
-                metodo: "post",
-                parametros: {
-                  num_fact: "Numero de Factura. Obligatorio",
-                  cai: "ID Cai existente en la tabla de CAI. Obligatorio.",
-                  cliente: "ID Cliente existente en la tabla de clientes. Obligatorio.",
-                  tarjeta: "Monto de Pago en Tarjeta. Obligatorio.",
-                  efectivo: "Monton de pago efectivo.Obligatorio",
-                  usu: "Usuario, campo INT.Obligatorio",
-                  estacion: "Numero del ID de la estacion existente en la tabla estaciones.Obligatorio",
-                  mesero: "Numero del Mesero que le atendió.Obligatorio"
+            modulo: "Ventas",
+            rutas: [
+                {
+                    ruta: "/api/ventas/",
+                    metodo: "get",
+                    parametros: "",
+                    descripcion: "Inicio del módulo de ventas"
                 },
-                descripcion: "Guarda los datos de las ventas"
-              }    
-           ]
+                {
+                    ruta: "/api/ventas/listar",
+                    metodo: "get",
+                    parametros: "",
+                    descripcion: "Lista todos los ventas"
+                },
+                {
+                    ruta: "/api/ventas/agregar",
+                    metodo: "post",
+                    parametros: {
+                        num_fact: "Numero de Factura. Obligatorio",
+                        cai: "ID Cai existente en la tabla de CAI. Obligatorio.",
+                        cliente: "ID Cliente existente en la tabla de clientes. Obligatorio.",
+                        tarjeta: "Monto de Pago en Tarjeta. Obligatorio.",
+                        efectivo: "Monton de pago efectivo.Obligatorio",
+                        usu: "Usuario, campo INT.Obligatorio",
+                        estacion: "Numero del ID de la estacion existente en la tabla estaciones.Obligatorio",
+                        mesero: "Numero del Mesero que le atendió.Obligatorio"
+                    },
+                    descripcion: "Guarda los datos de las ventas"
+                }
+            ]
         }
     ];
     const datos = {
@@ -82,7 +82,7 @@ exports.Inicio = async (req, res) =>{
         fecha: "5/07/2022",
         listaModulos
     };
-    msj.datos=datos;
+    msj.datos = datos;
 };
 
 exports.listarventas = async (req, res) => {
@@ -112,101 +112,32 @@ exports.Agregar = async (req, res) => {
     }
     else {
         const { num_fact, cai, cliente, tarjeta, efectivo, usu, estacion, mesero } = req.body;
+
         try {
-            var buscarcai = await Modelocai.findOne({
-                where: {
-                    idregistro: cai,
-                    activo: 1
+            await ModeloVentas.create(
+                {
+                    NumeroFactura: num_fact,
+                    idcai: cai,
+                    idcliente: cliente,
+                    Usu: usu,
+                    TEfectivo: efectivo,
+                    TTarjeta: tarjeta,
+                    Mesero: mesero,
+                    estacion: estacion
                 }
-            });
-
-            if (!buscarcai) {
-                msj.estado = 'precuacion';
-                msj.mensaje = 'la peticion no se ejecuto';
-                msj.errores = {
-                    mensaje: 'El Cai no existe o no esta vinculado a ninguna venta',
-                    parametro: 'cai'
-                };
-
-                MSJ(res, 200, msj);
-            }
-
-            else {
-                var buscarcliente = await Modelocliente.findOne({
-                    where: {
-                        idregistro: cliente
-
-                    }
-                });
-
-                if (!buscarcliente) {
-                    msj.estado = 'precuacion';
-                    msj.mensaje = 'la peticion no se ejecuto';
-                    msj.errores = {
-                        mensaje: 'El cliente no existe o no esta vinculado a ningun venta',
-                        parametro: 'cliente'
-                    };
-
-                    MSJ(res, 200, msj);
-                }
-                else {
-                    var buscarestacion = await Modeloestacion.findOne({
-                        where: {
-                            NumeroEstacion: estacion
-
-                        }
-                    });
-
-                    if (!buscarestacion) {
-                        msj.estado = 'precuacion';
-                        msj.mensaje = 'la peticion no se ejecuto';
-                        msj.errores = {
-                            mensaje: 'El estacion no existe o no esta vinculado a ningun venta',
-                            parametro: 'estacion'
-                        };
-
-                        MSJ(res, 200, msj);
-                    }
-                    else {
-                        try {
-                            await ModeloVentas.create(
-                                {
-                                    NumeroFactura: num_fact,
-                                    idcai: cai,
-                                    idCliente: cliente,
-                                    TTarjeta: tarjeta,
-                                    TEfectivo: efectivo,
-                                    Usu: usu,
-                                    Estacion: estacion,
-                                    Mesero: mesero
-                                }
-                            )
-                                msj.estado = 'correcto',
-                                msj.mensaje = 'Peticion ejecutada correctamente',
-                                msj.datos = '',
-                                msj.errores = ''
-                            MSJ(res, 200, msj);
-
-                        } catch (error) {
-                            msj.estado = 'precuacion';
-                            msj.mensaje = 'la peticion no se ejecuto';
-                            msj.errores = error;
-                            MSJ(res, 500, msj);
-
-                        }
-                    }
-                }
-            }
+            )
+            msj.estado = 'correcto',
+                msj.mensaje = 'Peticion ejecutada correctamente',
+                msj.datos = '',
+                msj.errores = ''
+            MSJ(res, 200, msj);
 
         } catch (error) {
             msj.estado = 'precuacion';
             msj.mensaje = 'la peticion no se ejecuto';
             msj.errores = error;
             MSJ(res, 500, msj);
+
         }
-
-
     }
-
-    res.json(msj);
 };

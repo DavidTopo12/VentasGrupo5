@@ -81,53 +81,8 @@ exports.listarempleados = async (req, res) => {
         }
 
     } catch (error) {
-        msj.estado ='precaucion';
-        msj.mensaje = 'la peticion no se ejecutó';
-        msj.errores = {
-            mensaje: "el Empleado no existe o no está vinculado"
-        };
-
-        MSJ(res, 500, msj);
+        console.error(error);
+        res.json(error);
 
     }
 };
-
-
-
-
-
-/*exports.Agregar = async (req, res) => {
-   
-    const validaciones =  validationResult(req);
-    console.log(validaciones.errors);
-    const msj = {
-        mensaje: ''
-    };
-    if(validaciones.errors.length>0){
-        validaciones.errors.forEach(element => {
-            msj.mensaje+=element.msg;
-        });
-
-    }
-    else{
-        const { numid, nomemp, ApeEmp, cargEmp, fecha_ingreso} = req.body;
-      
-        try {
-              await ModeloEmpleados.create(
-                {
-                   NumeroIdentidad: numid,
-                   NombreEmpleado: nomemp,
-                   ApellidoEmpleado: ApeEmp,
-                   CargoEmpleado: cargEmp,
-                   FechaIngreso: fecha_ingreso
-                }
-              )
-            msj.mensaje='Registro almacenado';
-        } catch (error) {
-            msj.mensaje='Error al agregar los datos'
-            
-        }
-    }
-    
-    res.json(msj);
-};*/

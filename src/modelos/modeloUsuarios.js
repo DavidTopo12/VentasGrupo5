@@ -64,12 +64,4 @@ const Usuario = db.define(
         timestamps: false,
     }
 );
-Empleados.hasMany(Usuario,{
-    foreignKey: 'idempleado',
-    otherKey: 'idregistro'
-}); 
-Usuario.belongsTo(Empleados,{
-    foreignKey: 'idempleado',
-    otherKey: 'idregistro'
-});
 module.exports = Usuario;

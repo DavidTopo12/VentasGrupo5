@@ -50,21 +50,5 @@ const Ventas_Pos = bd.define(
     timestamps: false,
 }
 );
-Ventas.hasMany(Ventas_Pos,{
-    foreignKey: 'idventa',
-    otherKey: 'idregistro'
-}); 
-Ventas_Pos.belongsTo(Ventas,{
-    foreignKey: 'idventa',
-    otherKey: 'idregistro'
-});
-Pos.hasMany(Ventas_Pos,{
-    foreignKey: 'idpos',
-    otherKey: 'idregistro'
-}); 
-Ventas_Pos.belongsTo(Pos,{
-    foreignKey: 'idpos',
-    otherKey: 'idregistro'
-});
 
 module.exports = Ventas_Pos;

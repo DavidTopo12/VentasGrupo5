@@ -33,22 +33,6 @@ const Ventas_Anuladas = bd.define(
     timestamps: false,
 }
 );
-Usuario.hasMany(Ventas_Anuladas,{
-    foreignKey: 'idusuario',
-    otherKey: 'idregistro'
-}); 
-Ventas_Anuladas.belongsTo(Usuario,{
-    foreignKey: 'idusuario',
-    otherKey: 'idregistro'
-});
 
-Venta.hasMany(Ventas_Anuladas,{
-    foreignKey: 'idventa',
-    otherKey: 'idregistro'
-}); 
-Ventas_Anuladas.belongsTo(Venta,{
-    foreignKey: 'idventa',
-    otherKey: 'idregistro'
-});
 
 module.exports = Ventas_Anuladas;

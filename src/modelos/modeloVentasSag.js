@@ -21,10 +21,4 @@ const Ventas_Sag = bd.define(
     timestamps: false,
 }
 );
-Numero_Factura.hasMany(Ventas_Sag,{
-    foreignKey: 'numero_factura'
-}); 
-Ventas_Sag.belongsTo(Numero_Factura,{
-    foreignKey: 'numero_factura'
-});
 module.exports = Ventas_Sag;
