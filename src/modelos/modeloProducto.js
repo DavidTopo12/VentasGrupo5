@@ -109,5 +109,4 @@ const Productos = bd.define(
     timestamps: false,
 }
 );
-//preguntar llave foranea
 module.exports = Productos;

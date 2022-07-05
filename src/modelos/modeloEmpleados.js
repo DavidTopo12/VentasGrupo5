@@ -45,6 +45,6 @@ const Empleados = bd.define(
 {
     tableName: 'empleados',
     timestamps: false,
-}//pregunta llave foranea 
+}
 );
 module.exports = Empleados;

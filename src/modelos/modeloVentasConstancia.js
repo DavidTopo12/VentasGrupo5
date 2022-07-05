@@ -22,9 +22,11 @@ const Ventas_Constancia = bd.define(
 }
 );
 Factura.hasMany(Ventas_Constancia,{
-    foreignKey: 'numero_factura'
+    foreignKey: 'numero_factura',
+    otherKey: 'idregistro'
 }); 
 Ventas_Constancia.belongsTo(Factura,{
-    foreignKey: 'numero_factura'
+    foreignKey: 'numero_factura',
+    otherKey: 'idregistro'
 });
 module.exports = Ventas_Constancia;

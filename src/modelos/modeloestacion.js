@@ -29,11 +29,6 @@ const Estacion = bd.define(
             allowNull: true,
             defaultValue: 0
         },
-        tecladovirtual:{
-            type: DataTypes.TINYINT,
-            allowNull: true,
-            defaultValue: 0
-        },
         nombretipo:{
             type: DataTypes.TINYINT(1),
             allowNull: true,
