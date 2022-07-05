@@ -1,3 +1,4 @@
+//Lesnin Ramírez
 const { DataTypes } = require('sequelize');
 const bd = require('../configuraciones/bd');
 const Ventas = require('./modeloVentas');

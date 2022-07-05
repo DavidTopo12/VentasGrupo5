@@ -1,7 +1,44 @@
+//Lesnin Ramírez
 const { validationResult } = require('express-validator');
 const ModeloDetalleVenta = require('../modelos/modeloDetalleVenta');
 const ModeloVentas = require('../modelos/modeloVentas');
 const ModeloProducto = require('../modelos/modeloProducto');
+
+exports.Inicio= async(req, res) =>{
+    var msj= validar(req);
+    const listarModulos=[
+        {
+            modulo: "Ventas",
+            rutas: [
+                {
+                    ruta: "/api/detalleventas",
+                    metodo: "get",
+                    parametros: "",
+                    descripcion: "Inicio del Modulo de Ventas"
+                },
+
+                {
+                    ruta: "/api/detalleventas/listar",
+                    metodo: "get",
+                    parametros: "",
+                    descripcion: "Listar Detalle Ventas"
+                },
+
+                {
+                    ruta: "/api/detalleventas/guardar",
+                    metodo: "post",
+                    parametros: {
+                        numfact: "Numero de Factura, Campo de Tipo Int. Obligatorio", 
+                        codpro: "Codigo de Producto, Campo de Tipo String. Obligatorio",
+                        cantidad: "Cantidad, Campo de Tipo Double. Obligatorio", 
+                        prec : "Precio de la Venta, Campo de Tipo Double. Obligatorio"
+                    },
+                    descripcion: "Guardar los Datos de Detalle Ventas"
+                }  
+            ]
+        }
+    ]
+}
 
 //VALIDAR
 function validar(req) {
@@ -45,8 +82,10 @@ exports.listardetalle = async (req, res) => {
         }
 
     } catch (error) {
-        console.error(error);
-        res.json(error);
+        msj.estado = 'precuacion';
+            msj.mensaje = 'la peticion no se ejecuto';
+            msj.errores = error;
+            MSJ(res, 500, msj);
 
     }
 };
