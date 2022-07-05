@@ -43,7 +43,7 @@ const Detalle_Pedido = bd.define(
             allowNull: true,
             
         },
-        Factura:{
+        Facturado:{
             type: DataTypes.TINYINT,
             allowNull: true,
             
