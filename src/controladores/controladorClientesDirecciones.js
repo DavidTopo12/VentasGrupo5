@@ -1,5 +1,6 @@
-const{validationResult} = require('express-validator'); 
+const { validationResult } = require('express-validator');
 const ModeloClienteDireccion = require('../modelos/modeloClientesDirecciones');
+const Cliente = require('../modelos/modeloclientes');
 
 //MODULO A CARGO DE - DAVID ALEJANDRO SALGADO ZELAYA
 
@@ -31,25 +32,25 @@ function validar(req) {
     return msj;
 };
 
-exports.Inicio = async (req, res) =>{
+exports.Inicio = async (req, res) => {
     var msj = validar(req);
     const listaModulos = [
         {
-           modulo:"Clientes Direcciones",
-           rutas: [
-            {
-                ruta: "/api/clientesdir",
-                metodo: "get",
-                parametros: "",
-                descripcion: "Inicio del módulo de Cliente direcciones"
-            },
-            {
-                ruta: "/api/clientesdir/listar",
-                metodo: "get",
-                parametros: "",
-                descripcion: "Lista todas las direcciones de clientes"
-            } 
-           ]
+            modulo: "Clientes Direcciones",
+            rutas: [
+                {
+                    ruta: "/api/clientesdir",
+                    metodo: "get",
+                    parametros: "",
+                    descripcion: "Inicio del módulo de Cliente direcciones"
+                },
+                {
+                    ruta: "/api/clientesdir/listar",
+                    metodo: "get",
+                    parametros: "",
+                    descripcion: "Lista todas las direcciones de clientes"
+                }
+            ]
         }
     ];
     const datos = {
@@ -61,7 +62,7 @@ exports.Inicio = async (req, res) =>{
         fecha: "5/07/2022",
         listaModulos
     };
-    msj.datos=datos;
+    msj.datos = datos;
     msjRes(res, 200, msj);
 };
 
@@ -78,7 +79,7 @@ exports.listarclientedireccion = async (req, res) => {
         }
 
     } catch (error) {
-        msj.estado ='precaucion';
+        msj.estado = 'precaucion';
         msj.mensaje = 'la peticion no se ejecutó';
         msj.errores = {
             mensaje: "la direccion de cliente no existe o no está vinculado"
@@ -88,3 +89,195 @@ exports.listarclientedireccion = async (req, res) => {
 
     }
 };
+
+// parte hecha por - Idalia Elizabeth Flores Vásquez
+exports.Agregar = async (req, res) => {
+
+    const msj = validar(req);
+    if (msj.errores.length > 0) {
+        MSJ(res, 200, msj);
+    }
+    else {
+        const { cliente, direc } = req.body;
+
+        var buscarcliente = await Cliente.findOne({
+
+            where: {
+                idregistro: cliente
+            }
+        });
+
+        if (!buscarcliente) {
+            msj.estado = 'precuacion';
+            msj.mensaje = 'la peticion no se ejecuto';
+            msj.errores = {
+                mensaje: 'El cliente no existe o no esta vinculado a ninguna venta',
+                parametro: 'cliente'
+            };
+
+            MSJ(res, 200, msj);
+
+        }
+
+        else {
+
+            try {
+                await ModeloClienteDireccion.create(
+                    {
+                        idcliente: cliente,
+                        direccion: direc
+                    }
+                )
+                msj.estado = 'correcto',
+                    msj.mensaje = 'Peticion ejecutada correctamente',
+                    msj.datos = '',
+                    msj.errores = ''
+                MSJ(res, 200, msj);
+
+            } catch (error) {
+                msj.estado = 'precuacion';
+                msj.mensaje = 'la peticion no se ejecuto';
+                msj.errores = error;
+                MSJ(res, 500, msj);
+
+            }
+
+        }
+    }
+
+    res.json(msj);
+};
+
+
+exports.Editar = async (req, res) => {
+
+    const msj = validar(req);
+    if (msj.errores.length > 0) {
+        MSJ(res, 200, msj);
+    }
+    else {
+        const { idClienteDireccion } = req.query;
+        const { cliente, direc } = req.body;
+
+
+        try {
+            var buscarcliente = await Cliente.findOne({
+
+                where: {
+                    idregistro: cliente
+                }
+            });
+
+            if (!buscarcliente) {
+                msj.estado = 'precuacion';
+                msj.mensaje = 'la peticion no se ejecuto';
+                msj.errores = {
+                    mensaje: 'El cliente no existe o no esta vinculado a ninguna venta',
+                    parametro: 'cliente'
+                };
+
+                MSJ(res, 200, msj);
+
+            }
+            else {
+
+                var buscarClienteDireccion = await ModeloClienteDireccion.findOne({
+
+                    where: {
+                        id: idClienteDireccion
+                    }
+                });
+                if (!buscarClienteDireccion) {
+                    msj.estado = 'precuacion';
+                    msj.mensaje = 'la peticion no se ejecuto';
+                    msj.errores = {
+                        mensaje: 'La direccion del cliente no existe o no esta vinculado a ninguna venta',
+                        parametro: 'idClienteDireccion'
+                    };
+
+                    MSJ(res, 200, msj);
+
+                }
+                else {
+                    try {
+                        buscarClienteDireccion.idcliente = cliente,
+                            buscarClienteDireccion.direccion = direc
+
+                        await buscarClienteDireccion.save();
+                        msj.estado = 'correcto',
+                            msj.mensaje = 'Peticion ejecutada correctamente, actualizado',
+                            msj.datos = '',
+                            msj.errores = ''
+                        MSJ(res, 200, msj);
+
+                    } catch (error) {
+                        msj.estado = 'precuacion';
+                        msj.mensaje = 'la peticion no se ejecuto';
+                        msj.errores = error;
+                        MSJ(res, 500, msj);
+
+                    }
+                }
+            }
+        } catch (error) {
+            msj.estado = 'precuacion';
+            msj.mensaje = 'la peticion no se ejecuto';
+            msj.errores = error;
+            MSJ(res, 500, msj);
+
+        }
+    }
+    res.json(msj);
+};
+
+
+exports.Eliminar = async (req, res) => {
+
+    const msj = validar(req);
+    if (msj.errores.length > 0) {
+        MSJ(res, 200, msj);
+    }
+    else {
+        const { idClienteDireccion } = req.query;
+
+        try {
+            var buscarClienteDireccion = await ModeloClienteDireccion.findOne({
+
+                where: {
+                    id: idClienteDireccion
+                }
+            });
+            if (!buscarClienteDireccion) {
+                msj.estado = 'precuacion';
+                msj.mensaje = 'la peticion no se ejecuto';
+                msj.errores = {
+                    mensaje: 'La direccion del cliente no existe o no esta vinculado a ninguna venta',
+                    parametro: 'idClienteDireccion'
+                };
+
+                MSJ(res, 200, msj);
+            }
+            else {
+                await Modelocai.destroy({
+                    where: {
+                        id: idClienteDireccion
+                    }
+                });
+                msj.estado = 'correcto',
+                    msj.mensaje = 'Peticion ejecutada correctamente, eliminado',
+                    msj.datos = '',
+                    msj.errores = ''
+                MSJ(res, 200, msj);
+            }
+        } catch (error) {
+            msj.estado = 'precuacion';
+            msj.mensaje = 'la peticion no se ejecuto';
+            msj.errores = error;
+            MSJ(res, 500, msj);
+
+        }
+    }
+    res.json(msj);
+};
+
+

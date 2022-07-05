@@ -10,9 +10,10 @@ const Ventas_Anuladas = bd.define(
             primaryKey: true,
             allowNull: false
         },
-        usuario:{
+        idusuario:{
             type: DataTypes.INTEGER,
-            allowNull: false
+            allowNull: false,
+            field: 'usuario',
             
         },
         descripcion: {
@@ -33,11 +34,11 @@ const Ventas_Anuladas = bd.define(
 }
 );
 Usuario.hasMany(Ventas_Anuladas,{
-    foreignKey: 'usuario',
+    foreignKey: 'idusuario',
     otherKey: 'idregistro'
 }); 
 Ventas_Anuladas.belongsTo(Usuario,{
-    foreignKey: 'usuario',
+    foreignKey: 'idusuario',
     otherKey: 'idregistro'
 });
 

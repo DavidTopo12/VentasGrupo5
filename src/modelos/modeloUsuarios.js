@@ -1,37 +1,43 @@
 const { DataTypes } = require('sequelize');
-const db = require('../../configuraciones/db');
-const Empleado = require('./modeloEmpleados');
+const db = require('../configuraciones/bd');
+const Empleados = require('./modeloEmpleados');
 const Usuario = db.define(
     'usuario',
     {
-        idregistro:{
+        id:{
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true,
-            allowNull: false
+            allowNull: false,
+            field: 'idregistro'
         },
-        LoginUsuario:{
+        login:{
             type: DataTypes.STRING(30),
             allowNull: false,
-            unique: true
+            unique: true,
+            field: 'LoginUsuario',
         },
-        empleado:{
+        idempleado:{
             type: DataTypes.INTEGER,
-            allowNull: false
+            allowNull: false,
+            field: 'empleado',
         },
-        Contrasena:{
+        contrasena:{
             type: DataTypes.STRING(250),
-            allowNull: false
+            allowNull: false,
+            field: 'Contrasena',
         },
-        AccesoTotal:{
+        accesototal:{
             type: DataTypes.TINYINT,
             allowNull: true,
-            defaultValue: true
+            defaultValue: true,
+            field: 'AccesoTotal',
         },
-        Habilitado:{
+        habilitado:{
             type: DataTypes.TINYINT,
             allowNull: true,
-            defaultValue: true
+            defaultValue: true,
+            field: 'Habilitado',
         },
         pin:{
             type: DataTypes.STRING(4),
@@ -58,12 +64,12 @@ const Usuario = db.define(
         timestamps: false,
     }
 );
-Empleado.hasMany(Usuario,{
-    foreignKey: 'empleado',
+Empleados.hasMany(Usuario,{
+    foreignKey: 'idempleado',
     otherKey: 'idregistro'
 }); 
-Usuario.belongsTo(Empleado,{
-    foreignKey: 'empleado',
+Usuario.belongsTo(Empleados,{
+    foreignKey: 'idempleado',
     otherKey: 'idregistro'
 });
 module.exports = Usuario;
