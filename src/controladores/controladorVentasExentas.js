@@ -63,6 +63,8 @@ exports.Inicio = async (req, res) =>{
         }
     ];
 }
+//inicio de la creacion
+
 //crear la funcion de lista de todos los registros de la tabla 
 exports.listarventasexentas = async (req, res) => {
     try {
