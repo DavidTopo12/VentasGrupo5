@@ -3,10 +3,15 @@
 INTEGRANTES: 
 
 •	Daybelin Raquel Vargas Cantillano 1514-1998-00039
+
 •	 Idalia Elizabeth Flores Vasquez 0801-2001-08193
+
 •	 Josue Isaac Menas Mejia Hernandez 0801-2001-07890
+
 •	 Lesnin Roberto Ramírez Castellanos 0801-2000-11557
+
 •	 Santos Israel Romero Martinez 1101-1998-00268
+
 •	 David Alejandro Salgado Zelaya 0801-2000-244442
 
 
@@ -26,5 +31,7 @@ Asignacion de Tablas, siendo un Total del 17 tablas
  
  
 CRUD COMPLETOS -> CLIENTES, CLIENTES DIRECCIONES, CAI 
+
 TABLAS DE SOLO CONSULTAS -> ESTACIONES, PRODUCTOS, POS, DETALLE PEDIDO, PEDIDO, USUARIOS Y EMPLEADOS
+
 TABLAS DE AGREGAR Y LISTAR -> VENTAS, DETALLE VENTAS, VENTAS ANULADAS, VENTAS CONSTANCIA, VENTAS POS, VENTAS SAG, VENTAS EXENTAS
