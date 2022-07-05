@@ -62,23 +62,9 @@ exports.Inicio = async (req, res) => {
             ]
         }
     ];
-<<<<<<< HEAD
 }
 //inicio de la creacion
 
-=======
-    const datos = {
-        api: "API-VENTAS",
-        descripcion: "Interfaz de progamación para el sistema de gestion de restaurantes",
-        propiedad: "DESOFIW",
-        desarrolladores: "",
-        colaboradores: "",
-        fecha: "5/07/2022",
-        listaModulos
-    };
-    msj.datos = datos;
-};
->>>>>>> 1402a348cd5582bd79691ef0bde61f700f7396ac
 //crear la funcion de lista de todos los registros de la tabla 
 exports.listarventasexentas = async (req, res) => {
     try {

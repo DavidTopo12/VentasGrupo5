@@ -1,3 +1,4 @@
+//se utiliza en archivos que se mandan a llamar 
 const msj = (res, estado, mensajes) => {
     res.setHeader("Content-Type", "application/json");
     res.statusCode = estado;

@@ -23,7 +23,6 @@ const Ventas_Exentas = bd.define(
     timestamps: false,
 }
 );
-<<<<<<< HEAD
 //declaracion de la llave foranea 
 Ventas.hasMany(Ventas_Exentas,{
     foreignKey: 'numero_factura',
@@ -33,6 +32,4 @@ Ventas_Exentas.belongsTo(Ventas,{
     foreignKey: 'numero_factura',
     otherKey: 'idregistro'
 });
-=======
->>>>>>> 1402a348cd5582bd79691ef0bde61f700f7396ac
 module.exports = Ventas_Exentas;
