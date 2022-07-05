@@ -25,3 +25,4 @@ Asignacion de Tablas, siendo un Total del 17 tablas
  - David Alejandro Salgado Zelaya --> Ventas Anuladas, Empleados, Productos, Clientes, Pedidos, Detalle Pedidos
  
  
+CRUD COMPLETOS -> CLIENTES, CLIENTES DIRECCIONES, CAI 
