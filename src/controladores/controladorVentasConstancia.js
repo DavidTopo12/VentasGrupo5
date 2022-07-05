@@ -33,34 +33,34 @@ function validar(req) {
     return msj;
 };
 
-exports.Inicio = async (req, res) =>{
+exports.Inicio = async (req, res) => {
     var msj = validar(req);
     const listaModulos = [
         {
-           modulo:"VentasConstancia",
-           rutas: [
-            {
-                ruta: "/api/constancia/",
-                metodo: "get",
-                parametros: "",
-                descripcion: "Inicio del módulo de ventas constancia"
-            },
-            {
-                ruta: "/api/constancia/listar",
-                metodo: "get",
-                parametros: "",
-                descripcion: "Lista todos los constancia"
-            },
-            {
-                ruta: "/api/constancia/agregar",
-                metodo: "post",
-                parametros: {
-                  numfactura: "Numero de Factura. Obligatorio",
-                  numcons: "Numero Constancia. Obligatorio.",
+            modulo: "VentasConstancia",
+            rutas: [
+                {
+                    ruta: "/api/constancia/",
+                    metodo: "get",
+                    parametros: "",
+                    descripcion: "Inicio del módulo de ventas constancia"
                 },
-                descripcion: "Guarda los datos de las constancia de ventas"
-              }    
-           ]
+                {
+                    ruta: "/api/constancia/listar",
+                    metodo: "get",
+                    parametros: "",
+                    descripcion: "Lista todos los constancia"
+                },
+                {
+                    ruta: "/api/constancia/agregar",
+                    metodo: "post",
+                    parametros: {
+                        numfactura: "Numero de Factura. Obligatorio",
+                        numcons: "Numero Constancia. Obligatorio.",
+                    },
+                    descripcion: "Guarda los datos de las constancia de ventas"
+                }
+            ]
         }
     ];
     const datos = {
@@ -72,7 +72,7 @@ exports.Inicio = async (req, res) =>{
         fecha: "5/07/2022",
         listaModulos
     };
-    msj.datos=datos;
+    msj.datos = datos;
 };
 
 exports.Listar = async (req, res) => {
@@ -103,51 +103,29 @@ exports.Agregar = async (req, res) => {
     else {
         const { numfactura, numcons } = req.body;
 
-        var buscarFactura = await ModeloVentas.findOne({
-            where: {
-                NumeroFactura: numfactura,
-                Anular: 0
+        try {
+            await ModeloVentasConstancia.create(
+                {
+                    numero_factura: numfactura,
+                    numero_constancia: numcons
 
-            }
-        });
-
-        if (!buscarFactura) {
-
-            msj.estado = 'precuacion';
-            msj.mensaje = 'la peticion no se ejecuto';
-            msj.errores = {
-                mensaje: 'El Cai no existe o no esta vinculado a ninguna venta',
-                parametro: 'cai'
-            };
-
-            MSJ(res, 200, msj);
-
-        }
-        else {
-
-            try {
-                await ModeloVentasConstancia.create(
-                    {
-                        numero_factura: numfactura,
-                        numero_constancia: numcons
-
-                    }
-                )
-                msj.mensaje = 'Peticion ejecutada correctamente',
+                }
+            )
+            msj.mensaje = 'Peticion ejecutada correctamente',
                 msj.datos = '',
                 msj.errores = ''
-                MSJ(res, 200, msj);
-            } catch (error) {
-                msj.estado = 'precuacion';
-                msj.mensaje = 'la peticion no se ejecuto';
-                msj.errores = error;
-                MSJ(res, 500, msj);
+            MSJ(res, 200, msj);
+        } catch (error) {
+            msj.estado = 'precuacion';
+            msj.mensaje = 'la peticion no se ejecuto';
+            msj.errores = error;
+            MSJ(res, 500, msj);
 
-
-            }
 
         }
+
+
     }
 
-    res.json(msj);
+    //res.json(msj);
 };

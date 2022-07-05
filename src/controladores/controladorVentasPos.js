@@ -32,11 +32,11 @@ function validar(req) {
     return msj;
 };
 
-exports.Inicio = async (req, res)=>{
+exports.Inicio = async (req, res) => {
     var msj = validar(req);
     const listaModulos = [
         {
-            modulo:"Ventas",
+            modulo: "Ventas",
             rutas: [
                 {
 <<<<<<< HEAD
@@ -49,15 +49,15 @@ exports.Inicio = async (req, res)=>{
                     metodo: "get",
                     parametros: "",
                     descripcion: "Inicio del modulo ventas pos"
-                }, 
+                },
                 {
                     ruta: "/api/ventas_pos/listar",
-                    metodo:"get",
+                    metodo: "get",
                     parametros: "",
                     descripcion: "Lista todas las ventas pos"
                 },
                 {
-                    ruta:"/api/ventas_pos/guargar",
+                    ruta: "/api/ventas_pos/guargar",
                     metodo: "post",
                     parametros: {
                         idventa: "Id de las ventas existentes en la tabla ventas. Obligatorio",
@@ -79,7 +79,7 @@ exports.Inicio = async (req, res)=>{
         fecha: "5/07/2022",
         listaModulos
     };
-    msj.datos=datos;
+    msj.datos = datos;
 };
 
 
@@ -109,6 +109,7 @@ exports.Agregar = async (req, res) => {
     }
     else {
         const { id_venta, id_pos, referencia, valor } = req.body;
+<<<<<<< HEAD
         try {
             var buscarventa = await ModeloVentas.findOne({
                 where: {
@@ -165,17 +166,34 @@ exports.Agregar = async (req, res) => {
                     msj.mensaje = 'la peticion no se ejecuto';
                     msj.errores = error;
                     MSJ(res, 500, msj);
+=======
+>>>>>>> 1402a348cd5582bd79691ef0bde61f700f7396ac
 
+        try {
+            await ModeloVentasPos.create(
+                {
+                    idventa: id_venta,
+                    idpos: id_pos,
+                    referencia: referencia,
+                    valor: valor
                 }
-            }
-        }
-        catch (error) {
+            )
+            msj.estado = 'correcto',
+                msj.mensaje = 'Peticion ejecutada correctamente',
+                msj.datos = '',
+                msj.errores = ''
+            MSJ(res, 200, msj);
+
+        } catch (error) {
             msj.estado = 'precuacion';
             msj.mensaje = 'la peticion no se ejecuto';
             msj.errores = error;
             MSJ(res, 500, msj);
+
         }
+
+
     }
 
-    res.json(msj);
+   // res.json(msj);
 };

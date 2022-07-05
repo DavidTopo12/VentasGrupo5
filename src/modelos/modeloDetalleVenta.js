@@ -48,6 +48,7 @@ const Detalle_Venta = bd.define(
     timestamps: false,
 }
 );
+<<<<<<< HEAD
 Ventas.hasMany(Detalle_Venta,{
     foreignKey: 'NumeroFactura',
     otherKey: 'idregistro'
@@ -67,3 +68,6 @@ Detalle_Venta.belongsTo(Producto,{
 });
 
 module.exports = Detalle_Venta;
+=======
+module.exports = Detalle_Venta;
+>>>>>>> 1402a348cd5582bd79691ef0bde61f700f7396ac

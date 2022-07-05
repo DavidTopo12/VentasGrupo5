@@ -79,14 +79,8 @@ exports.listarclientedireccion = async (req, res) => {
         }
 
     } catch (error) {
-        msj.estado = 'precaucion';
-        msj.mensaje = 'la peticion no se ejecutó';
-        msj.errores = {
-            mensaje: "la direccion de cliente no existe o no está vinculado"
-        };
-
-        MSJ(res, 500, msj);
-
+        console.error(error);
+        res.json(error);
     }
 };
 
@@ -100,49 +94,28 @@ exports.Agregar = async (req, res) => {
     else {
         const { cliente, direc } = req.body;
 
-        var buscarcliente = await Cliente.findOne({
-
-            where: {
-                idregistro: cliente
-            }
-        });
-
-        if (!buscarcliente) {
-            msj.estado = 'precuacion';
-            msj.mensaje = 'la peticion no se ejecuto';
-            msj.errores = {
-                mensaje: 'El cliente no existe o no esta vinculado a ninguna venta',
-                parametro: 'cliente'
-            };
-
+        try {
+            await ModeloClienteDireccion.create(
+                {
+                    idcliente: cliente,
+                    direccion: direc
+                }
+            )
+            msj.estado = 'correcto',
+                msj.mensaje = 'Peticion ejecutada correctamente',
+                msj.datos = '',
+                msj.errores = ''
             MSJ(res, 200, msj);
 
-        }
-
-        else {
-
-            try {
-                await ModeloClienteDireccion.create(
-                    {
-                        idcliente: cliente,
-                        direccion: direc
-                    }
-                )
-                msj.estado = 'correcto',
-                    msj.mensaje = 'Peticion ejecutada correctamente',
-                    msj.datos = '',
-                    msj.errores = ''
-                MSJ(res, 200, msj);
-
-            } catch (error) {
-                msj.estado = 'precuacion';
-                msj.mensaje = 'la peticion no se ejecuto';
-                msj.errores = error;
-                MSJ(res, 500, msj);
-
-            }
+        } catch (error) {
+            msj.estado = 'precuacion';
+            msj.mensaje = 'la peticion no se ejecuto';
+            msj.errores = error;
+            MSJ(res, 500, msj);
 
         }
+
+
     }
 
     //res.json(msj);
@@ -159,66 +132,53 @@ exports.Editar = async (req, res) => {
         const { idClienteDireccion } = req.query;
         const { cliente, direc } = req.body;
 
-
         try {
-            var buscarcliente = await Cliente.findOne({
 
-                where: {
-                    idregistro: cliente
+            var buscarClienteDireccion = await ModeloClienteDireccion.findOne({
+                where:{
+                    id: idClienteDireccion
                 }
             });
 
-            if (!buscarcliente) {
+            if(!buscarClienteDireccion){
+
                 msj.estado = 'precuacion';
                 msj.mensaje = 'la peticion no se ejecuto';
                 msj.errores = {
-                    mensaje: 'El cliente no existe o no esta vinculado a ninguna venta',
-                    parametro: 'cliente'
+                    mensaje: 'La direccion no existe o no esta vinculado a ninguna venta',
+                    parametro: 'cai'
                 };
 
                 MSJ(res, 200, msj);
 
             }
-            else {
+            else{
 
-                var buscarClienteDireccion = await ModeloClienteDireccion.findOne({
+                try {
+                    buscarClienteDireccion.idcliente = cliente,
+                    buscarClienteDireccion.direccion = direc
+        
+                    await buscarClienteDireccion.save();
+                    msj.estado = 'correcto',
+                        msj.mensaje = 'Peticion ejecutada correctamente, actualizado',
+                        msj.datos = '',
+                        msj.errores = ''
+                    MSJ(res, 200, msj);
+                } catch (error) {
 
-                    where: {
-                        id: idClienteDireccion
-                    }
-                });
-                if (!buscarClienteDireccion) {
                     msj.estado = 'precuacion';
                     msj.mensaje = 'la peticion no se ejecuto';
                     msj.errores = {
-                        mensaje: 'La direccion del cliente no existe o no esta vinculado a ninguna venta',
-                        parametro: 'idClienteDireccion'
+                        mensaje: 'La direccion no existe o no esta vinculado a ninguna venta',
+                        parametro: 'cai'
                     };
 
                     MSJ(res, 200, msj);
-
+                    
                 }
-                else {
-                    try {
-                        buscarClienteDireccion.idcliente = cliente,
-                            buscarClienteDireccion.direccion = direc
 
-                        await buscarClienteDireccion.save();
-                        msj.estado = 'correcto',
-                            msj.mensaje = 'Peticion ejecutada correctamente, actualizado',
-                            msj.datos = '',
-                            msj.errores = ''
-                        MSJ(res, 200, msj);
-
-                    } catch (error) {
-                        msj.estado = 'precuacion';
-                        msj.mensaje = 'la peticion no se ejecuto';
-                        msj.errores = error;
-                        MSJ(res, 500, msj);
-
-                    }
-                }
             }
+
         } catch (error) {
             msj.estado = 'precuacion';
             msj.mensaje = 'la peticion no se ejecuto';
@@ -226,6 +186,8 @@ exports.Editar = async (req, res) => {
             MSJ(res, 500, msj);
 
         }
+
+
     }
     //res.json(msj);
 };
@@ -258,7 +220,7 @@ exports.Eliminar = async (req, res) => {
                 MSJ(res, 200, msj);
             }
             else {
-                await Modelocai.destroy({
+                await ModeloClienteDireccion.destroy({
                     where: {
                         id: idClienteDireccion
                     }
@@ -277,7 +239,7 @@ exports.Eliminar = async (req, res) => {
 
         }
     }
-   // res.json(msj);
+    // res.json(msj);
 };
 
 

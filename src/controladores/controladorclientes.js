@@ -1,4 +1,4 @@
-const{validationResult} = require('express-validator'); 
+const { validationResult } = require('express-validator');
 const Modeloclientes = require('../modelos/modeloclientes');
 const MSJ = require('../componentes/mensaje');
 
@@ -35,51 +35,51 @@ function validar(req) {
 
 
 
-exports.Inicio = async (req, res) =>{
+exports.Inicio = async (req, res) => {
     var msj = validar(req);
     const listaModulos = [
         {
-           modulo:"Clientes",
-           rutas: [
-            {
-                ruta: "/api/clientes/",
-                metodo: "get",
-                parametros: "",
-                descripcion: "Inicio del módulo de clientes"
-            },
-            {
-                ruta: "/api/clientes/listar",
-                metodo: "get",
-                parametros: "",
-                descripcion: "Lista todos los clientes"
-            },
-            {
-                ruta: "/api/clientes/agregar",
-                metodo: "post",
-                parametros: {
-                  rtn: "Rtn del cliente .Obligatorio",
-                  nombre: "Nombre del cliente. Obligatorio."
+            modulo: "Clientes",
+            rutas: [
+                {
+                    ruta: "/api/clientes/",
+                    metodo: "get",
+                    parametros: "",
+                    descripcion: "Inicio del módulo de clientes"
                 },
-                descripcion: "Guarda los datos de cliente"
-              },
-              {
-                ruta: "/api/clientes/editar",
-                metodo: "put",
-                parametros: {
-                    rtn: "Rtn del cliente .Obligatorio",
-                    nombre: "Nombre del cliente. Obligatorio."
+                {
+                    ruta: "/api/clientes/listar",
+                    metodo: "get",
+                    parametros: "",
+                    descripcion: "Lista todos los clientes"
                 },
-                descripcion: "Edita los datos de cliente"
-              },
-              {
-                ruta: "/api/clientes/eliminar",
-                metodo: "put",
-                parametros: {
-                  idcliente:"Id del cliente, en el query.Obligatorio"
+                {
+                    ruta: "/api/clientes/agregar",
+                    metodo: "post",
+                    parametros: {
+                        rtn: "Rtn del cliente .Obligatorio",
+                        nombre: "Nombre del cliente. Obligatorio."
+                    },
+                    descripcion: "Guarda los datos de cliente"
                 },
-                descripcion: "Elimina los datos de cliente"
-              }          
-           ]
+                {
+                    ruta: "/api/clientes/editar",
+                    metodo: "put",
+                    parametros: {
+                        rtn: "Rtn del cliente .Obligatorio",
+                        nombre: "Nombre del cliente. Obligatorio."
+                    },
+                    descripcion: "Edita los datos de cliente"
+                },
+                {
+                    ruta: "/api/clientes/eliminar",
+                    metodo: "put",
+                    parametros: {
+                        idcliente: "Id del cliente, en el query.Obligatorio"
+                    },
+                    descripcion: "Elimina los datos de cliente"
+                }
+            ]
         }
     ];
     const datos = {
@@ -91,11 +91,12 @@ exports.Inicio = async (req, res) =>{
         fecha: "5/07/2022",
         listaModulos
     };
-    msj.datos=datos;
+    msj.datos = datos;
 };
 
 
 exports.Listar = async (req, res) => {
+
 
     try {
         const listarclientes = await Modeloclientes.findAll();
@@ -108,93 +109,90 @@ exports.Listar = async (req, res) => {
         }
 
     } catch (error) {
-        msj.estado ='precaucion';
-        msj.mensaje = 'la peticion no se ejecutó';
-        msj.errores = {
-            mensaje: "el cliente no existe o no está vinculado"
-        };
-
-        MSJ(res, 500, msj);
-
+        console.error(error);
+        res.json(error);
 
     }
+
+
+
 };
 
 
 
 exports.Agregar = async (req, res) => {
-    
+
     const msj = validar(req);
     if (msj.errores.length > 0) {
         MSJ(res, 200, msj);
     }
-    else{
+    else {
         const { rtn, nombre } = req.body;
-      
+
         try {
-              await Modeloclientes.create(
+            await Modeloclientes.create(
                 {
-                   RTN: rtn,
-                   Nombre: nombre
+                    RTN: rtn,
+                    Nombre: nombre
                 }
-              )
-              msj.estado = 'correcto',
-              msj.mensaje = 'Peticion ejecutada correctamente',
-              msj.datos = '',
-              msj.errores = ''
-              MSJ(res, 200, msj);
+            )
+            msj.estado = 'correcto',
+                msj.mensaje = 'Peticion ejecutada correctamente',
+                msj.datos = '',
+                msj.errores = ''
+            MSJ(res, 200, msj);
 
         } catch (error) {
             msj.estado = 'precuacion';
             msj.mensaje = 'la peticion no se ejecuto';
             msj.errores = error;
             MSJ(res, 500, msj);
-            
+
         }
     }
-    
+
     //res.json(msj);
 };
 
 exports.Editar = async (req, res) => {
-   
+
     const msj = validar(req);
     if (msj.errores.length > 0) {
         MSJ(res, 200, msj);
     }
-    else{
+    else {
         const { idcliente } = req.query;
         const { rtn, nombre } = req.body;
-    
-      
+
+
         try {
             var buscarCliente = await Modeloclientes.findOne({
 
-                where:{
+                where: {
                     idregistro: idcliente
                 }
             });
-        if(!buscarCliente){
-            msj.estado = 'precuacion';
-            msj.mensaje = 'la peticion no se ejecuto';
-            msj.errores = {
-                mensaje: 'El cliente no existe o no esta vinculado a ninguna venta',
-                parametro: 'cliente'
-            };
+            if (!buscarCliente) {
+                msj.estado = 'precuacion';
+                msj.mensaje = 'la peticion no se ejecuto';
+                msj.errores = {
+                    mensaje: 'El cliente no existe o no esta vinculado a ninguna venta',
+                    parametro: 'cliente'
+                };
 
-            MSJ(res, 200, msj);
-    }
-        else{
+                MSJ(res, 200, msj);
+            }
+            else {
 
-            buscarCliente.RTN=rtn,
-            buscarCliente.Nombre=nombre
-            await buscarCliente.save();
-            msj.estado = 'correcto',
-              msj.mensaje = 'Peticion ejecutada correctamente, actualizado',
-              msj.datos = '',
-              msj.errores = ''
-              MSJ(res, 200, msj);
-            }   
+                buscarCliente.RTN = rtn,
+                    buscarCliente.Nombre = nombre
+                await buscarCliente.save();
+                msj.estado = 'correcto',
+                    msj.mensaje = 'Peticion ejecutada correctamente, actualizado',
+                    msj.datos = '',
+                    msj.errores = ''
+                MSJ(res, 200, msj);
+            }
         } catch (error) {
             msj.estado = 'precuacion';
             msj.mensaje = 'la peticion no se ejecuto';
@@ -204,7 +202,7 @@ exports.Editar = async (req, res) => {
             };
 
             MSJ(res, 200, msj);
-            
+
         }
     }
     //res.json(msj);
@@ -212,43 +210,43 @@ exports.Editar = async (req, res) => {
 
 
 exports.Eliminar = async (req, res) => {
-   
+
     const msj = validar(req);
     if (msj.errores.length > 0) {
         MSJ(res, 200, msj);
     }
-    else{
+    else {
         const { idcliente } = req.query;
-      
+
         try {
             var buscarCliente = await Modeloclientes.findOne({
 
-                where:{
+                where: {
                     idregistro: idcliente
                 }
             });
-        if(!buscarCliente){
-            msj.estado = 'precuacion';
-            msj.mensaje = 'la peticion no se ejecuto';
-            msj.errores = {
-                mensaje: 'El cliente no existe o no esta vinculado a ninguna venta',
-                parametro: 'idcliente'
-            };
+            if (!buscarCliente) {
+                msj.estado = 'precuacion';
+                msj.mensaje = 'la peticion no se ejecuto';
+                msj.errores = {
+                    mensaje: 'El cliente no existe o no esta vinculado a ninguna venta',
+                    parametro: 'idcliente'
+                };
 
-            MSJ(res, 200, msj);
-        }
-        else{
-            await Modeloclientes.destroy({
-                where:{
-                    idregistro: idcliente
-                }
-            });
-            msj.estado = 'correcto',
-            msj.mensaje = 'Peticion ejecutada correctamente, eliminado',
-            msj.datos = '',
-            msj.errores = ''
-            MSJ(res, 200, msj);
-            }   
+                MSJ(res, 200, msj);
+            }
+            else {
+                await Modeloclientes.destroy({
+                    where: {
+                        idregistro: idcliente
+                    }
+                });
+                msj.estado = 'correcto',
+                    msj.mensaje = 'Peticion ejecutada correctamente, eliminado',
+                    msj.datos = '',
+                    msj.errores = ''
+                MSJ(res, 200, msj);
+            }
         } catch (error) {
             msj.estado = 'precuacion';
             msj.mensaje = 'la peticion no se ejecuto';
@@ -258,8 +256,8 @@ exports.Eliminar = async (req, res) => {
             };
 
             MSJ(res, 200, msj);
-            
+
         }
     }
-  //  res.json(msj);
+    //  res.json(msj);
 }; 

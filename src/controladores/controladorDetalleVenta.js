@@ -8,9 +8,9 @@ const ModeloProducto = require('../modelos/modeloProducto');
 const MSJ = require('../componentes/mensaje');
 >>>>>>> 146cddeac3d703a7c97718ddf3885c446b864162
 
-exports.Inicio= async(req, res) =>{
-    var msj= validar(req);
-    const listarModulos=[
+exports.Inicio = async (req, res) => {
+    var msj = validar(req);
+    const listarModulos = [
         {
             modulo: "Ventas",
             rutas: [
@@ -32,13 +32,13 @@ exports.Inicio= async(req, res) =>{
                     ruta: "/api/detalleventas/guardar",
                     metodo: "post",
                     parametros: {
-                        numfact: "Numero de Factura, Campo de Tipo Int. Obligatorio", 
+                        numfact: "Numero de Factura, Campo de Tipo Int. Obligatorio",
                         codpro: "Codigo de Producto, Campo de Tipo String. Obligatorio",
-                        cantidad: "Cantidad, Campo de Tipo Double. Obligatorio", 
-                        prec : "Precio de la Venta, Campo de Tipo Double. Obligatorio"
+                        cantidad: "Cantidad, Campo de Tipo Double. Obligatorio",
+                        prec: "Precio de la Venta, Campo de Tipo Double. Obligatorio"
                     },
                     descripcion: "Guardar los Datos de Detalle Ventas"
-                }  
+                }
             ]
         }
 <<<<<<< HEAD
@@ -55,7 +55,7 @@ exports.Inicio= async(req, res) =>{
         fecha: "5/07/2022",
         listaModulos
     };
-    msj.datos=datos;
+    msj.datos = datos;
 };
 >>>>>>> 146cddeac3d703a7c97718ddf3885c446b864162
 
@@ -102,10 +102,9 @@ exports.listardetalle = async (req, res) => {
         }
 
     } catch (error) {
-        msj.estado = 'precuacion';
-            msj.mensaje = 'la peticion no se ejecuto';
-            msj.errores = error;
-            MSJ(res, 500, msj);
+        console.error(error);
+        res.json(error);
+
 
     }
 =======
@@ -143,73 +142,35 @@ exports.Agregar = async (req, res) => {
     }
     else {
         const { numfact, codpro, cantidad, prec } = req.body;
+
+
+
         try {
-            var buscarnumerofactura = await ModeloVentas.findOne({
-                where: {
-                    NumeroFactura: numfact
+            await ModeloDetalleVenta.create(
+                {
+                    NumeroFactura: numfact,
+                    CodigoPoprducto: codpro,
+                    Cantidad: cantidad,
+                    Precio: prec
                 }
-            });
-
-            if (!buscarnumerofactura) {
-                msj.estado = 'precuacion';
-                msj.mensaje = 'la peticion no se ejecuto';
-                msj.errores = {
-                    mensaje: 'El Numero de Factura no Existe',
-                    parametro: 'numfact'
-                };
-
-                MSJ(res, 200, msj);
-            }
-
-            else {
-                var buscarproducto = await ModeloProducto.findOne({
-                    where: {
-                        Codigo: codpro
-                    }
-                });
-
-                if (!buscarproducto) {
-                    msj.estado = 'precuacion';
-                    msj.mensaje = 'la peticion no se ejecuto';
-                    msj.errores = {
-                        mensaje: 'El Codigo de Producto no Existe',
-                        parametro: 'codpro'
-                    };
-
-                    MSJ(res, 200, msj);
-                }
-                else {
-                    try {
-                        await ModeloDetalleVenta.create(
-                            {
-                                NumeroFactura: numfact,
-                                CodigoPoprducto: codpro,
-                                Cantidad: cantidad,
-                                Precio: prec
-                            }
-                        )
-                        msj.estado = 'correcto',
-                            msj.mensaje = 'Peticion ejecutada correctamente',
-                            msj.datos = '',
-                            msj.errores = ''
-                        MSJ(res, 200, msj);
-
-                    } catch (error) {
-                        msj.estado = 'precuacion';
-                        msj.mensaje = 'la peticion no se ejecuto';
-                        msj.errores = error;
-                        MSJ(res, 500, msj);
-
-                    }
-                }
-            }
+            )
+            msj.estado = 'correcto',
+                msj.mensaje = 'Peticion ejecutada correctamente',
+                msj.datos = '',
+                msj.errores = ''
+            MSJ(res, 200, msj);
 
         } catch (error) {
             msj.estado = 'precuacion';
             msj.mensaje = 'la peticion no se ejecuto';
             msj.errores = error;
             MSJ(res, 500, msj);
+
         }
+
     }
-    res.json(msj);
+
+
+
+    //res.json(msj);
 };

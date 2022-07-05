@@ -77,10 +77,8 @@ exports.Listar = async (req, res) => {
         }
 
     } catch (error) {
-        msj.estado = 'precuacion';
-        msj.mensaje = 'la peticion no se ejecuto';
-        msj.errores = error;
-        MSJ(res, 500, msj);
+        console.error(error);
+        res.json(error);
 
     }
 };
