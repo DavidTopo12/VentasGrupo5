@@ -16,7 +16,7 @@ const Pedido = bd.define(
         fechahora:{
             type: DataTypes.DATE,
             allowNull: false,
-            defaultValue: true
+            defaultValue: null
             
         },
         Estacion: {
