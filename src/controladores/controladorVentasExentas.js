@@ -3,10 +3,6 @@ const { validationResult } = require('express-validator');
 //instanciar el modelo ventasexentas
 const ModeloVentasExentas = require('../modelos/modeloVentaExentas');
 const ModeloVentas = require('../modelos/modeloVentas');
-<<<<<<< HEAD
-=======
-const MSJ = require('../componentes/mensaje');
->>>>>>> 146cddeac3d703a7c97718ddf3885c446b864162
 //MODELO/ CONTROLADOR VENTA- ESTRUCTURA PRINCIPAL,
 //VALIDAR
 function validar(req) {
