@@ -86,7 +86,7 @@ exports.listardetalle = async (req, res) => {
         const listardetalle = await ModeloDetalleVenta.findAll();
 
         if (listardetalle.length == 0) {
-            res.send("No hay ventas Registradas");
+            res.send("No hay detalle de ventas Registradas");
         }
         else {
             res.json(listardetalle);
@@ -109,30 +109,79 @@ exports.Agregar = async (req, res) => {
     else {
         const { numfact, codpro, cantidad, prec } = req.body;
 
-
-
         try {
-            await ModeloDetalleVenta.create(
-                {
-                    NumeroFactura: numfact,
-                    CodigoPoprducto: codpro,
-                    Cantidad: cantidad,
-                    Precio: prec
+            var buscarFactura = await ModeloVentas.findOne({
+                where: {
+                    NumeroFactura: numfact
                 }
-            )
-            msj.estado = 'correcto',
-                msj.mensaje = 'Peticion ejecutada correctamente',
-                msj.datos = '',
-                msj.errores = ''
-            MSJ(res, 200, msj);
+            });
+
+            if (!buscarFactura) {
+                msj.estado = 'precuacion';
+                msj.mensaje = 'la peticion no se ejecuto';
+                msj.errores = {
+                    mensaje: 'El Numero de factura no existe o no esta vinculado a ninguna venta',
+                    parametro: 'numfact'
+                };
+
+                MSJ(res, 200, msj);
+            }
+            else {
+
+                var buscarProducto = await ModeloProducto.findOne({
+                    where: {
+                        Codigo: codpro
+                    }
+                });
+
+                if (!buscarProducto) {
+                    msj.estado = 'precuacion';
+                    msj.mensaje = 'la peticion no se ejecuto';
+                    msj.errores = {
+                        mensaje: 'El Codigo de Producto no existe o no esta vinculado a ninguna venta',
+                        parametro: 'codpro'
+                    };
+
+                    MSJ(res, 200, msj);
+                }
+                else {
+
+                    try {
+                        await ModeloDetalleVenta.create(
+                            {
+                                NumeroFactura: numfact,
+                                CodigoProducto: codpro,
+                                Cantidad: cantidad,
+                                Precio: prec
+                            }
+                        )
+                        msj.estado = 'correcto',
+                            msj.mensaje = 'Peticion ejecutada correctamente',
+                            msj.datos = '',
+                            msj.errores = ''
+                        MSJ(res, 200, msj);
+
+                    } catch (error) {
+                        msj.estado = 'precuacion';
+                        msj.mensaje = 'la peticion no se ejecuto, no se guardó';
+                        msj.errores = error;
+                        MSJ(res, 500, msj);
+
+                    }
+
+                }
+            }
 
         } catch (error) {
+
             msj.estado = 'precuacion';
             msj.mensaje = 'la peticion no se ejecuto';
             msj.errores = error;
             MSJ(res, 500, msj);
 
         }
+
+
 
     }
 

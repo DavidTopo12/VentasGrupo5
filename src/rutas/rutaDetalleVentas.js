@@ -15,7 +15,7 @@ notEmpty().withMessage('No aceptan campos vacios')
 
 body('codpro').
 notEmpty().withMessage('No se aceptan campos vacios')
-.isString({min:15}).withMessage('Solo aceptan numero Entero'),
+.isInt().withMessage('Solo aceptan numero Entero'),
 
 body('cantidad').
 notEmpty().withMessage('No se aceptan campos vacios')
