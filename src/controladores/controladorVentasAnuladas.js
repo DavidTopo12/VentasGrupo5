@@ -1,5 +1,6 @@
 const{validationResult} = require('express-validator'); 
 const ModeloVentasAnuladas = require('../modelos/modeloVentasAnuladas');
+const modeloUsuario = require('../modelos/modeloUsuarios');
 const MSJ = require('../componentes/mensaje');
 //ENCARGADO - DAVID ALEJANDRO SALGADO ZELAYA
 
@@ -101,24 +102,43 @@ exports.AgregarVentaAnulada = async (req, res) => {
     }
     else {
         const { usua, des } = req.body;
-        try {
+
+        var buscarusuario = await modeloUsuario.findOne({
+            where:{
+                 usuario: usua   
+            }
+        });
+
+        if(!buscarusuario){
+            msj.estado = 'precuacion';
+            msj.mensaje = 'la peticion no se ejecuto';
+            msj.errores = {
+                mensaje: 'El usuario existe o no esta vinculado a ninguna venta anulada',
+                parametro: 'cai'
+            };
+
+            MSJ(res, 200, msj);
+        }
+        else{
+            try {
            
 
-            await ModeloVentasAnuladas.create(
-                {
-                    usuario: usua,
-                    descripcion: des
-                }
-            );
-            msj.mensaje = 'los datos de ventas anuladas se guardaron con éxito';
-
-        } catch (error) {
-            msj.estado = 'precaución';
-            msj.mensaje = 'la peticion no se ejecuto';
-            msj.errores = error;
-            MSJ(res, 500, msj);
-        }
-
+                await ModeloVentasAnuladas.create(
+                    {
+                        usuario: usua,
+                        descripcion: des
+                    }
+                );
+                msj.mensaje = 'los datos de ventas anuladas se guardaron con éxito';
+    
+            } catch (error) {
+                msj.estado = 'precaución';
+                msj.mensaje = 'la peticion no se ejecuto';
+                msj.errores = error;
+                MSJ(res, 500, msj);
+            }
+    
+        }        
 
     }
 
