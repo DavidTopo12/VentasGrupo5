@@ -89,6 +89,9 @@ exports.listarventasexentas = async (req, res) => {
         res.json(error);
     }
 };
+
+
+
 exports.Agregar = async (req, res) => {
     const msj = validar(req);
     if (msj.errores.length > 0) {
@@ -96,27 +99,48 @@ exports.Agregar = async (req, res) => {
     }
     else {
         const { numfactura, numorden } = req.body;
-
-
         try {
-            await ModeloVentasExentas.create(
-                {
-                    numero_factura: numfactura,
-                    numero_orden: numorden
+            var buscarfactura = await ModeloVentas.findOne({
+                where: {
+                    NumeroFactura: numfactura
                 }
-            )
-            msj.estado = 'correcto',
-                msj.mensaje = 'Peticion ejecutada correctamente',
-                msj.datos = '',
-                msj.errores = ''
-            MSJ(res, 200, msj);
-        } catch (error) {
+            });
+            if (!buscarfactura) {
+                msj.estado = 'precuacion';
+                msj.mensaje = 'la peticion no se ejecuto';
+                msj.errores = {
+                    mensaje: 'El numero de factura no existe o no esta vinculado a ninguna venta',
+                    parametro: 'numerofactura'
+                };
+                MSJ(res, 200, msj);
+            }
+            else {
+                try {
+                    await ModeloVentasExentas.create(
+                        {
+                            numero_factura: numfactura,
+                            numero_orden: numorden
+                        }
+                    )
+                    msj.estado = 'correcto',
+                        msj.mensaje = 'Peticion ejecutada correctamente',
+                        msj.datos = '',
+                        msj.errores = ''
+                    MSJ(res, 200, msj);
+                } catch (error) {
+                    msj.estado = 'precuacion';
+                    msj.mensaje = 'la peticion no se ejecuto';
+                    msj.errores = error;
+                    MSJ(res, 500, msj);
+                }
+            }
+        }
+        catch (error) {
             msj.estado = 'precuacion';
             msj.mensaje = 'la peticion no se ejecuto';
             msj.errores = error;
             MSJ(res, 500, msj);
         }
-
     }
     //res.json(msj);
 };

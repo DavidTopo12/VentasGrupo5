@@ -103,29 +103,52 @@ exports.Agregar = async (req, res) => {
     else {
         const { numfactura, numcons } = req.body;
 
-        try {
-            await ModeloVentasConstancia.create(
-                {
-                    numero_factura: numfactura,
-                    numero_constancia: numcons
+        var buscarFactura = await ModeloVentas.findOne({
+            where: {
+                NumeroFactura: numfactura,
+                Anular: 0
 
-                }
-            )
-            msj.mensaje = 'Peticion ejecutada correctamente',
-                msj.datos = '',
-                msj.errores = ''
-            MSJ(res, 200, msj);
-        } catch (error) {
+            }
+        });
+
+        if (!buscarFactura) {
+
             msj.estado = 'precuacion';
             msj.mensaje = 'la peticion no se ejecuto';
-            msj.errores = error;
-            MSJ(res, 500, msj);
+            msj.errores = {
+                mensaje: 'El Cai no existe o no esta vinculado a ninguna venta',
+                parametro: 'cai'
+            };
 
+            MSJ(res, 200, msj);
 
         }
+        else {
+
+            try {
+                await ModeloVentasConstancia.create(
+                    {
+                        numero_factura: numfactura,
+                        numero_constancia: numcons
+
+                    }
+                )
+                msj.mensaje = 'Peticion ejecutada correctamente',
+                msj.datos = '',
+                msj.errores = ''
+                MSJ(res, 200, msj);
+            } catch (error) {
+                msj.estado = 'precuacion';
+                msj.mensaje = 'la peticion no se ejecuto';
+                msj.errores = error;
+                MSJ(res, 500, msj);
 
 
+            }
+
+        }
     }
 
+   
     //res.json(msj);
 };
