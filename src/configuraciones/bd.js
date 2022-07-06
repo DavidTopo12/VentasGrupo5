@@ -1,13 +1,13 @@
 //conexion de la base detaos 
 const sequelize = require('sequelize');
 const bd = new sequelize(
-    'sifcon',//nombre de la base
-    'movil21801',//usuario
-    'Movil21801@',//contraseña
+    'sigresdesarrollo',//nombre de la bas
+    'sirm97',//usuario
+    'Sirm9705',//contraseña
     {
         host: 'localhost',//alfintrion de la base de datos 
         dialect: 'mysql',//el lenguaje de base de datos que estamos usando 
-        port : 4306//puerto de my sql 
+        port : 3306//puerto de my sql 
     }
 );
 

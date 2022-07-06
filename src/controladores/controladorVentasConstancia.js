@@ -30,8 +30,30 @@ exports.Agregar = async (req, res) => {
             msj.mensaje='Error al agregar los datos'
             
         }
+        else {
+
+            try {
+                await ModeloVentasConstancia.create(
+                    {
+                        numero_factura: numfactura,
+                        numero_constancia: numcons
+
+                    }
+                )
+                msj.mensaje = 'Peticion ejecutada correctamente',
+                msj.datos = '',
+                msj.errores = ''
+                MSJ(res, 200, msj);
+            } catch (error) {
+                msj.estado = 'precuacion';
+                msj.mensaje = 'la peticion no se ejecuto';
+                msj.errores = error;
+                MSJ(res, 500, msj);
 
 
+            }
+
+        }
     }
     
     res.json(msj);
