@@ -104,8 +104,8 @@ exports.Agregar = async (req, res) => {
             msj.estado = 'precuacion';
             msj.mensaje = 'la peticion no se ejecuto';
             msj.errores = {
-                mensaje: 'El Cai no existe o no esta vinculado a ninguna venta',
-                parametro: 'cai'
+                mensaje: 'El cliente no existe o no esta vinculado a ninguna venta',
+                parametro: 'cliente'
             };
 
             MSJ(res, 200, msj);
