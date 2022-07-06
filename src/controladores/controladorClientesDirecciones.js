@@ -94,24 +94,43 @@ exports.Agregar = async (req, res) => {
     else {
         const { cliente, direc } = req.body;
 
-        try {
-            await ModeloClienteDireccion.create(
-                {
-                    idcliente: cliente,
-                    direccion: direc
-                }
-            )
-            msj.estado = 'correcto',
-                msj.mensaje = 'Peticion ejecutada correctamente',
-                msj.datos = '',
-                msj.errores = ''
-            MSJ(res, 200, msj);
+        var buscarcliente = await Cliente.findOne({
+            where: {
+                idregistro: cliente
+            }
+        });
 
-        } catch (error) {
+        if (!buscarcliente) {
             msj.estado = 'precuacion';
             msj.mensaje = 'la peticion no se ejecuto';
-            msj.errores = error;
-            MSJ(res, 500, msj);
+            msj.errores = {
+                mensaje: 'El Cai no existe o no esta vinculado a ninguna venta',
+                parametro: 'cai'
+            };
+
+            MSJ(res, 200, msj);
+        }
+        else {
+            try {
+                await ModeloClienteDireccion.create(
+                    {
+                        idcliente: cliente,
+                        direccion: direc
+                    }
+                )
+                msj.estado = 'correcto',
+                    msj.mensaje = 'Peticion ejecutada correctamente',
+                    msj.datos = '',
+                    msj.errores = ''
+                MSJ(res, 200, msj);
+
+            } catch (error) {
+                msj.estado = 'precuacion';
+                msj.mensaje = 'la peticion no se ejecuto';
+                msj.errores = error;
+                MSJ(res, 500, msj);
+
+            }
 
         }
 
@@ -135,12 +154,12 @@ exports.Editar = async (req, res) => {
         try {
 
             var buscarClienteDireccion = await ModeloClienteDireccion.findOne({
-                where:{
+                where: {
                     id: idClienteDireccion
                 }
             });
 
-            if(!buscarClienteDireccion){
+            if (!buscarClienteDireccion) {
 
                 msj.estado = 'precuacion';
                 msj.mensaje = 'la peticion no se ejecuto';
@@ -152,12 +171,12 @@ exports.Editar = async (req, res) => {
                 MSJ(res, 200, msj);
 
             }
-            else{
+            else {
 
                 try {
                     buscarClienteDireccion.idcliente = cliente,
-                    buscarClienteDireccion.direccion = direc
-        
+                        buscarClienteDireccion.direccion = direc
+
                     await buscarClienteDireccion.save();
                     msj.estado = 'correcto',
                         msj.mensaje = 'Peticion ejecutada correctamente, actualizado',
@@ -174,7 +193,7 @@ exports.Editar = async (req, res) => {
                     };
 
                     MSJ(res, 200, msj);
-                    
+
                 }
 
             }

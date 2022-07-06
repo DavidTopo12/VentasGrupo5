@@ -142,5 +142,5 @@ exports.Agregar = async (req, res) => {
             MSJ(res, 500, msj);
         }
     }
-    res.json(msj);
+    //res.json(msj);
 };
