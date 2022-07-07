@@ -14,8 +14,8 @@ const Detalle_Pedido = bd.define(
             type: DataTypes.INTEGER,
             allowNull: false
         },
-        CodigoProducto:{
-            type: DataTypes.STRING(15),
+        CodigoPedido:{
+            type: DataTypes.INTEGER,
             allowNull: false
             
         },

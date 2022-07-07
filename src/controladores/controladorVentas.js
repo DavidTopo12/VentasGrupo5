@@ -173,11 +173,11 @@ exports.Agregar = async (req, res) => {
                                 {
                                     NumeroFactura: num_fact,
                                     idcai: cai,
-                                    idCliente: cliente,
+                                    idcliente: cliente,
                                     TTarjeta: tarjeta,
                                     TEfectivo: efectivo,
                                     Usu: usu,
-                                    Estacion: estacion,
+                                    estacion: estacion,
                                     Mesero: mesero
                                 }
                             )

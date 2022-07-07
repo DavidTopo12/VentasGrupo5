@@ -5,6 +5,8 @@ const rutas = Router();
 
 rutas.get('/', controladorVentasSag.Inicio);
 
+rutas.get('/listar', controladorVentasSag.listarventassag);
+
 rutas.post('/agregar',
 body('nomfact').
 notEmpty().withMessage('No aceptan campos vacios')

@@ -9,12 +9,17 @@ rutas.get('/',controladorVentasAnuladas.Inicio);
 rutas.get('/listar', controladorVentasAnuladas.Listar);
 
 rutas.post('/agregar',
+body('id')
+.notEmpty().withMessage('No aceptan campos vacios')
+.isInt().withMessage('Solo aceptan se aceptan numeros enteros'),
+
 body('usua')
 .notEmpty().withMessage('No aceptan campos vacios')
 .isInt().withMessage('Solo aceptan se aceptan numeros enteros'),
+
 body('des')
 .notEmpty().withMessage('No aceptan campos vacios')
-.isString({min:250}).withMessage('Solo aceptan numero Entero'),
+.isString({min:3}).withMessage('Solo aceptan numero Entero'),
 controladorVentasAnuladas.AgregarVentaAnulada);
 
 module.exports = rutas;

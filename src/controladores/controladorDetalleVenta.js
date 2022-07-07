@@ -3,6 +3,7 @@ const { validationResult } = require('express-validator');
 const ModeloDetalleVenta = require('../modelos/modeloDetalleVenta');
 const ModeloVentas = require('../modelos/modeloVentas');
 const ModeloProducto = require('../modelos/modeloProducto');
+const MSJ = require('../componentes/mensaje');
 
 exports.Inicio = async (req, res) => {
     var msj = validar(req);
@@ -37,8 +38,18 @@ exports.Inicio = async (req, res) => {
                 }
             ]
         }
-    ]
-}
+    ];
+    const datos = {
+        api: "API-VENTAS",
+        descripcion: "Interfaz de progamación para el sistema de gestion de restaurantes",
+        propiedad: "DESOFIW",
+        desarrolladores: "",
+        colaboradores: "",
+        fecha: "5/07/2022",
+        listaModulos
+    };
+    msj.datos = datos;
+};
 
 //VALIDAR
 function validar(req) {
@@ -104,7 +115,7 @@ exports.Agregar = async (req, res) => {
             await ModeloDetalleVenta.create(
                 {
                     NumeroFactura: numfact,
-                    CodigoPoprducto: codpro,
+                    CodigoProducto: codpro,
                     Cantidad: cantidad,
                     Precio: prec
                 }
