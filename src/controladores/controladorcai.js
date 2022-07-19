@@ -96,10 +96,12 @@ exports.Inicio = async (req, res) => {
         listaModulos
     };
     msj.datos = datos;
+    MSJ(res, 200, msj);
+    
 };
 
 exports.Listar = async (req, res) => {
-
+    var msj = validacion(req);
     try {
         const listarcai = await Modelocai.findAll();
 

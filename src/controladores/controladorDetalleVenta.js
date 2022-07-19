@@ -46,9 +46,10 @@ exports.Inicio = async (req, res) => {
         desarrolladores: "",
         colaboradores: "",
         fecha: "5/07/2022",
-        listaModulos
+        listarModulos
     };
     msj.datos = datos;
+    MSJ(res, 200, msj);
 };
 
 //VALIDAR
@@ -81,7 +82,7 @@ function validar(req) {
 };
 
 exports.listardetalle = async (req, res) => {
-
+    var msj = validacion(req);
     try {
         const listardetalle = await ModeloDetalleVenta.findAll();
 
@@ -95,7 +96,7 @@ exports.listardetalle = async (req, res) => {
     } catch (error) {
         console.error(error);
         res.json(error);
-
+        MSJ(res, 500, msj);
 
     }
 };

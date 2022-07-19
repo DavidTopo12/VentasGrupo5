@@ -73,9 +73,11 @@ exports.Inicio = async (req, res) => {
         listaModulos
     };
     msj.datos = datos;
+    MSJ(res, 200, msj);
 };
 //crear la funcion de lista de todos los registros de la tabla 
 exports.listarventasexentas = async (req, res) => {
+    var msj = validacion(req);
     try {
         const listarventasexentas = await ModeloVentasExentas.findAll();
         if (listarventasexentas.length == 0) {
@@ -87,6 +89,7 @@ exports.listarventasexentas = async (req, res) => {
     } catch (error) {
         console.error(error);
         res.json(error);
+        MSJ(res, 500, msj);
     }
 };
 
