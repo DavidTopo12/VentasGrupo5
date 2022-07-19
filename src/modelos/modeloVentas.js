@@ -1,5 +1,8 @@
 const { DataTypes } = require('sequelize');
 const bd = require('../configuraciones/bd');
+const Cai = require('./modelocai');
+const Cliente = require('./modeloclientes');
+const Estacion = require('./modeloestacion');
 const Ventas = bd.define(
     'ventas',
     {
@@ -105,4 +108,29 @@ const Ventas = bd.define(
     timestamps: false,
 }
 );
+
+Cai.hasMany(Ventas,{
+    foreignKey: 'idcai',
+    otherKey: 'idregistro'
+}); 
+Ventas.belongsTo(Cai,{
+    foreignKey: 'idcai',
+    otherKey: 'idregistro'
+});
+Cliente.hasMany(Ventas,{
+    foreignKey: 'idCliente',
+    otherKey: 'idregistro'
+}); 
+Ventas.belongsTo(Cliente,{
+    foreignKey: 'idCliente',
+    otherKey: 'idregistro'
+});
+Estacion.hasMany(Ventas,{
+    foreignKey: 'estacion',
+    otherKey: 'NumeroEstacion'
+}); 
+Ventas.belongsTo(Estacion,{
+    foreignKey: 'estacion',
+    otherKey: 'NumeroEstacion'
+});
 module.exports = Ventas;

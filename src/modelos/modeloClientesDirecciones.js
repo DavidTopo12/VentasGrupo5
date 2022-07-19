@@ -10,7 +10,7 @@ const ClientesDirecciones = bd.define(
             autoIncrement: true,
             allowNull: false
         },
-        idcliente:{
+        id_cliente:{
             type: DataTypes.INTEGER,
             allowNull: false
         },
@@ -29,5 +29,13 @@ const ClientesDirecciones = bd.define(
     timestamps: false,
 }
 );
+cliente.hasMany(ClientesDirecciones,{
+    foreignKey: 'id_cliente',
+    otherKey: 'idregistro'
+}); 
+ClientesDirecciones.belongsTo(cliente,{
+    foreignKey: 'id_cliente',
+    otherKey: 'idregistro'
+});
 
 module.exports = ClientesDirecciones;
