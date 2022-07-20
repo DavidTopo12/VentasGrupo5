@@ -4,6 +4,7 @@ const path = require('path');
 const Empleado = require('../modelos/modeloEmpleados');
 const MSJ = require('../componentes/mensaje');
 
+
 exports.Recibir = async (req, res) => {
     const { filename } = req.file;
     const { id } = req.body;
@@ -69,3 +70,9 @@ exports.Recibir = async (req, res) => {
         MSJ(res, 500, msj);
     }
 };
+
+
+
+
+
+
