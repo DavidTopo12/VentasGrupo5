@@ -1,8 +1,8 @@
 const sequelize = require('sequelize');
 const bd = new sequelize(
     'sigresdesarrollo',
-    'idaliauser',
-    'Sunflower.2',
+    'david',
+    'topo12',
     {
         host: 'localhost',
         dialect: 'mysql',
@@ -11,3 +11,4 @@ const bd = new sequelize(
 );
 
 module.exports = bd;
+

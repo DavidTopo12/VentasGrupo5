@@ -217,7 +217,7 @@ exports.InicioSesion = async (req, res) =>{
         var buscarUsuario = await Usuario.findOne({
             include: {
                 model: Empleado,
-                attributes:['nombreimagen', 'nombrecompleto'],
+                attributes:['nombreimagen'],
             },
             where:{
                 [Op.or]:{
@@ -244,7 +244,7 @@ exports.InicioSesion = async (req, res) =>{
             const data = {
                 token: token,
                 usuario: {
-                    nombre: buscarUsuario.empleado.nombrecompleto,
+                    nombre: buscarUsuario.empleado.NombreEmpleado,
                     correo: buscarUsuario.correo,
                     login: buscarUsuario.login,
                     imagen: buscarUsuario.empleado.nombreimagen
