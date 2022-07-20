@@ -69,7 +69,7 @@ function validar(req) {
 
 
 exports.listarempleados = async (req, res) => {
-    var msj = validacion(req);
+    
     try {
         const listarempleados = await ModeloEmpleados.findAll();
 

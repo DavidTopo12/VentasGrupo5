@@ -1,9 +1,7 @@
 const {Router} = require('express');
-const rutas = Router();
-const controladorArchivos = require('../controladores/controladorArchivo');
 const multer = require('multer');
 const path = require('path');
-const storage = multer.diskStorage({
+const storageEmpleados = multer.diskStorage({
 
     // definir el lugar donde se almacenará la imagen
     destination: function(req, file, cb){
@@ -18,9 +16,9 @@ const storage = multer.diskStorage({
     }
 });
 
-const upload = multer({storage: storage});
-upload.single('img');
-
-rutas.post('/empleados/img', upload.single('img'), controladorArchivos.Recibir);
+const uploadEmpleados = multer({storage: storageEmpleados});
+const controladorArchivos = require('../controladores/controladorArchivo');
+const rutas = Router();
+rutas.post('/empleados/img', uploadEmpleados.single('img'), controladorArchivos.Recibir);
 
 module.exports = rutas;
