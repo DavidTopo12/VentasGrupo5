@@ -7,7 +7,6 @@ rutas.get('/', controladorAutenticacion.Inicio);
 //rutas.get('/listar', controladorCargos.Listar);
 
 rutas.post('/iniciosesion', 
-//body('usuario').isLength({min: 3}).withMessage('Debe escribir el nombre de usuario'),
 body('Usuarioo')
 .notEmpty().withMessage('Debe escribir el usuario'),
 body('Contrasena')
