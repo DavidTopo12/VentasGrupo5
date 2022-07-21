@@ -64,6 +64,7 @@ exports.Inicio = async (req, res) => {
         listaModulos
     };
     msj.datos = datos;
+    MSJ(res, 200, msj);
 };
 
 exports.listarclientedireccion = async (req, res) => {

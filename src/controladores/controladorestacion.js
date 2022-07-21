@@ -28,7 +28,7 @@ function validar(req) {
     return msj;
 };
 exports.listarestaciones = async (req, res) => {
-
+    var msj = validacion(req);
     try {
         const listarestaciones = await Modeloestacion.findAll();
 
@@ -42,10 +42,11 @@ exports.listarestaciones = async (req, res) => {
     } catch (error) {
         console.error(error);
         res.json(error);
+        MSJ(res, 500, msj);
     }
 };
    
-    exports.Inicio = async (req, res) =>{
+exports.Inicio = async (req, res) =>{
         var msj = validar(req);
         const listaModulos = [
             {
@@ -76,4 +77,5 @@ exports.listarestaciones = async (req, res) => {
             listaModulos
         };
         msj.datos=datos;
+        MSJ(res, 200, msj);
     };

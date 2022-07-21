@@ -28,14 +28,9 @@ app.use('/api/detallepedidos', require('./rutas/rutasDetallePedido'));
 app.use('/api/VentasSag', require('./rutas/rutasVentasSag'));
 app.use('/api/estacion', require('./rutas/rutasestacion'));
 app.use('/api/usuarios', require('./rutas/rutasUsuarios'));
-
-
-
-
-
-
-
-
+app.use('/api/img', express.static(path.join(__dirname, 'public/img')));
+app.use('/api/archivos', require('./rutas/rutaArchivo'));
+app.use('/api/autenticacion', require('./rutas/rutaAutenticacion'));
 
 app.listen(app.get('port'), () =>{
     console.log("Servidor iniciado en el puerto " + app.get('port'));

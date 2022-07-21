@@ -74,10 +74,12 @@ exports.Inicio = async (req, res) =>{
         listaModulos
     };
     msj.datos=datos;
+    MSJ(res, 200, msj);
 };
 
 
 exports.Listar = async (req, res) => {
+    var msj = validacion(req);
     try {
         const listarVentasAnuladas = await ModeloVentasAnuladas.findAll();
 
@@ -91,6 +93,7 @@ exports.Listar = async (req, res) => {
     } catch (error) {
         console.error(error);
         res.json(error);
+        MSJ(res, 500, msj);
 
     }
 };

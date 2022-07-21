@@ -83,10 +83,13 @@ exports.Inicio = async (req, res) => {
         listaModulos
     };
     msj.datos = datos;
+    MSJ(res, 200, msj);
+
+
 };
 
 exports.listarventas = async (req, res) => {
-
+    var msj = validacion(req);
     try {
         const listarventas = await ModeloVentas.findAll();
 
@@ -100,6 +103,7 @@ exports.listarventas = async (req, res) => {
     } catch (error) {
         console.error(error);
         res.json(error);
+        MSJ(res, 200, msj);
 
     }
 };

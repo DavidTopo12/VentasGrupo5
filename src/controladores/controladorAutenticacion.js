@@ -1,12 +1,11 @@
 const { validationResult } = require('express-validator');
 const Usuario = require('../modelos/modeloUsuarios');
-const Empleado = require('../modelos/modeloEmpleados');
 const MSJ = require('../componentes/mensaje');
 const { Op } = require('sequelize');
-// falta usar este const msjRes = require('../../componentes/mensaje');
-//const EnviarCorreo = require('../../configuraciones/correo');
-const gpc = require('generate-pincode');
+const express = require('express');
 const passport = require('../configuraciones/passport');
+
+
 function validacion (req){
     const validaciones = validationResult(req);
     var errores = [];
@@ -35,6 +34,7 @@ function validacion (req){
     }
     return msj;
 };
+
 exports.Inicio = async (req, res)=>{
     var msj = validacion(req);
     const listaModulos = 
@@ -91,6 +91,8 @@ exports.Inicio = async (req, res)=>{
     msj.datos=datos;
     MSJ(res, 200, msj);
 };
+
+/*
 exports.Pin = async (req, res) =>{
     var msj = validacion(req);
     if(msj.errores.length>0){
@@ -188,7 +190,7 @@ exports.Recuperar = async (req, res) =>{
         }
     }
 };
-
+*/
 exports.Error = async (req, res) =>{
     var msj = {
         estado: 'correcto',
@@ -213,41 +215,31 @@ exports.InicioSesion = async (req, res) =>{
         MSJ(res, 200, msj);
     }
     else{
-        const { usuario, contrasena } = req.body;
+        const { Usuarioo, Contrasena } = req.body;
         var buscarUsuario = await Usuario.findOne({
-            include: {
-                model: Empleado,
-                attributes:['nombreimagen', 'nombrecompleto'],
-            },
             where:{
-                [Op.or]:{
-                    login: usuario,
-                    correo: usuario,
-                },
-                estado: 'AC',
-                habilitado: true
-            }
-        });
+                    login: Usuarioo,
+                    contrasena: Contrasena
+                }
+        })
         if(!buscarUsuario){
             msj.estado = 'precaucion';
             msj.mensaje = 'La peticion no se ejecuto';
             msj.errores = [
                 {
-                    mensaje: "El usuario no exite",
-                    parametro: "usuario"
+                    mensaje: "El usuario o contraseña son incorrectos",
+                    parametro: "Usuario"
                 },
             ];
-            MSJ(res, 200, msj);
+            MSJ(res, 500, msj);
         }
         else{
-            const token = passport.getToken({id:buscarUsuario.id});
+            const token = passport.getToken({id: buscarUsuario.id});
             const data = {
                 token: token,
                 usuario: {
-                    nombre: buscarUsuario.empleado.nombrecompleto,
-                    correo: buscarUsuario.correo,
-                    login: buscarUsuario.login,
-                    imagen: buscarUsuario.empleado.nombreimagen
+                    login:buscarUsuario.login,
+                    contrasena: buscarUsuario.contrasena
                 }
             };
             msj.estado= 'correcto';
