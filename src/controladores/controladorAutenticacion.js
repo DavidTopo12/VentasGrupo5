@@ -4,6 +4,10 @@ const MSJ = require('../componentes/mensaje');
 const { Op } = require('sequelize');
 const express = require('express');
 const passport = require('../configuraciones/passport');
+const msjRes = require('../../componentes/mensaje');
+const EnviarCorreo = require('../../configuraciones/correo');
+const gpc = require('generate-pincode');
+
 
 
 function validacion (req){
