@@ -13,6 +13,7 @@ body('Contrasena')
 .notEmpty().withMessage('Debe escribir la contraseña'),
 controladorAutenticacion.InicioSesion);
 
+rutas.get('/error', controladorAutenticacion.Error);
 
 
 module.exports = rutas;
