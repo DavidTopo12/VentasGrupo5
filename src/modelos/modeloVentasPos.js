@@ -3,7 +3,7 @@ const bd = require('../configuraciones/bd');
 const Ventas = require('./modeloVentas');
 const Pos = require('./modeloPos');
 const Ventas_Pos = bd.define(
-    'ventas_pos',
+    'ventaspos',
     {
         idregistro: {
             type:  DataTypes.INTEGER,

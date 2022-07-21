@@ -127,19 +127,22 @@ exports.Agregar = async (req, res) => {
         MSJ(res, 200, msj);
     }
     else {
-        const { rtn, nombre } = req.body;
+        const { rtn, nombre, direccion, telefono, correo, imagen, nombre_imagen } = req.body;
 
         try {
             await Modeloclientes.create(
                 {
                     RTN: rtn,
-                    Nombre: nombre
+                    Nombre: nombre,
+                    Direccion: direccion,
+                    Telefono: telefono,
+                    Correo: correo
                 }
             )
             msj.estado = 'correcto',
-                msj.mensaje = 'Peticion ejecutada correctamente',
-                msj.datos = '',
-                msj.errores = ''
+            msj.mensaje = 'Peticion ejecutada correctamente',
+            msj.datos = '',
+            msj.errores = ''
             MSJ(res, 200, msj);
 
         } catch (error) {
@@ -162,7 +165,7 @@ exports.Editar = async (req, res) => {
     }
     else {
         const { idcliente } = req.query;
-        const { rtn, nombre } = req.body;
+        const { rtn, nombre, direccion, telefono, correo, imagen, nombre_imagen } = req.body;
 
 
         try {
@@ -186,6 +189,11 @@ exports.Editar = async (req, res) => {
 
                 buscarCliente.RTN = rtn,
                     buscarCliente.Nombre = nombre
+                    buscarCliente.Direccion = direccion,
+                    buscarCliente.Telefono = telefono,
+                    buscarCliente.Correo = correo,
+                    buscarCliente.Imagen = imagen,
+                    buscarCliente.nombreImagen = nombre_imagen
                 await buscarCliente.save();
                 msj.estado = 'correcto',
                     msj.mensaje = 'Peticion ejecutada correctamente, actualizado',

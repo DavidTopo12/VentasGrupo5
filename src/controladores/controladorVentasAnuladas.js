@@ -1,6 +1,7 @@
 const{validationResult} = require('express-validator'); 
 const ModeloVentasAnuladas = require('../modelos/modeloVentasAnuladas');
 const modeloUsuario = require('../modelos/modeloUsuarios');
+const modeloVenta = require('../modelos/modeloVentas');
 const MSJ = require('../componentes/mensaje');
 //ENCARGADO - DAVID ALEJANDRO SALGADO ZELAYA
 
@@ -101,11 +102,12 @@ exports.AgregarVentaAnulada = async (req, res) => {
         MSJ(res, 200, msj);
     }
     else {
-        const { usua, des } = req.body;
+        const { venta, usua, des } = req.body;
 
         var buscarusuario = await modeloUsuario.findOne({
             where:{
-                 usuario: usua   
+                idregistro: usua,
+                 habilitado: 1   
             }
         });
 
@@ -114,31 +116,60 @@ exports.AgregarVentaAnulada = async (req, res) => {
             msj.mensaje = 'la peticion no se ejecuto';
             msj.errores = {
                 mensaje: 'El usuario existe o no esta vinculado a ninguna venta anulada',
-                parametro: 'cai'
+                parametro: 'usua'
             };
 
             MSJ(res, 200, msj);
         }
         else{
-            try {
-           
 
-                await ModeloVentasAnuladas.create(
-                    {
-                        usuario: usua,
-                        descripcion: des
-                    }
-                );
-                msj.mensaje = 'los datos de ventas anuladas se guardaron con éxito';
+            var buscarventa = await modeloVenta.findOne({
+                where:{
+                    idregistro: venta,
+                    Anular: 0   
+                }
+            });
     
-            } catch (error) {
-                msj.estado = 'precaución';
+            if(!buscarventa){
+                msj.estado = 'precuacion';
                 msj.mensaje = 'la peticion no se ejecuto';
-                msj.errores = error;
-                MSJ(res, 500, msj);
-            }
+                msj.errores = {
+                    mensaje: 'La venta no existe o no esta vinculado a ninguna venta anulada',
+                    parametro: 'venta'
+                };
     
-        }        
+                MSJ(res, 200, msj);
+            }
+            else{
+                try {
+               
+                    await ModeloVentasAnuladas.create(
+                        {
+                            id_usuario: usua,
+                            descripcion: des,
+                            idventa: venta
+                        }
+                    );
+
+                    buscarventa.Anular = 1
+                    await buscarventa.save();
+                    msj.mensaje = 'los datos de ventas anuladas se guardaron con éxito';
+        
+                } catch (error) {
+                    msj.estado = 'precaución';
+                    msj.mensaje = 'la peticion no se ejecuto';
+                    msj.errores = error;
+                    MSJ(res, 500, msj);
+                }
+        
+            }      
+
+
+
+
+
+
+        }  
 
     }
 

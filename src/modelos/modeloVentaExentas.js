@@ -6,6 +6,7 @@ const Ventas_Exentas = bd.define(
     {
         numerofactura:{
             type: DataTypes.INTEGER,
+            primaryKey: true,
             allowNull: false
         },
         numero_orden:{

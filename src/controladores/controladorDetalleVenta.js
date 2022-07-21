@@ -107,7 +107,7 @@ exports.Agregar = async (req, res) => {
         MSJ(res, 200, msj);
     }
     else {
-        const { numfact, codpro, cantidad, prec } = req.body;
+        const { numfact, codpro, cantidad, prec, original, impu, exento } = req.body;
 
         try {
             var buscarFactura = await ModeloVentas.findOne({
@@ -152,7 +152,10 @@ exports.Agregar = async (req, res) => {
                                 NumeroFactura: numfact,
                                 CodigoProducto: codpro,
                                 Cantidad: cantidad,
-                                Precio: prec
+                                Precio: prec,
+                                preciooriginal: original,
+                                impuesto: impu,
+                                grabadoExento: exento
                             }
                         )
                         msj.estado = 'correcto',

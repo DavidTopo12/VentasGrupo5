@@ -69,12 +69,12 @@ const Ventas = bd.define(
         fechahoraini:{
             type: DataTypes.DATE,
             allowNull: true,
-            defaultValue: null
+            defaultValue: DataTypes.NOW
         },
         fechahora:{
             type: DataTypes.DATE,
             allowNull: true,
-            defaultValue: null
+            defaultValue: DataTypes.NOW
         },
         propina:{
             type: DataTypes.DOUBLE,

@@ -111,7 +111,9 @@ exports.Agregar = async (req, res) => {
         MSJ(res, 200, msj);
     }
     else {
-        const { num_fact, cai, cliente, tarjeta, efectivo, usu, estacion, mesero } = req.body;
+        const { num_fact, cai, cliente, tarjeta, efectivo, usu, estacion, mesero,
+        tipopago, tercera, desc, anular, Cierre, FechaHoraIni, FechaHora, Propina,
+        total, exento, impuesto15, impuesto18, exonerado } = req.body;
         try {
             var buscarcai = await Modelocai.findOne({
                 where: {
@@ -174,11 +176,23 @@ exports.Agregar = async (req, res) => {
                                     NumeroFactura: num_fact,
                                     idcai: cai,
                                     idcliente: cliente,
+                                    TipoPago: tipopago,
                                     Usu: usu,
                                     TEfectivo: efectivo,
                                     TTarjeta: tarjeta,
                                     estacion: estacion,
-                                    Mesero: mesero
+                                    Mesero: mesero,
+                                    DescuentoTercera: tercera,
+                                    Descuento: desc,
+                                    Anular: anular,
+                                    cierre: Cierre,
+                                    propina: Propina,
+                                    totalventa: total,
+                                    Exento: exento,
+                                    Impuesto15: impuesto15,
+                                    Impuesto18: impuesto18,
+                                    Exonerado: exonerado
+                                    
                                 }
                             )
                                 msj.estado = 'correcto',

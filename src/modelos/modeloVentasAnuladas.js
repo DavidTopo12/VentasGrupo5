@@ -23,7 +23,7 @@ const Ventas_Anuladas = bd.define(
         fechahora:{
             type: DataTypes.DATE,
             allowNull: true,
-            defaultValue: null 
+            defaultValue: DataTypes.NOW
         }
         
 

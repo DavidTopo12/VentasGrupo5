@@ -102,7 +102,8 @@ exports.Agregar = async (req, res) => {
         try {
             var buscarfactura = await ModeloVentas.findOne({
                 where: {
-                    NumeroFactura: numfactura
+                    idregistro: numfactura,
+                    Anular: 0
                 }
             });
             if (!buscarfactura) {
@@ -110,7 +111,7 @@ exports.Agregar = async (req, res) => {
                 msj.mensaje = 'la peticion no se ejecuto';
                 msj.errores = {
                     mensaje: 'El numero de factura no existe o no esta vinculado a ninguna venta',
-                    parametro: 'numerofactura'
+                    parametro: 'numfactura'
                 };
                 MSJ(res, 200, msj);
             }
@@ -118,7 +119,7 @@ exports.Agregar = async (req, res) => {
                 try {
                     await ModeloVentasExentas.create(
                         {
-                            numero_factura: numfactura,
+                            numerofactura: numfactura,
                             numero_orden: numorden
                         }
                     )

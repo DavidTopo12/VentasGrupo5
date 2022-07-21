@@ -103,12 +103,14 @@ exports.Agregar = async (req, res) => {
 
     }
     else{
-        const { nombr} = req.body;
+        const { nombr, descrip, acti} = req.body;
       
         try {
               await ModeloPos.create(
                 {
-                   nombre: nombr
+                   nombre: nombr,
+                   descripcion: descrip,
+                   activo: acti
                   
                 }
               )

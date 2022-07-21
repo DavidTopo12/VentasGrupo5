@@ -21,7 +21,7 @@ const ClientesDirecciones = bd.define(
         creada:{
             type: DataTypes. DATE,
             allowNull: true,
-            defaultValue: null
+            defaultValue: DataTypes.NOW
         }
 },
 {

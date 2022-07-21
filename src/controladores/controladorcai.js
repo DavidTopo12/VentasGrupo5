@@ -126,7 +126,7 @@ exports.Agregar = async (req, res) => {
         MSJ(res, 200, msj);
     }
     else {
-        const { cai, fecha_limite, numero_ini, numero_fin } = req.body;
+        const { cai, fecha_limite, numero_ini, numero_fin, activoCai } = req.body;
 
         try {
             await Modelocai.create(
@@ -134,7 +134,8 @@ exports.Agregar = async (req, res) => {
                     CAI: cai,
                     FechaLimite: fecha_limite,
                     NumeroInicial: numero_ini,
-                    NumeroFinal: numero_fin
+                    NumeroFinal: numero_fin,
+                    activo: activoCai,
                 }
             )
             msj.estado = 'correcto',
@@ -163,7 +164,7 @@ exports.Editar = async (req, res) => {
     }
     else {
         const { idCai } = req.query;
-        const { cai, fecha_limite, numero_ini, numero_fin } = req.body;
+        const { cai, fecha_limite, numero_ini, numero_fin, activoCai } = req.body;
 
 
         try {
@@ -188,9 +189,10 @@ exports.Editar = async (req, res) => {
                 try {
 
                     buscarCai.CAI = cai,
-                        buscarCai.FechaLimite = fecha_limite,
-                        buscarCai.NumeroInicial = numero_ini,
-                        buscarCai.NumeroFinal = numero_fin
+                    buscarCai.FechaLimite = fecha_limite,
+                    buscarCai.NumeroInicial = numero_ini,
+                    buscarCai.NumeroFinal = numero_fin,
+                    buscarCai.activo = activoCai
                     await buscarCai.save();
                     msj.estado = 'correcto',
                         msj.mensaje = 'Peticion ejecutada correctamente, actualizado',

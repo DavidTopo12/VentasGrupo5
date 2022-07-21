@@ -97,7 +97,8 @@ exports.Agregar = async (req, res) => {
         try {
             var buscarnumerofactura = await ModeloVentas.findOne({
                 where: {
-                    NumeroFactura: numfac,
+                    idregistro: numfac,
+                    Anular: 0
 
                 }
             });
@@ -116,7 +117,7 @@ exports.Agregar = async (req, res) => {
                 try {
                     await ModeloVentasSag.create(
                         {
-                            numero_factura: numfac,
+                            numFactura: numfac,
                             numero_sag: numsag
 
                         }

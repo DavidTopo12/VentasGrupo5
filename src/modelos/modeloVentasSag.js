@@ -5,8 +5,9 @@ const Ventas_Sag = bd.define(
     'ventas_sag',
     {
         
-        numero_factura:{
+        numFactura:{
             type: DataTypes.INTEGER,
+            primaryKey: true,
             allowNull: false
             
         },
@@ -22,9 +23,11 @@ const Ventas_Sag = bd.define(
 }
 );
 Numero_Factura.hasMany(Ventas_Sag,{
-    foreignKey: 'numero_factura'
+    foreignKey: 'numFactura',
+    otherKey: 'idregistro'
 }); 
 Ventas_Sag.belongsTo(Numero_Factura,{
-    foreignKey: 'numero_factura'
+    foreignKey: 'numFactura',
+    otherKey: 'idregistro'
 });
 module.exports = Ventas_Sag;
