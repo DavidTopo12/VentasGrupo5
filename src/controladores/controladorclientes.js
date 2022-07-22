@@ -97,7 +97,7 @@ exports.Inicio = async (req, res) => {
 
 
 exports.Listar = async (req, res) => {
-    var msj = validacion(req);
+    var msj = validar(req);
 
     try {
         const listarclientes = await Modeloclientes.findAll();

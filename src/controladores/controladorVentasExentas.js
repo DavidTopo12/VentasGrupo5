@@ -77,7 +77,7 @@ exports.Inicio = async (req, res) => {
 };
 //crear la funcion de lista de todos los registros de la tabla 
 exports.listarventasexentas = async (req, res) => {
-    var msj = validacion(req);
+    var msj = validar(req);
     try {
         const listarventasexentas = await ModeloVentasExentas.findAll();
         if (listarventasexentas.length == 0) {

@@ -82,7 +82,7 @@ function validar(req) {
 };
 
 exports.listardetalle = async (req, res) => {
-    var msj = validacion(req);
+    var msj = validar(req);
     try {
         const listardetalle = await ModeloDetalleVenta.findAll();
 

@@ -28,7 +28,7 @@ function validar(req) {
     return msj;
 };
 exports.listarestaciones = async (req, res) => {
-    var msj = validacion(req);
+    var msj = validar(req);
     try {
         const listarestaciones = await Modeloestacion.findAll();
 

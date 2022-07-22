@@ -68,7 +68,7 @@ function validar(req) {
 
 
 exports.listarProductos = async (req, res) => {
-    var msj = validacion(req);
+    var msj = validar(req);
     try {
         const listarproductos = await ModeloProducto.findAll();
 

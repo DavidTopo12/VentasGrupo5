@@ -77,7 +77,7 @@ function validar(req) {
 };
 
 exports.listarventassag = async (req, res) => {
-    var msj = validacion(req);
+    var msj = validar(req);
     try {
         const listarventassag = await ModeloVentasSag.findAll();
 

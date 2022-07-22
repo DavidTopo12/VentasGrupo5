@@ -89,7 +89,7 @@ exports.Inicio = async (req, res) => {
 };
 
 exports.listarventas = async (req, res) => {
-    var msj = validacion(req);
+    var msj = validar(req);
     try {
         const listarventas = await ModeloVentas.findAll();
 

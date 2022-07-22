@@ -1,8 +1,8 @@
 const sequelize = require('sequelize');
 const bd = new sequelize(
     'sigresdesarrollo',
-    'david',
-    'topo12',
+    'idaliauser',
+    'Sunflower.2',
     {
         host: 'localhost',
         dialect: 'mysql',
