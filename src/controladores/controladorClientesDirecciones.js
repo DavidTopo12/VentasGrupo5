@@ -64,6 +64,7 @@ exports.Inicio = async (req, res) => {
         listaModulos
     };
     msj.datos = datos;
+    MSJ(res, 200, msj);
 };
 
 exports.listarclientedireccion = async (req, res) => {
@@ -104,8 +105,8 @@ exports.Agregar = async (req, res) => {
             msj.estado = 'precuacion';
             msj.mensaje = 'la peticion no se ejecuto';
             msj.errores = {
-                mensaje: 'El Cai no existe o no esta vinculado a ninguna venta',
-                parametro: 'cai'
+                mensaje: 'El cliente no existe o no esta vinculado a ninguna venta',
+                parametro: 'cliente'
             };
 
             MSJ(res, 200, msj);
@@ -114,7 +115,7 @@ exports.Agregar = async (req, res) => {
             try {
                 await ModeloClienteDireccion.create(
                     {
-                        idcliente: cliente,
+                        id_cliente: cliente,
                         direccion: direc
                     }
                 )
@@ -165,7 +166,7 @@ exports.Editar = async (req, res) => {
                 msj.mensaje = 'la peticion no se ejecuto';
                 msj.errores = {
                     mensaje: 'La direccion no existe o no esta vinculado a ninguna venta',
-                    parametro: 'cai'
+                    parametro: 'cliente'
                 };
 
                 MSJ(res, 200, msj);
@@ -174,8 +175,8 @@ exports.Editar = async (req, res) => {
             else {
 
                 try {
-                    buscarClienteDireccion.idcliente = cliente,
-                        buscarClienteDireccion.direccion = direc
+                    buscarClienteDireccion.id_cliente = cliente,
+                    buscarClienteDireccion.direccion = direc
 
                     await buscarClienteDireccion.save();
                     msj.estado = 'correcto',

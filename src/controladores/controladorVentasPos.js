@@ -74,11 +74,12 @@ exports.Inicio = async (req, res) => {
         listaModulos
     };
     msj.datos = datos;
+    MSJ(res, 200, msj);
 };
 
 
 exports.listarventaspos = async (req, res) => {
-
+    var msj = validar(req);
     try {
         const listarventaspos = await ModeloVentasPos.findAll();
 
@@ -92,6 +93,7 @@ exports.listarventaspos = async (req, res) => {
     } catch (error) {
         console.error(error);
         res.json(error);
+        MSJ(res, 500, msj);
     }
 };
 
@@ -103,11 +105,12 @@ exports.Agregar = async (req, res) => {
         MSJ(res, 200, msj);
     }
     else {
-        const { id_venta, id_pos, referencia, valor } = req.body;
+        const { idventa, id_pos, referencia, Valor,
+        tarjeta, proprietario, id_marca } = req.body;
         try {
             var buscarventa = await ModeloVentas.findOne({
                 where: {
-                    idventa: id_venta
+                    idregistro: idventa
                 }
             });
 
@@ -142,10 +145,14 @@ exports.Agregar = async (req, res) => {
                 try {
                     await ModeloVentasPos.create(
                         {
-                            idventa: id_venta,
+                            id_venta: idventa,
                             idpos: id_pos,
                             referencia: referencia,
-                            valor: valor
+                            numerotarjeta: tarjeta,
+                            valor: Valor,
+                            nombrepropietario: proprietario,
+                            idmarca: id_marca
+
                         }
                     )
                     msj.estado = 'correcto',

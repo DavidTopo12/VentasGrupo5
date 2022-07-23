@@ -17,9 +17,6 @@ notEmpty().withMessage('No aceptan campos vacios')
 .isString({min:3}).withMessage('Escribir un minimo de 3 caracteres'),
 
 
-
-
-
 controladorVentasSag.Agregar);
 
 module.exports = rutas;

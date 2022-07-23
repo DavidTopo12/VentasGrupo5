@@ -73,9 +73,11 @@ exports.Inicio = async (req, res) => {
         listaModulos
     };
     msj.datos = datos;
+    MSJ(res, 200, msj);
 };
 //crear la funcion de lista de todos los registros de la tabla 
 exports.listarventasexentas = async (req, res) => {
+    var msj = validar(req);
     try {
         const listarventasexentas = await ModeloVentasExentas.findAll();
         if (listarventasexentas.length == 0) {
@@ -87,6 +89,7 @@ exports.listarventasexentas = async (req, res) => {
     } catch (error) {
         console.error(error);
         res.json(error);
+        MSJ(res, 500, msj);
     }
 };
 
@@ -102,7 +105,8 @@ exports.Agregar = async (req, res) => {
         try {
             var buscarfactura = await ModeloVentas.findOne({
                 where: {
-                    NumeroFactura: numfactura
+                    idregistro: numfactura,
+                    Anular: 0
                 }
             });
             if (!buscarfactura) {
@@ -110,7 +114,7 @@ exports.Agregar = async (req, res) => {
                 msj.mensaje = 'la peticion no se ejecuto';
                 msj.errores = {
                     mensaje: 'El numero de factura no existe o no esta vinculado a ninguna venta',
-                    parametro: 'numerofactura'
+                    parametro: 'numfactura'
                 };
                 MSJ(res, 200, msj);
             }
@@ -118,7 +122,7 @@ exports.Agregar = async (req, res) => {
                 try {
                     await ModeloVentasExentas.create(
                         {
-                            numero_factura: numfactura,
+                            numerofactura: numfactura,
                             numero_orden: numorden
                         }
                     )

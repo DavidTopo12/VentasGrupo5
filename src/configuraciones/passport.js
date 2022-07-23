@@ -16,9 +16,7 @@ const opciones = {
 passport.use(new estrategiaJWT(opciones, async (payload, done)=> {
     return await Usuario.findOne({
         where:{
-            id: payload.id,
-            habilitado: true,
-            estado: 'AC'
+            id: payload.id
         }
     })
     .then((data)=>{

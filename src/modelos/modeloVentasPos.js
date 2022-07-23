@@ -3,7 +3,7 @@ const bd = require('../configuraciones/bd');
 const Ventas = require('./modeloVentas');
 const Pos = require('./modeloPos');
 const Ventas_Pos = bd.define(
-    'ventas_pos',
+    'ventaspos',
     {
         idregistro: {
             type:  DataTypes.INTEGER,
@@ -11,7 +11,7 @@ const Ventas_Pos = bd.define(
             autoIncrement: true,
             allowNull: false
         },
-        idventa:{
+        id_venta:{
             type: DataTypes.INTEGER,
             allowNull: false
         },
@@ -50,5 +50,21 @@ const Ventas_Pos = bd.define(
     timestamps: false,
 }
 );
+Ventas.hasMany(Ventas_Pos,{
+    foreignKey: 'id_venta',
+    otherKey: 'idregistro'
+}); 
+Ventas_Pos.belongsTo(Ventas,{
+    foreignKey: 'id_venta',
+    otherKey: 'idregistro'
+});
+Pos.hasMany(Ventas_Pos,{
+    foreignKey: 'idpos',
+    otherKey: 'idregistro'
+}); 
+Ventas_Pos.belongsTo(Pos,{
+    foreignKey: 'idpos',
+    otherKey: 'idregistro'
+});
 
 module.exports = Ventas_Pos;

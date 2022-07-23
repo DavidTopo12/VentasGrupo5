@@ -69,10 +69,11 @@ exports.Inicio = async (req, res)=>{
         listaModulos
     };
     msj.datos=datos;
+    MSJ(res, 200, msj);
 };
 
 exports.listarpos = async (req, res) => {
-
+    var msj = validar(req);
     try {
         const listarpos = await ModeloPos.findAll();
 
@@ -86,6 +87,7 @@ exports.listarpos = async (req, res) => {
     } catch (error) {
         console.error(error);
         res.json(error);
+        MSJ(res, 500, msj);
     }
 };
 
@@ -103,12 +105,14 @@ exports.Agregar = async (req, res) => {
 
     }
     else{
-        const { nombr} = req.body;
+        const { nombr, descrip, acti} = req.body;
       
         try {
               await ModeloPos.create(
                 {
-                   nombre: nombr
+                   nombre: nombr,
+                   descripcion: descrip,
+                   activo: acti
                   
                 }
               )

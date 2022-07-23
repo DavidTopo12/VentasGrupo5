@@ -46,9 +46,10 @@ exports.Inicio = async (req, res) => {
         desarrolladores: "",
         colaboradores: "",
         fecha: "5/07/2022",
-        listaModulos
+        listarModulos
     };
     msj.datos = datos;
+    MSJ(res, 200, msj);
 };
 
 //VALIDAR
@@ -81,12 +82,12 @@ function validar(req) {
 };
 
 exports.listardetalle = async (req, res) => {
-
+    var msj = validar(req);
     try {
         const listardetalle = await ModeloDetalleVenta.findAll();
 
         if (listardetalle.length == 0) {
-            res.send("No hay ventas Registradas");
+            res.send("No hay detalle de ventas Registradas");
         }
         else {
             res.json(listardetalle);
@@ -95,7 +96,7 @@ exports.listardetalle = async (req, res) => {
     } catch (error) {
         console.error(error);
         res.json(error);
-
+        MSJ(res, 500, msj);
 
     }
 };
@@ -107,9 +108,7 @@ exports.Agregar = async (req, res) => {
         MSJ(res, 200, msj);
     }
     else {
-        const { numfact, codpro, cantidad, prec } = req.body;
-
-
+        const { numfact, codpro, cantidad, prec, original, impu, exento } = req.body;
 
         try {
             await ModeloDetalleVenta.create(
@@ -119,20 +118,77 @@ exports.Agregar = async (req, res) => {
                     Cantidad: cantidad,
                     Precio: prec
                 }
-            )
-            msj.estado = 'correcto',
-                msj.mensaje = 'Peticion ejecutada correctamente',
-                msj.datos = '',
-                msj.errores = ''
-            MSJ(res, 200, msj);
+            });
+
+            if (!buscarFactura) {
+                msj.estado = 'precuacion';
+                msj.mensaje = 'la peticion no se ejecuto';
+                msj.errores = {
+                    mensaje: 'El Numero de factura no existe o no esta vinculado a ninguna venta',
+                    parametro: 'numfact'
+                };
+
+                MSJ(res, 200, msj);
+            }
+            else {
+
+                var buscarProducto = await ModeloProducto.findOne({
+                    where: {
+                        Codigo: codpro
+                    }
+                });
+
+                if (!buscarProducto) {
+                    msj.estado = 'precuacion';
+                    msj.mensaje = 'la peticion no se ejecuto';
+                    msj.errores = {
+                        mensaje: 'El Codigo de Producto no existe o no esta vinculado a ninguna venta',
+                        parametro: 'codpro'
+                    };
+
+                    MSJ(res, 200, msj);
+                }
+                else {
+
+                    try {
+                        await ModeloDetalleVenta.create(
+                            {
+                                NumeroFactura: numfact,
+                                CodigoProducto: codpro,
+                                Cantidad: cantidad,
+                                Precio: prec,
+                                preciooriginal: original,
+                                impuesto: impu,
+                                grabadoExento: exento
+                            }
+                        )
+                        msj.estado = 'correcto',
+                            msj.mensaje = 'Peticion ejecutada correctamente',
+                            msj.datos = '',
+                            msj.errores = ''
+                        MSJ(res, 200, msj);
+
+                    } catch (error) {
+                        msj.estado = 'precuacion';
+                        msj.mensaje = 'la peticion no se ejecuto, no se guardó';
+                        msj.errores = error;
+                        MSJ(res, 500, msj);
+
+                    }
+
+                }
+            }
 
         } catch (error) {
+
             msj.estado = 'precuacion';
             msj.mensaje = 'la peticion no se ejecuto';
             msj.errores = error;
             MSJ(res, 500, msj);
 
         }
+
+
 
     }
 

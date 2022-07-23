@@ -3,11 +3,12 @@ const bd = require('../configuraciones/bd');
 const Empleados = bd.define(
     'empleado',
     {
-        idregistro: {
+        id:{
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true,
-            allowNull: false
+            allowNull: false,
+            field: 'idregistro'
         },
         NumeroIdentidad:{
             type: DataTypes.STRING(15),

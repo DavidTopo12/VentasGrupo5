@@ -73,10 +73,12 @@ exports.Inicio = async (req, res) => {
         listaModulos
     };
     msj.datos = datos;
+    MSJ(res, 200, msj);
+
 };
 
 exports.Listar = async (req, res) => {
-
+    var msj = validar(req);
     try {
         const listarconstancias = await ModeloVentasConstancia.findAll();
 
@@ -90,6 +92,7 @@ exports.Listar = async (req, res) => {
     } catch (error) {
         console.error(error);
         res.json(error);
+        MSJ(res, 500, msj);
 
     }
 };
@@ -105,7 +108,7 @@ exports.Agregar = async (req, res) => {
 
         var buscarFactura = await ModeloVentas.findOne({
             where: {
-                NumeroFactura: numfactura,
+                idregistro: numfactura,
                 Anular: 0
 
             }
@@ -116,8 +119,8 @@ exports.Agregar = async (req, res) => {
             msj.estado = 'precuacion';
             msj.mensaje = 'la peticion no se ejecuto';
             msj.errores = {
-                mensaje: 'El Cai no existe o no esta vinculado a ninguna venta',
-                parametro: 'cai'
+                mensaje: 'El Num.Factura no existe o no esta vinculado a ninguna venta',
+                parametro: 'numfactura'
             };
 
             MSJ(res, 200, msj);

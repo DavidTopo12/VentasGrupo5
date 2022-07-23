@@ -11,3 +11,4 @@ const bd = new sequelize(
 );
 
 module.exports = bd;
+

@@ -10,7 +10,7 @@ const Ventas_Anuladas = bd.define(
             primaryKey: true,
             allowNull: false
         },
-        idusuario:{
+        id_usuario:{
             type: DataTypes.INTEGER,
             allowNull: false,
             field: 'usuario',
@@ -23,7 +23,7 @@ const Ventas_Anuladas = bd.define(
         fechahora:{
             type: DataTypes.DATE,
             allowNull: true,
-            defaultValue: null 
+            defaultValue: DataTypes.NOW
         }
         
 
@@ -33,6 +33,23 @@ const Ventas_Anuladas = bd.define(
     timestamps: false,
 }
 );
+Venta.hasMany(Ventas_Anuladas,{
+    foreignKey: 'idventa',
+    otherKey: 'idregistro'
+}); 
+Ventas_Anuladas.belongsTo(Venta,{
+    foreignKey: 'idventa',
+    otherKey: 'idregistro'
+});
+
+Usuario.hasMany(Ventas_Anuladas,{
+    foreignKey: 'id_usuario',
+    otherKey: 'idregistro'
+}); 
+Ventas_Anuladas.belongsTo(Usuario,{
+    foreignKey: 'id_usuario',
+    otherKey: 'idregistro'
+});
 
 
 module.exports = Ventas_Anuladas;

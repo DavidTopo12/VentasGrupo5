@@ -35,6 +35,17 @@ exports.Inicio = async (req, res) => {
             ]
         }
     ];
+    const datos = {
+        api: "API-VENTAS",
+        descripcion: "Interfaz de progamación para el sistema de gestion de restaurantes",
+        propiedad: "DESOFIW",
+        desarrolladores: "",
+        colaboradores: "",
+        fecha: "5/07/2022",
+        listaModulos
+    };
+    msj.datos = datos;
+    MSJ(res, 200, msj);
 };
 
 function validar(req) {
@@ -66,7 +77,7 @@ function validar(req) {
 };
 
 exports.listarventassag = async (req, res) => {
-
+    var msj = validar(req);
     try {
         const listarventassag = await ModeloVentasSag.findAll();
 
@@ -80,6 +91,7 @@ exports.listarventassag = async (req, res) => {
     } catch (error) {
         console.error(error);
         res.json(error);
+        MSJ(res, 500, msj);
 
     }
 };
@@ -97,7 +109,8 @@ exports.Agregar = async (req, res) => {
         try {
             var buscarnumerofactura = await ModeloVentas.findOne({
                 where: {
-                    NumeroFactura: numfac,
+                    idregistro: numfac,
+                    Anular: 0
 
                 }
             });
@@ -116,7 +129,7 @@ exports.Agregar = async (req, res) => {
                 try {
                     await ModeloVentasSag.create(
                         {
-                            numero_factura: numfac,
+                            numFactura: numfac,
                             numero_sag: numsag
 
                         }

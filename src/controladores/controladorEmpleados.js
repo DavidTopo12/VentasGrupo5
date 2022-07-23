@@ -35,7 +35,7 @@ exports.Inicio = async (req, res) =>{
         listaModulos
     };
     msj.datos=datos;
-    msjRes(res, 200, msj);
+    MSJ(res, 200, msj);
 };
 
 
@@ -69,7 +69,7 @@ function validar(req) {
 
 
 exports.listarempleados = async (req, res) => {
-
+    
     try {
         const listarempleados = await ModeloEmpleados.findAll();
 
@@ -83,6 +83,6 @@ exports.listarempleados = async (req, res) => {
     } catch (error) {
         console.error(error);
         res.json(error);
-
+        MSJ(res, 500, msj);
     }
 };

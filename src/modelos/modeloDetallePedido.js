@@ -1,6 +1,7 @@
 const { DataTypes } = require('sequelize');
 const bd = require('../configuraciones/bd');
-
+const Pedido = require('./modeloPedido');
+const Producto = require('./modeloProducto');
 const Detalle_Pedido = bd.define(
     'detallePedido',
     {
@@ -59,4 +60,22 @@ const Detalle_Pedido = bd.define(
     timestamps: false,
 }
 );
+Pedido.hasMany(Detalle_Pedido,{
+    foreignKey: 'NumeroPedido',
+    otherKey: 'idregistro'
+}); 
+Detalle_Pedido.belongsTo(Pedido,{
+    foreignKey: 'NumeroPedido',
+    otherKey: 'idregistro'
+});
+
+Producto.hasMany(Detalle_Pedido,{
+    foreignKey: 'CodigoProducto',
+    otherKey: 'idregistro'
+}); 
+Detalle_Pedido.belongsTo(Producto,{
+    foreignKey: 'CodigoProducto',
+    otherKey: 'idregistro'
+});
+
 module.exports = Detalle_Pedido;

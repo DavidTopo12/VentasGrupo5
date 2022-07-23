@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 const bd = require('../configuraciones/bd');
 const Pos = bd.define(
-    'pos',
+    'POS',
     {
         idregistro: {
             type:  DataTypes.INTEGER,

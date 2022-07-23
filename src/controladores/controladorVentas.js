@@ -83,10 +83,13 @@ exports.Inicio = async (req, res) => {
         listaModulos
     };
     msj.datos = datos;
+    MSJ(res, 200, msj);
+
+
 };
 
 exports.listarventas = async (req, res) => {
-
+    var msj = validar(req);
     try {
         const listarventas = await ModeloVentas.findAll();
 
@@ -100,6 +103,7 @@ exports.listarventas = async (req, res) => {
     } catch (error) {
         console.error(error);
         res.json(error);
+        MSJ(res, 200, msj);
 
     }
 };
@@ -111,7 +115,9 @@ exports.Agregar = async (req, res) => {
         MSJ(res, 200, msj);
     }
     else {
-        const { num_fact, cai, cliente, tarjeta, efectivo, usu, estacion, mesero } = req.body;
+        const { num_fact, cai, cliente, tarjeta, efectivo, usu, estacion, mesero,
+        tipopago, tercera, desc, anular, Cierre, FechaHoraIni, FechaHora, Propina,
+        total, exento, impuesto15, impuesto18, exonerado } = req.body;
         try {
             var buscarcai = await Modelocai.findOne({
                 where: {
@@ -178,7 +184,24 @@ exports.Agregar = async (req, res) => {
                                     TEfectivo: efectivo,
                                     Usu: usu,
                                     estacion: estacion,
-                                    Mesero: mesero
+                                    Mesero: mesero,
+                                    TipoPago: tipopago,
+                                    Usu: usu,
+                                    TEfectivo: efectivo,
+                                    TTarjeta: tarjeta,
+                                    estacion: estacion,
+                                    Mesero: mesero,
+                                    DescuentoTercera: tercera,
+                                    Descuento: desc,
+                                    Anular: anular,
+                                    cierre: Cierre,
+                                    propina: Propina,
+                                    totalventa: total,
+                                    Exento: exento,
+                                    Impuesto15: impuesto15,
+                                    Impuesto18: impuesto18,
+                                    Exonerado: exonerado
+                                    
                                 }
                             )
                                 msj.estado = 'correcto',

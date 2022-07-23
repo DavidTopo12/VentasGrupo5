@@ -63,10 +63,11 @@ exports.Inicio = async (req, res) =>{
         listaModulos
     };
     msj.datos=datos;
+    MSJ(res, 200, msj);
 };
 
 exports.listarPedidos = async (req, res) => {
-
+    var msj = validar(req);
     try {
         const listarpedidos = await ModeloPedidos.findAll();
 
@@ -80,6 +81,7 @@ exports.listarPedidos = async (req, res) => {
     } catch (error) {
         console.error(error);
         res.json(error);
+        MSJ(res, 500, msj);
 
     }
 };

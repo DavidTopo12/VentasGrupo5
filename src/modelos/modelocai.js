@@ -29,7 +29,7 @@ const Cai = bd.define(
         creado: {
             type: DataTypes.DATE,
             allowNull: true,
-            defaultValue: null
+            defaultValue: DataTypes.NOW
         },
         activo:{
             type: DataTypes.TINYINT,

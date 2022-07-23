@@ -4,8 +4,9 @@ const Ventas = require('./modeloVentas')
 const Ventas_Exentas = bd.define(
     'ventas_exentas',
     {
-        numero_factura:{
+        numerofactura:{
             type: DataTypes.INTEGER,
+            primaryKey: true,
             allowNull: false
         },
         numero_orden:{
@@ -19,4 +20,13 @@ const Ventas_Exentas = bd.define(
     timestamps: false,
 }
 );
+Ventas.hasMany(Ventas_Exentas,{
+    foreignKey: 'numerofactura',
+    otherKey: 'idregistro'
+}); 
+Ventas_Exentas.belongsTo(Ventas,{
+    foreignKey: 'numerofactura',
+    otherKey: 'idregistro'
+});
+
 module.exports = Ventas_Exentas;
