@@ -1,4 +1,3 @@
-//Lesnin Ramírez
 const { validationResult } = require('express-validator');
 const ModeloDetalleVenta = require('../modelos/modeloDetalleVenta');
 const ModeloVentas = require('../modelos/modeloVentas');
@@ -111,12 +110,9 @@ exports.Agregar = async (req, res) => {
         const { numfact, codpro, cantidad, prec, original, impu, exento } = req.body;
 
         try {
-            await ModeloDetalleVenta.create(
-                {
-                    NumeroFactura: numfact,
-                    CodigoProducto: codpro,
-                    Cantidad: cantidad,
-                    Precio: prec
+            var buscarFactura = await ModeloVentas.findOne({
+                where: {
+                    NumeroFactura: numfact
                 }
             });
 

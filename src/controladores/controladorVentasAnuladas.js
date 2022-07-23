@@ -105,7 +105,6 @@ exports.AgregarVentaAnulada = async (req, res) => {
         MSJ(res, 200, msj);
     }
     else {
-        const { id, usua, des, fecha } = req.body;
         const { venta, usua, des } = req.body;
 
         var buscarusuario = await modeloUsuario.findOne({
@@ -126,19 +125,6 @@ exports.AgregarVentaAnulada = async (req, res) => {
             MSJ(res, 200, msj);
         }
         else{
-            try {
-           
-
-                await ModeloVentasAnuladas.create(
-                    {
-                        idventa:id,
-                        idusuario: usua,
-                        descripcion: des,
-                        fechahora: fecha
-                    }
-                );
-                msj.mensaje = 'los datos de ventas anuladas se guardaron con éxito';
-
 
             var buscarventa = await modeloVenta.findOne({
                 where:{
@@ -146,7 +132,6 @@ exports.AgregarVentaAnulada = async (req, res) => {
                     Anular: 0   
                 }
             });
-
     
             if(!buscarventa){
                 msj.estado = 'precuacion';
