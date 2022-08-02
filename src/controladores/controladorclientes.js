@@ -1,5 +1,6 @@
 const { validationResult } = require('express-validator');
 const Modeloclientes = require('../modelos/modeloclientes');
+const ModeloClientesDirecciones = require('../modelos/modeloClientesDirecciones');
 const MSJ = require('../componentes/mensaje');
 
 //MODULO A CARGO DE - DAVID ALEJANDRO SALGADO ZELAYA
@@ -142,9 +143,9 @@ exports.Agregar = async (req, res) => {
                 }
             )
             msj.estado = 'correcto',
-            msj.mensaje = 'Peticion ejecutada correctamente',
-            msj.datos = '',
-            msj.errores = ''
+                msj.mensaje = 'Peticion ejecutada correctamente',
+                msj.datos = '',
+                msj.errores = ''
             MSJ(res, 200, msj);
 
         } catch (error) {
@@ -191,7 +192,7 @@ exports.Editar = async (req, res) => {
 
                 buscarCliente.RTN = rtn,
                     buscarCliente.Nombre = nombre
-                    buscarCliente.Direccion = direccion,
+                buscarCliente.Direccion = direccion,
                     buscarCliente.Telefono = telefono,
                     buscarCliente.Correo = correo,
                     buscarCliente.Imagen = imagen,
@@ -227,47 +228,66 @@ exports.Eliminar = async (req, res) => {
     }
     else {
         const { idcliente } = req.query;
+        var buscarCliente = await Modeloclientes.findOne({
+            where: {
+                idregistro: idcliente
+            }
+        });
 
-        try {
-            var buscarCliente = await Modeloclientes.findOne({
+        var buscarClienteDirecciones = await ModeloClientesDirecciones.findOne({
+            where: {
+                id_cliente: idcliente
+            }
+        });
 
-                where: {
-                    idregistro: idcliente
-                }
-            });
-            if (!buscarCliente) {
+        console.log(buscarCliente);
+        console.log(buscarClienteDirecciones);
+
+        if (buscarClienteDirecciones != null) {
+
+            msj.estado = 'error',
+                msj.mensaje = 'cliente vinculado con Cliente Direcciones',
+                msj.datos = '',
+                msj.errores = ''
+            MSJ(res, 500, msj);
+        }
+        else {
+
+            try {
+
+                //if (buscarClienteDirecciones != null) {
+
+                    await ModeloClientesDirecciones.destroy({
+                        where: {
+                            id_cliente: idcliente
+                        }
+                    });
+                    
+                    await Modeloclientes.destroy({
+                        where: {
+                            idregistro: idcliente
+                        }
+                    });
+                    msj.estado = 'correcto',
+                        msj.mensaje = 'Peticion ejecutada correctamente, eliminado',
+                        msj.datos = '',
+                        msj.errores = ''
+                    MSJ(res, 200, msj);
+
+
+              // }
+
+            }
+            catch (error) {
                 msj.estado = 'precuacion';
                 msj.mensaje = 'la peticion no se ejecuto';
-                msj.errores = {
-                    mensaje: 'El cliente no existe o no esta vinculado a ninguna venta',
-                    parametro: 'idcliente'
-                };
+                msj.errores = error;
+                MSJ(res, 500, msj);
 
-                MSJ(res, 200, msj);
             }
-            else {
-                await Modeloclientes.destroy({
-                    where: {
-                        idregistro: idcliente
-                    }
-                });
-                msj.estado = 'correcto',
-                    msj.mensaje = 'Peticion ejecutada correctamente, eliminado',
-                    msj.datos = '',
-                    msj.errores = ''
-                MSJ(res, 200, msj);
-            }
-        } catch (error) {
-            msj.estado = 'precuacion';
-            msj.mensaje = 'la peticion no se ejecuto';
-            msj.errores = {
-                mensaje: 'El cliente no existe o no esta vinculado a ninguna venta',
-                parametro: 'idcliente'
-            };
-
-            MSJ(res, 200, msj);
 
         }
+
     }
     //  res.json(msj);
 }; 

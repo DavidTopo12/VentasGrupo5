@@ -19,7 +19,7 @@ body('usua')
 
 body('des')
 .notEmpty().withMessage('No aceptan campos vacios')
-.isString({min:250}).withMessage('Solo aceptan numero Entero'),
+.isString().withMessage('Solo aceptan numero Entero'),
 controladorVentasAnuladas.AgregarVentaAnulada);
 
 module.exports = rutas;

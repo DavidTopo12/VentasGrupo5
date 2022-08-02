@@ -148,14 +148,14 @@ exports.AgregarVentaAnulada = async (req, res) => {
                
                     await ModeloVentasAnuladas.create(
                         {
+                            idventa: venta,
                             id_usuario: usua,
-                            descripcion: des,
-                            idventa: venta
+                            descripcion: des
                         }
                     );
 
-                    buscarventa.Anular = 1
-                    await buscarventa.save();
+                   // buscarventa.Anular = 1
+                   // await buscarventa.save();
                     msj.mensaje = 'los datos de ventas anuladas se guardaron con éxito';
         
                 } catch (error) {

@@ -116,7 +116,7 @@ exports.Agregar = async (req, res) => {
     }
     else {
         const { num_fact, cai, cliente, tarjeta, efectivo, usu, estacion, mesero,
-        tipopago, tercera, desc, anular, Cierre, FechaHoraIni, FechaHora, Propina,
+        tipopago, tercera, desc, anular, Cierre, Propina,
         total, exento, impuesto15, impuesto18, exonerado } = req.body;
         try {
             var buscarcai = await Modelocai.findOne({
