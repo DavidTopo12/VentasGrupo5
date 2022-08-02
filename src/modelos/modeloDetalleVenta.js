@@ -1,3 +1,4 @@
+//Lesnin Ramírez
 const { DataTypes } = require('sequelize');
 const bd = require('../configuraciones/bd');
 const Ventas = require('./modeloVentas');
@@ -19,7 +20,6 @@ const Detalle_Venta = bd.define(
         CodigoProducto:{
             type: DataTypes.STRING(15),
             allowNull: false
-            
         },
         Cantidad: {
             type: DataTypes.DOUBLE,
@@ -48,4 +48,22 @@ const Detalle_Venta = bd.define(
     timestamps: false,
 }
 );
+Ventas.hasMany(Detalle_Venta,{
+    foreignKey: 'NumeroFactura',
+    otherKey: 'idregistro'
+}); 
+Detalle_Venta.belongsTo(Ventas,{
+    foreignKey: 'NumeroFactura',
+    otherKey: 'idregistro'
+});
+
+Producto.hasMany(Detalle_Venta,{
+    foreignKey: 'CodigoProducto',
+    otherKey: 'idregistro'
+}); 
+Detalle_Venta.belongsTo(Producto,{
+    foreignKey: 'CodigoProducto',
+    otherKey: 'idregistro'
+});
+
 module.exports = Detalle_Venta;

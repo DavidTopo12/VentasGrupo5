@@ -2,10 +2,11 @@ const { Router } = require('express');
 const { body, query } = require('express-validator');
 const controladorVentasConstancia = require('../controladores/controladorVentasConstancia');
 const rutas = Router();
+const passport= require('../configuraciones/passport');
 
 rutas.get('/', controladorVentasConstancia.Inicio);
 
-rutas.get('/listar', controladorVentasConstancia.Listar);
+rutas.get('/listar', passport.ValidarAutendicado, controladorVentasConstancia.Listar);
 
 rutas.post('/agregar',
 body('numfactura').

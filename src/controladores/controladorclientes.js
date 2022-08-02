@@ -139,7 +139,8 @@ exports.Agregar = async (req, res) => {
                     Nombre: nombre,
                     Direccion: direccion,
                     Telefono: telefono,
-                    Correo: correo
+                    Correo: correo,
+                    nombreImagen: nombre_imagen
                 }
             )
             msj.estado = 'correcto',

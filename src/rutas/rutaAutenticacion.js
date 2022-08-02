@@ -7,9 +7,9 @@ rutas.get('/', controladorAutenticacion.Inicio);
 //rutas.get('/listar', controladorCargos.Listar);
 
 rutas.post('/iniciosesion', 
-body('Usuarioo')
+body('usuario')
 .notEmpty().withMessage('Debe escribir el usuario'),
-body('Contrasena')
+body('contrasena')
 .notEmpty().withMessage('Debe escribir la contraseña'),
 controladorAutenticacion.InicioSesion);
 

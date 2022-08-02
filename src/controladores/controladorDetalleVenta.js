@@ -1,4 +1,3 @@
-//Lesnin Ramírez
 const { validationResult } = require('express-validator');
 const ModeloDetalleVenta = require('../modelos/modeloDetalleVenta');
 const ModeloVentas = require('../modelos/modeloVentas');

@@ -4,10 +4,12 @@ const { body, query } = require('express-validator');
 //instanciar el controlador ventasexentas
 const controladorVentasExentas = require('../controladores/controladorVentasExentas');
 const rutas = Router();
+const passport= require('../configuraciones/passport');
 
 rutas.get('/',controladorVentasExentas.Inicio);
 
-rutas.get('/listar', controladorVentasExentas.listarventasexentas);
+rutas.get('/listar', passport.ValidarAutendicado, controladorVentasExentas.listarventasexentas);
+
 rutas.post('/agregar',//la creacion de la ruta y validacion de datos 
 body('numfactura').
 //mensaje de retroalimentacion al usuario 

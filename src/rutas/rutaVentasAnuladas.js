@@ -2,16 +2,17 @@ const { Router } = require('express');
 const { body, query } = require('express-validator');
 const controladorVentasAnuladas = require('../controladores/controladorVentasAnuladas');
 const rutas = Router();
+const passport= require('../configuraciones/passport');
 
 rutas.get('/',controladorVentasAnuladas.Inicio);
 
 //Listando
-rutas.get('/listar', controladorVentasAnuladas.Listar);
+rutas.get('/listar', passport.ValidarAutendicado, controladorVentasAnuladas.Listar);
 
 rutas.post('/agregar',
-body('venta').
-notEmpty().withMessage('No aceptan campos vacios')
-.isInt().withMessage('Solo aceptan numero Entero'),
+body('id')
+.notEmpty().withMessage('No aceptan campos vacios')
+.isInt().withMessage('Solo aceptan se aceptan numeros enteros'),
 
 body('usua')
 .notEmpty().withMessage('No aceptan campos vacios')
@@ -19,7 +20,7 @@ body('usua')
 
 body('des')
 .notEmpty().withMessage('No aceptan campos vacios')
-.isString().withMessage('Solo aceptan numero Entero'),
+.isString({min:3}).withMessage('Solo aceptan numero Entero'),
 controladorVentasAnuladas.AgregarVentaAnulada);
 
 module.exports = rutas;

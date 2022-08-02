@@ -129,7 +129,7 @@ exports.AgregarVentaAnulada = async (req, res) => {
             var buscarventa = await modeloVenta.findOne({
                 where:{
                     idregistro: venta,
-                    Anular: 0   
+                    //Anular: 0   
                 }
             });
     
