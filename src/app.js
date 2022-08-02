@@ -3,7 +3,13 @@ const morgan = require('morgan');
 const path = require('path');
 /*require('dotenv.config')*/ 
 
+const cors= require('cors');
+
 const app = express();
+
+app.use(cors({
+    origin: '*'
+}))
 
 app.set('port',3002);
 app.use(morgan('dev'));

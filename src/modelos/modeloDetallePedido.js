@@ -15,7 +15,7 @@ const Detalle_Pedido = bd.define(
             type: DataTypes.INTEGER,
             allowNull: false
         },
-        CodigoPedido:{
+        CodigoProducto:{
             type: DataTypes.INTEGER,
             allowNull: false
             

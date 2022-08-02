@@ -129,7 +129,7 @@ exports.AgregarVentaAnulada = async (req, res) => {
             var buscarventa = await modeloVenta.findOne({
                 where:{
                     idregistro: venta,
-                    Anular: 0   
+                    //Anular: 0   
                 }
             });
     
@@ -154,8 +154,8 @@ exports.AgregarVentaAnulada = async (req, res) => {
                         }
                     );
 
-                    buscarventa.Anular = 1
-                    await buscarventa.save();
+                    //buscarventa.Anular = 1
+                    //await buscarventa.save();
                     msj.mensaje = 'los datos de ventas anuladas se guardaron con éxito';
         
                 } catch (error) {

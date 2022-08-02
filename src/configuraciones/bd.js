@@ -1,8 +1,8 @@
 const sequelize = require('sequelize');
 const bd = new sequelize(
     'sigresdesarrollo',
-    'les',
-    'les-1234',
+    'lesnin',
+    'lesnin123',
     {
         host: 'localhost',
         dialect: 'mysql',

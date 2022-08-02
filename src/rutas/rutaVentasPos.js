@@ -8,7 +8,7 @@ rutas.get('/',controladorVentasPos.Inicio);
 rutas.get('/listar', controladorVentasPos.listarventaspos);
 
 rutas.post('/agregar',
-body('idventa').
+body('id_venta').
 notEmpty().withMessage('No aceptan campos vacios')
 .isInt().withMessage('Solo aceptan numero Entero'),
 

@@ -2,10 +2,11 @@ const { Router } = require('express');
 const { body, query } = require('express-validator');
 const controladorCliente = require('../controladores/controladorclientes');
 const rutas = Router();
+const passport= require('../configuraciones/passport');
 
 rutas.get('/', controladorCliente.Inicio);
 
-rutas.get('/listar', controladorCliente.Listar);
+rutas.get('/listar', passport.ValidarAutendicado, controladorCliente.Listar);
 
 rutas.post('/agregar',
 body('rtn')

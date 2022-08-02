@@ -215,11 +215,11 @@ exports.InicioSesion = async (req, res) =>{
         MSJ(res, 200, msj);
     }
     else{
-        const { Usuarioo, Contrasena } = req.body;
+        const { usuario, contrasena } = req.body;
         var buscarUsuario = await Usuario.findOne({
             where:{
-                    login: Usuarioo,
-                    contrasena: Contrasena
+                    login: usuario,
+                    contrasena: contrasena
                 }
         })
         if(!buscarUsuario){
