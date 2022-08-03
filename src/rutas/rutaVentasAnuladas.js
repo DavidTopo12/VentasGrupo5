@@ -2,12 +2,11 @@ const { Router } = require('express');
 const { body, query } = require('express-validator');
 const controladorVentasAnuladas = require('../controladores/controladorVentasAnuladas');
 const rutas = Router();
-const passport= require('../configuraciones/passport');
 
 rutas.get('/',controladorVentasAnuladas.Inicio);
 
 //Listando
-rutas.get('/listar', passport.ValidarAutendicado, controladorVentasAnuladas.Listar);
+rutas.get('/listar', controladorVentasAnuladas.Listar);
 
 rutas.post('/agregar',
 body('id')

@@ -2,11 +2,10 @@ const { Router } = require('express');
 const { body, query } = require('express-validator');
 const controladorVentasSag = require('../controladores/controladorVentasSag');
 const rutas = Router();
-const passport= require('../configuraciones/passport');
 
 rutas.get('/', controladorVentasSag.Inicio);
 
-rutas.get('/listar', passport.ValidarAutendicado, controladorVentasSag.listarventassag);
+rutas.get('/listar', controladorVentasSag.listarventassag);
 
 rutas.post('/agregar',
 body('nomfact').

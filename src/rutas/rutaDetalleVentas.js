@@ -3,9 +3,9 @@ const { Router } = require('express');
 const { body, query } = require('express-validator');
 const controladorDetalleVenta = require('../controladores/controladorDetalleVenta');
 const rutas = Router();
-const passport= require('../configuraciones/passport');
 
-rutas.get('/listar', passport.ValidarAutendicado, controladorDetalleVenta.listardetalle);
+
+rutas.get('/listar', controladorDetalleVenta.listardetalle);
 
 rutas.post('/agregar',
 body('numfact').
